@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+ 
+    <!-- MASTER -->
+    
+    <definition name="master.page" template="/public/template/new-master.jsp">
+        <put-attribute name="header" value="/public/template/new-header.jsp"/>
+        <put-attribute name="footer" value="/public/template/footer.jsp"/>
+    </definition>
+ 
+    <!--  PAGINAS -->
+    
+    <definition name="index" extends="master.page">
+        <put-attribute name="body" value="/public/index.jsp"/>
+    </definition>
+    
+    <definition name="lista-emenda" extends="master.page">
+        <put-attribute name="body" value="/public/emendas.jsp"/>
+    </definition>
+    
+    <definition name="dados-emenda" extends="master.page">
+        <put-attribute name="body" value="/public/dados-emenda.jsp"/>
+    </definition>
+    
+    <!-- LISTAS AUXILIARES - AQUI NENHUMA PAGINA POSSUI HEADER E FOOTER -->
+    
+    <definition name="lista-autor" extends="master.page">
+        <put-attribute name="body" value="/public/tabelas/lista-autor.jsp"/>
+    </definition>
+    
+</tiles-definitions>

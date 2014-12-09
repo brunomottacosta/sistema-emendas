@@ -1,0 +1,18 @@
+.conteudo {
+	background-color: white;
+	width: 100%;
+	min-height: 500px;
+}
+
+.logout a {
+	text-align: center;
+}
+
+.logout i {
+	color: #F0AD4E;
+}
+
+.simple-link a {
+	color: white;
+	text-decoration: none;
+}
