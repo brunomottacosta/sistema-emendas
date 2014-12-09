@@ -4,20 +4,7 @@
 
 <div>
 
-	<div class="container-fluid">
-		
-		<div class="row">
-		
-			<div class="col-md-4">
-			
-				<button id="adicionar_novo" class="btn btn-success"><i class="fa fa-plus"></i> NOVO</button>
-				<button id="cancelar_acao" class="btn btn-danger" disabled="disabled"><i class="fa fa-times"></i> CANCELAR</button>
-				
-			</div>
-				
-		</div>
-		
-		<hr />
+	<div class="container-fluid">	
 			
 		<!-- ACORDION -->
 		
@@ -25,90 +12,94 @@
 			
 			<!-- ACORDION_01 -->
 			
-			<div class="panel panel-primary" id="acc_01">
+			<div class="panel panel-default" id="acc_01">
 				
 				<!-- HEADER ACC_01 -->
 				
 				<div class="panel-heading" role="tab" id="heading_01">
 				
 			    	<h4 class="panel-title simple-link">
-			       		<a data-toggle="collapse" data-parent="#accordion" href="#collapse_01" aria-expanded="true" aria-controls="collapse_01">
-			         		Cadastro
+			       		<a href="#">
+			         		Filtros
 			      		</a>
 			     	</h4>
 			     	
 				</div>
 				
-				<!-- CONTEUDO ACC_01 -->
-				
-    			<div id="collapse_01" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_01">
+				<!-- CONTEUDO ACC_01 -->    			
     			
-      				<div class="panel-body">
+  				<div class="panel-body">
       				
-       					<!-- FORMULARIO PARA ADICIONAR NOVA EMENDA -->
+   					<!-- FORMULARIO PARA PESQUISAR EMENDA -->
 
-						<form action="buscar" method="post" id="form_nova_emenda">						
+					<form id="form_nova_emenda">						
 												
-							<div class="row">
-								<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-4">								
+					
+								<div class="form-group">
+									<label class="control-label">Numero</label> 
+									<input type="text" name="numero" id="num_emenda" 
+									class="form-control input-sm form-pesquisa"> 
+								</div>
 									
-<!-- 									<input type="hidden" name="modo" id="modo_form" value="0"> -->
-<!-- 									<input type="hidden" name="id" id="id_emenda" value="0"> -->
-									
-									<div class="form-group">
-										<label class="control-label">Numero</label> 
-										<input type="text" name="numero" id="num_emenda" 
-										disabled="disabled" class="form-control input-sm"> 
-									</div>
-									
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="control-label">Data</label>  -->
-<!-- 										<input type="date" name="data" id="data_emenda" class="form-control input-sm"  -->
-<!-- 										onkeypress="return dateMask(this, event);"maxlength="10" disabled="disabled">  -->
-<!-- 									</div> -->
-									
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="control-label">Valor</label>								 -->
-<!-- 										<input type="text" name="valor" id="valor_emenda" class="form-control input-sm money"  -->
-<!-- 										maxlength="20" disabled="disabled">  -->
-<!-- 									</div>	 -->
-													
-									<button id="salvar_emenda" class="btn btn-primary" disabled="disabled"><i class="fa fa-floppy-o"></i> SALVAR</button>							
-									
-								</div>						
-<!-- 								<div class="col-md-4"> -->
+								<div class="form-group">
+									<label class="control-label">Data</label> 
+									<input type="date" name="ano" id="ano_emenda" class="form-control input-sm form-pesquisa"> 
+								</div>
+																		
+							</div>						
+							<div class="col-md-4">
 								
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="control-label">G.N.D.</label>  -->
-<!-- 										<select id="gnd_emenda" class="form-control input-sm" name="gnd" disabled="disabled"> -->
-<!-- 											<option value=""></option> -->
-<%-- 											<c:forEach items="${gnd}" var="gnd_var" > --%>
-<%-- 												<option value="${gnd_var.id}">${gnd_var.id} - ${gnd_var.descricao}</option> --%>
-<%-- 											</c:forEach> --%>
-<!-- 										</select>  -->
-<!-- 									</div> -->
-									
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="control-label">Modalidade de Aplicacao</label>  -->
-<!-- 										<select id="mda_emenda" class="form-control input-sm" name="modApp" disabled="disabled"> -->
-<!-- 											<option value=""></option> -->
-<%-- 											<c:forEach items="${modalidadeDeAplicacao}" var="mda_var"> --%>
-<%-- 												<option value="${mda_var.id}">${mda_var.id} - ${mda_var.descricao}</option> --%>
-<%-- 											</c:forEach> --%>
-<!-- 										</select>  -->
-<!-- 									</div> -->
-									
-<!-- 								</div> -->
+								<div class="form-group">
+									<label class="control-label">G.N.D.</label> 
+									<select id="gnd_emenda" class="form-control input-sm form-pesquisa" name="gnd">
+										<option value=""></option>
+										<c:forEach items="${gnd}" var="gnd_var" >
+											<option value="${gnd_var.id}">${gnd_var.numero} - ${gnd_var.descricao}</option>
+										</c:forEach>
+									</select> 
+								</div>
 								
-							</div>	
+								<div class="form-group">
+									<label class="control-label">Modalidade de Aplicacao</label> 
+									<select id="mda_emenda" class="form-control input-sm form-pesquisa" name="modApp">
+										<option value=""></option>
+										<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
+											<option value="${mda_var.id}">${mda_var.numero} - ${mda_var.descricao}</option>
+										</c:forEach>
+									</select> 
+								</div>
+									
+							</div>
 								
-						</form>
+						</div>
 						
-						<!-- FIM FORMULARIO PARA ADICIONAR NOVA EMENDA -->
+						<hr />	
+						
+						<div class="row">
+		
+							<div class="col-md-12">
+								
+								<button id="btn_filtro" class="btn btn-primary" type="button">
+									<i class="fa fa-refresh"></i> FILTRAR
+								</button>	
+								<button id="btn_resetar" class="btn btn-warning" type="button">
+									<i class="fa fa-refresh"></i> RESETAR PESQUISA
+								</button>
+								<a href="lista/novo" id="btn_novo" class="btn btn-success pull-right">
+									<i class="fa fa-folder"></i> NOVO
+								</a>				
+								
+							</div>
+								
+						</div>						
+								
+					</form>
+						
+					<!-- FIM FORMULARIO PARA PESQUISAR EMENDA -->
 											
-      				</div>
-      				
-    			</div>
+   				</div>    			
     			
     			<!-- FIM CONTEUDO ACC_01 -->				
 				
@@ -120,68 +111,44 @@
 			
 			<!-- ACORDION_02 -->
 			
-			<div class="panel panel-primary" id="acc_01">
+			<div class="panel panel-default" id="acc_01">
 				
 				<!-- HEADER ACC_02 -->
 				
 				<div class="panel-heading" role="tab" id="heading_02">
 				
 			    	<h4 class="panel-title simple-link">
-			       		<a data-toggle="collapse" data-parent="#accordion" href="#collapse_02" aria-expanded="true" aria-controls="collapse_02" >
+			       		<a href="#">
 			         		Pesquisa
 			      		</a>
 			     	</h4>
 			     	
 				</div>
 				
-				<!-- CONTEUDO ACC_02 -->
-				
-    			<div id="collapse_02" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_02">
+				<!-- CONTEUDO ACC_02 -->    			
     			
-      				<div class="panel-body">
-      					
-      					<!-- LISTA DE EMENDAS -->
-      					
-						<table id="tabela_emendas" class="table table-bordered">
-							<thead>
-								<tr>
-									<th style="width: 10%">NUMERO</th>
-									<th style="width: 5%">ANO</th>
-									<th style="width: 15%">VALOR (R$)</th>
-									<th>MODALIDADE</th>
-									<th>G.N.D.</th>
-									<th style="width: 5%"></th>
-									<th style="width: 5%"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${emendas}" var="e">
-									<tr>
-										<td>${e.numero}</td>
-										<fmt:formatDate value="${e.ano}" var="ano_fmt" pattern="yyyy"/>
-										<td>${ano_fmt}</td>
-										<fmt:formatNumber currencyCode="R$" minFractionDigits="2" value="${e.valor}" var="valor_fmt"/>
-										<td>${valor_fmt}</td>
-										<td>${e.modalidadeDeAplicacao.descricao}</td>
-										<td>${e.gnd.descricao}</td>
-										<td style="text-align: center">
-											<a href="#">
-												<i class="fa fa-pencil-square-o"></i>
-											</a>
-										</td>
-										<td style="text-align: center" id="ex_${e.id}" >
-											<a href="#" onclick="remove_ajax(${e.id})">
-												<i class="fa fa-trash"></i>
-											</a>
-										</td>
-									</tr>						
-								</c:forEach>
-							</tbody>
-						</table>
+     			<div class="panel-body" id="pn_tb_emendas" style="min-height: 400px">
+     					
+     					<!-- LISTA DE EMENDAS -->
+     					
+					<table id="tabela_emendas" class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="width: 10%">NUMERO</th>
+								<th style="width: 5%">ANO</th>
+								<th style="width: 15%">VALOR (R$)</th>
+								<th>MODALIDADE</th>
+								<th>G.N.D.</th>
+							</tr>
+						</thead>
 						
-      				</div>
-      				
-   				</div>
+						<!-- ######################## -->
+						<!-- ####### LISTAGEM ####### -->
+						<!-- ######################## -->
+						
+					</table>
+					
+     			</div>  				
    				
    				<!-- FIM CONTEUDO ACC_02 -->
    				
@@ -199,62 +166,87 @@
 
 <script type="text/javascript">
 
-// novo objeto
-$(document).ready(function() {
-	$("#adicionar_novo").click( function(event) {
-		
-		$("#collapse_01").collapse("show");
-		$("#collapse_02").collapse("hide");
-		
-		event.preventDefault();
-		
-		$("#num_emenda").prop("disabled", false);
-		$("#data_emenda").prop("disabled", false);
-		$("#valor_emenda").prop("disabled", false);
-		$("#gnd_emenda").prop("disabled", false);
-		$("#mda_emenda").prop("disabled", false);
-		$("#salvar_emenda").prop("disabled", false);
-		$("#modo_form").val("1");
-		
-		$("#adicionar_novo").prop("disabled", true);
-		$("#cancelar_acao").prop("disabled", false);
-	});
-});
-
-// cancelar acao
-$(document).ready(function() {
-	$("#cancelar_acao").click( function(event){
-		
-		$("#collapse_01").collapse("hide");
-		$("#collapse_02").collapse("show");
-		
-		event.preventDefault();
-		
-		$("#num_emenda").prop("disabled", true).val(null);
-		$("#data_emenda").prop("disabled", true).val(null);
-		$("#valor_emenda").prop("disabled", true).val(null);
-		$("#gnd_emenda").prop("disabled", true).val(null);
-		$("#mda_emenda").prop("disabled", true).val(null);
-		$("#salvar_emenda").prop("disabled", true).val(null);
-		$("#modo_form").val("0");
-		
-		$("#adicionar_novo").prop("disabled", false);
-		$("#cancelar_acao").prop("disabled", true);
-	});
-});
-
 // datatable
 $(document).ready(function() {
-	$('#tabela_emendas').DataTable({
-		'aoColumns': [{},{},{},{},{},{bSortable:false},{bSortable:false}]
+	$("#tabela_emendas").DataTable({
+		"filter": false,
+		"sAjaxSource": "listar",
+		"sAjaxDataProp": "",
+		"bProcessing": true,
+		"aoColumns": [
+		              {"mData" : "numero"},
+		              {"mData" : "ano"},
+		              {"mData" : "valor"},
+		              {"mData" : "modalidadeDeAplicacao"},
+		              {"mData" : "gnd"}
+		             ],
 	});
 });
 
-// salvar
+
+
+// datatable apos filtro
 $(document).ready( function() {
-	$("#salvar_emenda").click( function() {
-		$("#form_nova_emenda").submit();
+	$("#btn_filtro").click( function() {
+		
+		// destroi a antiga table
+		table = $("#tabela_emendas").DataTable();
+		table.destroy();
+		
+		// seta os atributos da pesquisa
+		var numero = $("#num_emenda").val();
+		var ano = $("#ano_emenda").val();
+		var idModalidade = $("#mda_emenda").val();
+		var idGND = $("#gnd_emenda").val();
+		console.log(idGND);
+		
+		// cria a nova table
+		$("#tabela_emendas").DataTable({
+			"filter": false,
+			"sAjaxSource": "buscar?numero=" + numero + "&ano=" + ano + "&idModalidade=" + idModalidade + "&idGND=" + idGND,
+			"sAjaxDataProp": "",
+			"bProcessing": true,
+			"aoColumns": [
+			              {"mData" : "numero"},
+			              {"mData" : "ano"},
+			              {"mData" : "valor"},
+			              {"mData" : "modalidadeDeAplicacao"},
+			              {"mData" : "gnd"}
+			             ],
+		});
 	});	
+});
+
+// resetar pesquisa
+$(document).ready( function() {
+	$("#btn_resetar").click( function() {
+		
+		// limpa campos de pesquisa
+		$(".form-pesquisa").val(null);
+		
+		// destroi a antiga table
+		$("#pn_tb_emendas").fadeOut("slow", function() {
+			table = $("#tabela_emendas").DataTable();
+			table.destroy();
+			
+			// chama table inicial
+			$("#tabela_emendas").DataTable({
+				"filter": false,
+				"sAjaxSource": "listar",
+				"sAjaxDataProp": "",
+				"bProcessing": true,
+				"aoColumns": [
+				              {"mData" : "numero"},
+				              {"mData" : "ano"},
+				              {"mData" : "valor"},
+				              {"mData" : "modalidadeDeAplicacao"},
+				              {"mData" : "gnd"}
+				             ],				
+				            
+			});	
+			$("#pn_tb_emendas").fadeIn("slow");
+		});
+	});
 });
 
 // remover

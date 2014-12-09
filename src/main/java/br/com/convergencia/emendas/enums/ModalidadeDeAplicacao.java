@@ -3,14 +3,16 @@ package br.com.convergencia.emendas.enums;
 
 public enum ModalidadeDeAplicacao {
 	
-	ESTADOS(30, "Estados"),
-	MUNICIPIOS(40, "Municípios"),
-	ENTIDADES_PRIVADAS(50, "Entidades Privadas"),
-	A_DEFINIR(99, "A definir");
+	EMPTY(0, 0, "Nenhuma"),
+	ESTADOS(1, 30, "Estados"),
+	MUNICIPIOS(2, 40, "Municípios"),
+	ENTIDADES_PRIVADAS(3, 50, "Entidades Privadas"),
+	A_DEFINIR(4, 99, "A definir");
 	
-	private ModalidadeDeAplicacao(Integer id, String descricao) {
+	private ModalidadeDeAplicacao(Integer id, Integer numero, String descricao) {
 		this.descricao = descricao;
 		this.id = id;
+		this.numero = numero;
 	}
 	
 	public static ModalidadeDeAplicacao getModalidadeDeAplicacaoById(Integer id) {
@@ -25,6 +27,7 @@ public enum ModalidadeDeAplicacao {
 	
 	private final String descricao;
 	private final Integer id;
+	private final Integer numero;
 	
 	public String getDescricao() {
 		return descricao;
@@ -32,5 +35,9 @@ public enum ModalidadeDeAplicacao {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public Integer getNumero() {
+		return numero;
 	}
 }

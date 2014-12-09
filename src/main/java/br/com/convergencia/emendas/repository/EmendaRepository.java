@@ -10,6 +10,8 @@ import br.com.convergencia.emendas.model.Emenda;
 
 public interface EmendaRepository extends JpaRepository<Emenda, Integer> {
 	
-	@Query("select e from Emenda e where e.numero = :numero")
-	public List<Emenda> buscar(@Param("numero") Integer numero);
+	@Query("SELECT e FROM Emenda e WHERE "
+			+ "e.numero = :numero")
+	public List<Emenda> buscar(
+			@Param("numero") Integer numero);
 }

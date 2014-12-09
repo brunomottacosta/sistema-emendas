@@ -1,10 +1,8 @@
 package br.com.convergencia.emendas.controller;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +23,7 @@ import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.EmendaService;
 import br.com.convergencia.emendas.util.ConversorUtil;
+import br.com.convergencia.emendas.wrapper.EmendaWrapper;
 
 @Controller
 public class EmendaController {
@@ -54,35 +53,79 @@ public class EmendaController {
 	}
 	
 	/** METODO PARA LISTAR TUDO **/
-	@RequestMapping(value = "emenda/listar", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Emenda> listar() {
+	@RequestMapping(value = "emenda/listar", method = RequestMethod.GET)
+	public @ResponseBody List<EmendaWrapper> listar() {
 		
+		/** CRIA LISTA DE EMENDAS E DO ENVELOPE PARA EMENDAS **/
 		List<Emenda> emendas =  emendaService.listAll();
+		List<EmendaWrapper> wrapper = new ArrayList<EmendaWrapper>();
 		
+		/** PASSA ATRIBUTOS DE EMENDA PARA O SEU ENVELOPE E ADICIONA NA LISTA **/
 		for(Emenda e : emendas) {
-			try {
-				e.setAno(new SimpleDateFormat("yyyy").parse(e.getAno().toString()));
-			} catch (ParseException ex) {
-				logger.warn("?? ## ERRO NA CONVERSAO DE DATA ## ??");
-				ex.printStackTrace();
-			}
+			EmendaWrapper ew = new EmendaWrapper();
+			ew.setAllAtributtes(e);
+			
+			wrapper.add(ew);
 		}
-		
-		return emendas;
+			
+		return wrapper;
 	}
 	
 	/** METODO PARA PESQUISA **/
-	@RequestMapping(value = "emenda/buscar", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Emenda> buscar(Model model) {
+	@RequestMapping(value = "emenda/buscar", method = RequestMethod.GET)
+	public @ResponseBody List<EmendaWrapper> buscar(
+			@RequestParam Integer numero,
+			@RequestParam Integer ano,
+			@RequestParam Integer idModalidade,
+			@RequestParam Integer idGND) {
 		
-		Emenda emenda = new Emenda();		
-		emenda.setNumero(1);
+		Emenda emenda = new Emenda();
 		
-		List<Emenda> emendas = emendaService.listByFiltro(emenda);	
+		if(numero != null) {
+			emenda.setNumero(numero);			
+		} else {
+			emenda.setNumero(0);
+		}
+		if(ano != null) {
+			emenda.setAno(ano);
+		} else {
+			emenda.setAno(0);
+		}
+		if(idModalidade != null) {
+			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(idModalidade));
+		} else {
+			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(0));;
+		}
+		if(idGND != null) {
+			emenda.setGnd(GND.getGNDById(idGND));
+		} else {
+			emenda.setGnd(GND.getGNDById(0));
+		}
 		
-		logger.info("## BUSCA ##");
+		/** CRIA LISTA DE EMENDAS E DO ENVELOPE PARA EMENDAS **/
+		List<Emenda> emendas =  emendaService.listByFiltro(emenda);
+		List<EmendaWrapper> wrapper = new ArrayList<EmendaWrapper>();
 		
-		return emendas;
+		/** PASSA ATRIBUTOS DE EMENDA PARA O SEU ENVELOPE E ADICIONA NA LISTA **/
+		for(Emenda e : emendas) {
+			EmendaWrapper ew = new EmendaWrapper();
+			ew.setAllAtributtes(e);
+			
+			wrapper.add(ew);
+		}
+		
+		return wrapper;
+	}
+	
+	/** IR PARA CRIAR NOVO **/
+	@RequestMapping(value = "emenda/lista/novo")
+	public String novo(Model model) {
+		
+		/** LISTAS AUXILIARES **/
+		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
+		model.addAttribute("gnd", Arrays.asList(GND.values()));
+		
+		return "dados-emenda";
 	}
 	
 	@RequestMapping(value = "emenda/lista/{id}", method = RequestMethod.GET)
@@ -98,7 +141,7 @@ public class EmendaController {
 			@RequestParam Integer modo,
 			@RequestParam Integer id,
 			@RequestParam Integer numero,
-			@RequestParam Date data,
+			@RequestParam Integer ano,
 			@RequestParam String valor,
 			@RequestParam Integer gnd,
 			@RequestParam Integer modApp) {
@@ -108,16 +151,17 @@ public class EmendaController {
 		if (modo == 1) {							
 			
 			emenda.setNumero(numero);
-			emenda.setAno(data);
+			emenda.setAno(ano);
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
 			emenda.setGnd(GND.getGNDById(gnd));
 			
 		} else if (modo == 2) {
+			
 			emenda = emendaService.getEmenda(id);
 			
 			emenda.setNumero(numero);
-			emenda.setAno(data);
+			emenda.setAno(ano);
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
 			emenda.setGnd(GND.getGNDById(gnd));
@@ -134,13 +178,13 @@ public class EmendaController {
 	public String editar(
 			@RequestParam Integer id, 
 			@RequestParam Integer numero, 
-			@RequestParam Date data, 
+			@RequestParam Integer ano, 
 			@RequestParam String valor) {
 		
 		Emenda emenda = emendaService.getEmenda(id);
 		
 		emenda.setNumero(numero);
-		emenda.setAno(data);
+		emenda.setAno(ano);
 		emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 		
 		emendaService.update(emenda);

@@ -19,7 +19,7 @@
 		
 		<li class="launcher">
 			<i class="fa fa-list-alt"></i> 
-			<a href="/emendas/emenda/lista">Emendas</a>
+			<a href="/emendas/emenda/pesquisa">Emendas</a>
 		</li>
 		
 		<li class="launcher dropdown hover">
