@@ -1,7 +1,6 @@
 package br.com.convergencia.emendas.wrapper;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
@@ -26,7 +25,7 @@ public class EmendaWrapper implements Serializable {
 	public void setAllAtributtes(Emenda e) {
 		this.id = e.getId().toString();
 		this.numero = e.getNumero().toString();
-		this.ano = new SimpleDateFormat("yyyy").format(e.getAno());
+		this.ano = e.getAno().toString();
 		this.valor = e.getValor().toString();
 //		this.funcionalProgramatica = e.getFuncionalProgramatica();
 		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();

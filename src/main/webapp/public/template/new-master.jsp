@@ -20,7 +20,6 @@
         
         <!-- SCRIPT -->
         <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
-        <script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js' />" ></script>
         <script src="<c:url value='/resources/js/default.js' />" ></script>
         <script src="<c:url value='/resources/js/jquery.maskMoney.min.js' />" ></script>
         <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>

@@ -12,7 +12,7 @@
 			
 			<!-- ACORDION_01 -->
 			
-			<div class="panel panel-default" id="acc_01">
+			<div class="panel panel-primary" id="acc_01">
 				
 				<!-- HEADER ACC_01 -->
 				
@@ -40,12 +40,12 @@
 								<div class="form-group">
 									<label class="control-label">Numero</label> 
 									<input type="text" name="numero" id="num_emenda" 
-									class="form-control input-sm form-pesquisa"> 
+									class="form-control input-sm input-pesquisa"> 
 								</div>
 									
 								<div class="form-group">
 									<label class="control-label">Data</label> 
-									<input type="date" name="ano" id="ano_emenda" class="form-control input-sm form-pesquisa"> 
+									<input type="date" name="ano" id="ano_emenda" class="form-control input-sm input-pesquisa"> 
 								</div>
 																		
 							</div>						
@@ -53,8 +53,7 @@
 								
 								<div class="form-group">
 									<label class="control-label">G.N.D.</label> 
-									<select id="gnd_emenda" class="form-control input-sm form-pesquisa" name="gnd">
-										<option value=""></option>
+									<select id="gnd_emenda" class="form-control input-sm drop-pesquisa" name="gnd">										
 										<c:forEach items="${gnd}" var="gnd_var" >
 											<option value="${gnd_var.id}">${gnd_var.numero} - ${gnd_var.descricao}</option>
 										</c:forEach>
@@ -63,8 +62,7 @@
 								
 								<div class="form-group">
 									<label class="control-label">Modalidade de Aplicacao</label> 
-									<select id="mda_emenda" class="form-control input-sm form-pesquisa" name="modApp">
-										<option value=""></option>
+									<select id="mda_emenda" class="form-control input-sm drop-pesquisa" name="modApp">										
 										<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
 											<option value="${mda_var.id}">${mda_var.numero} - ${mda_var.descricao}</option>
 										</c:forEach>
@@ -111,7 +109,7 @@
 			
 			<!-- ACORDION_02 -->
 			
-			<div class="panel panel-default" id="acc_01">
+			<div class="panel panel-primary" id="acc_01">
 				
 				<!-- HEADER ACC_02 -->
 				
@@ -127,7 +125,7 @@
 				
 				<!-- CONTEUDO ACC_02 -->    			
     			
-     			<div class="panel-body" id="pn_tb_emendas" style="min-height: 400px">
+     			<div class="panel-body" id="pn_tb_emendas">
      					
      					<!-- LISTA DE EMENDAS -->
      					
@@ -164,6 +162,21 @@
 
 </div>
 
+<!-- MODAL LOADING -->
+<div class="modal fade" id="carregar_modal" tabindex="-1" role="dialog" style="padding-top: 25em" >
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">			
+			<div class="modal-body">				
+				<div class="row">
+					<div class="col-md-12">
+						<img src="<c:url value='/resources/imgs/ajax-loader.gif' />" class="img-rounded center-block">
+					</div>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 
 // datatable
@@ -190,29 +203,32 @@ $(document).ready( function() {
 	$("#btn_filtro").click( function() {
 		
 		// destroi a antiga table
-		table = $("#tabela_emendas").DataTable();
-		table.destroy();
-		
-		// seta os atributos da pesquisa
-		var numero = $("#num_emenda").val();
-		var ano = $("#ano_emenda").val();
-		var idModalidade = $("#mda_emenda").val();
-		var idGND = $("#gnd_emenda").val();
-		console.log(idGND);
-		
-		// cria a nova table
-		$("#tabela_emendas").DataTable({
-			"filter": false,
-			"sAjaxSource": "buscar?numero=" + numero + "&ano=" + ano + "&idModalidade=" + idModalidade + "&idGND=" + idGND,
-			"sAjaxDataProp": "",
-			"bProcessing": true,
-			"aoColumns": [
-			              {"mData" : "numero"},
-			              {"mData" : "ano"},
-			              {"mData" : "valor"},
-			              {"mData" : "modalidadeDeAplicacao"},
-			              {"mData" : "gnd"}
-			             ],
+		$("#pn_tb_emendas").fadeOut(300, function() {			
+			table = $("#tabela_emendas").DataTable();
+			table.destroy();
+			
+			// seta os atributos da pesquisa
+			var numero = $("#num_emenda").val();
+			var ano = $("#ano_emenda").val();
+			var idModalidade = $("#mda_emenda").val();
+			var idGND = $("#gnd_emenda").val();
+			console.log(idGND);
+			
+			// cria a nova table
+			$("#tabela_emendas").DataTable({
+				"filter": false,
+				"sAjaxSource": "buscar?numero=" + numero + "&ano=" + ano + "&idModalidade=" + idModalidade + "&idGND=" + idGND,
+				"sAjaxDataProp": "",
+				"bProcessing": true,
+				"aoColumns": [
+				              {"mData" : "numero"},
+				              {"mData" : "ano"},
+				              {"mData" : "valor"},
+				              {"mData" : "modalidadeDeAplicacao"},
+				              {"mData" : "gnd"}
+				             ],
+			});
+			$("#pn_tb_emendas").fadeIn(300);
 		});
 	});	
 });
@@ -222,10 +238,11 @@ $(document).ready( function() {
 	$("#btn_resetar").click( function() {
 		
 		// limpa campos de pesquisa
-		$(".form-pesquisa").val(null);
+		$(".input-pesquisa").val(null);
+		$(".drop-pesquisa").val(0);
 		
 		// destroi a antiga table
-		$("#pn_tb_emendas").fadeOut("slow", function() {
+		$("#pn_tb_emendas").fadeOut(300, function() {
 			table = $("#tabela_emendas").DataTable();
 			table.destroy();
 			
@@ -244,7 +261,7 @@ $(document).ready( function() {
 				             ],				
 				            
 			});	
-			$("#pn_tb_emendas").fadeIn("slow");
+			$("#pn_tb_emendas").fadeIn(300);
 		});
 	});
 });
