@@ -79,6 +79,14 @@ public class EmendaService {
 				}				
 			} 
 			
+			if (!filtro.getFuncionalProgramatica().isEmpty()) {				
+				String funcProgFiltro = filtro.getFuncionalProgramatica();
+				String funcProgObj = e.getFuncionalProgramatica();
+				if (!funcProgObj.contains(funcProgFiltro)) {
+					interno.add(e);
+				}
+			}
+			
 			if (filtro.getModalidadeDeAplicacao().getId() != 0) {
 				if (filtro.getModalidadeDeAplicacao() != e.getModalidadeDeAplicacao()) {
 					interno.add(e);
@@ -93,8 +101,6 @@ public class EmendaService {
 		}
 		
 		lista.removeAll(interno);
-		
-		System.out.println(interno.size());
 		
 		return lista;
 	}

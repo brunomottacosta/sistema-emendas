@@ -30,7 +30,7 @@
 					<a href="/emendas/autor/lista">Autores</a>
 				</li>
 				<li>
-					<a href="#">Órgãos Condedentes</a>
+					<a href="/emendas/orgao-concedente/lista">Órgãos Condedentes</a>
 				</li>
 			</ul>
 		</li>		

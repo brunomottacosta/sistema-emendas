@@ -17,7 +17,7 @@ import br.com.convergencia.emendas.service.AutorService;
 @Controller
 public class AutorController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AutorController.class);
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 	// Injeções de Dependencia //

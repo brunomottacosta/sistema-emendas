@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.model.Emenda;
+import br.com.convergencia.emendas.service.AutorService;
 import br.com.convergencia.emendas.service.EmendaService;
+import br.com.convergencia.emendas.service.OrgaoConcedenteService;
 import br.com.convergencia.emendas.util.ConversorUtil;
 import br.com.convergencia.emendas.wrapper.EmendaWrapper;
 
@@ -36,6 +38,8 @@ public class EmendaController {
 	
 	@Autowired private ConversorUtil conversor;
 	@Autowired private EmendaService emendaService;
+	@Autowired private AutorService autorService;
+	@Autowired private OrgaoConcedenteService orgaoConcedenteService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -76,27 +80,30 @@ public class EmendaController {
 	public @ResponseBody List<EmendaWrapper> buscar(
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
+			@RequestParam String funcProg,
 			@RequestParam Integer idModalidade,
 			@RequestParam Integer idGND) {
 		
 		Emenda emenda = new Emenda();
+				
+		emenda.setFuncionalProgramatica(funcProg);
 		
-		if(numero != null) {
+		if (numero != null) {
 			emenda.setNumero(numero);			
 		} else {
 			emenda.setNumero(0);
 		}
-		if(ano != null) {
+		if (ano != null) {
 			emenda.setAno(ano);
 		} else {
 			emenda.setAno(0);
-		}
-		if(idModalidade != null) {
+		} 		
+		if (idModalidade != null) {
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(idModalidade));
 		} else {
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(0));;
 		}
-		if(idGND != null) {
+		if (idGND != null) {
 			emenda.setGnd(GND.getGNDById(idGND));
 		} else {
 			emenda.setGnd(GND.getGNDById(0));
@@ -118,79 +125,96 @@ public class EmendaController {
 	}
 	
 	/** IR PARA CRIAR NOVO **/
-	@RequestMapping(value = "emenda/lista/novo")
+	@RequestMapping(value = "emenda/lista/novo", method = RequestMethod.GET)
 	public String novo(Model model) {
+		
+		Emenda emenda = new Emenda();
+		
+		model.addAttribute("emenda", emenda);
+		model.addAttribute("modo", 1);
 		
 		/** LISTAS AUXILIARES **/
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
-		model.addAttribute("gnd", Arrays.asList(GND.values()));
-		
+		model.addAttribute("gnd", Arrays.asList(GND.values()));	
+		model.addAttribute("autores", autorService.listAll());
+		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
+				
 		return "dados-emenda";
 	}
 	
+	/** IR PARA EDITAR ATUAL **/
 	@RequestMapping(value = "emenda/lista/{id}", method = RequestMethod.GET)
 	public String selecionar(@PathVariable Integer id, Model model) {
-		Emenda emenda = emendaService.getEmenda(id);		
+		
+		Emenda emenda = emendaService.getEmenda(id);
+		
 		model.addAttribute("emenda", emenda);
+		model.addAttribute("modo", 2);
+		
+		/** LISTAS AUXILIARES **/
+		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
+		model.addAttribute("gnd", Arrays.asList(GND.values()));		
+		model.addAttribute("autores", autorService.listAll());
+		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 		
 		return "dados-emenda";
 	}
 	
+	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
 	@RequestMapping(value = "emenda/salvar", method = RequestMethod.POST)
 	public String salvar(
 			@RequestParam Integer modo,
 			@RequestParam Integer id,
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
-			@RequestParam String valor,
+			@RequestParam String valor, 
 			@RequestParam Integer gnd,
-			@RequestParam Integer modApp) {
+			@RequestParam Integer modApp,
+			@RequestParam String funcProg,
+			@RequestParam Integer idAutor,
+			@RequestParam Integer idOrgaoConced) {
 		
 		Emenda emenda = new Emenda();
 		
+		String execucao = "";
+		
+		/** SE MODO = 1, ENTAO SALVA NOVO **/
 		if (modo == 1) {							
 			
 			emenda.setNumero(numero);
 			emenda.setAno(ano);
+			emenda.setFuncionalProgramatica(funcProg);
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
 			emenda.setGnd(GND.getGNDById(gnd));
+			emenda.setAutor(autorService.getAutor(idAutor));
+			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 			
-		} else if (modo == 2) {
+			execucao = "SALVANDO";			
+		} 
+		
+		/** SE MODO = 2, ENTAO EDITA ATUAL **/
+		else if (modo == 2) {
 			
 			emenda = emendaService.getEmenda(id);
 			
 			emenda.setNumero(numero);
 			emenda.setAno(ano);
+			emenda.setFuncionalProgramatica(funcProg);
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
 			emenda.setGnd(GND.getGNDById(gnd));
+			emenda.setAutor(autorService.getAutor(idAutor));
+			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+			
+			execucao = "EDITANDO";
 		}
 		
 		
 		emendaService.save(emenda);	
 		
-		logger.info("## SALVANDO EMENDA ##" + emenda.getId());
-		return "redirect:lista";
-	}
-	
-	@RequestMapping(value = "emenda/editar", method = RequestMethod.POST)
-	public String editar(
-			@RequestParam Integer id, 
-			@RequestParam Integer numero, 
-			@RequestParam Integer ano, 
-			@RequestParam String valor) {
-		
-		Emenda emenda = emendaService.getEmenda(id);
-		
-		emenda.setNumero(numero);
-		emenda.setAno(ano);
-		emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
-		
-		emendaService.update(emenda);
-		
-		logger.info("## EDITANDO EMENDA ##" + emenda.getId());
-		return "redirect:lista";
+		logger.info("## " + execucao + " EMENDA ID: " + emenda.getId() + " ##");		
+		return "redirect:pesquisa";
 	}
 	
 	@RequestMapping(value = "emenda/remover", method = RequestMethod.POST)
@@ -198,7 +222,7 @@ public class EmendaController {
 		Emenda emenda = emendaService.getEmenda(id);
 		emendaService.delete(emenda);
 		
-		logger.info("## REMOVENDO EMENDA ## ID:" + emenda.getId());
+		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		
 		response.setStatus(200);
 	}	
 	

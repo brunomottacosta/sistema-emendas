@@ -27,11 +27,11 @@ public class EmendaWrapper implements Serializable {
 		this.numero = e.getNumero().toString();
 		this.ano = e.getAno().toString();
 		this.valor = e.getValor().toString();
-//		this.funcionalProgramatica = e.getFuncionalProgramatica();
+		this.funcionalProgramatica = e.getFuncionalProgramatica();
 		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();
 		this.gnd = GND.getGNDById(e.getGnd().getId()).getDescricao();
-//		this.autor = e.getAutor().getNome();
-//		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
+		this.autor = e.getAutor().getNome();
+		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
 //		this.programa = e.getPrograma().getNome();
 	}
 	

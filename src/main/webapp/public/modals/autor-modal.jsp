@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+
 <!-- MODAL PARA NOVO AUTOR -->
 <div class="modal fade" id="new_autor_modal" tabindex="-1" role="dialog"  aria-hidden="true">
 
@@ -16,7 +18,7 @@
 			
 			<div class="modal-body">
 
-				<form action="autor/salvar" method="POST" role="form" id="form_novo_autor">									
+				<form action="salvar" method="POST" role="form" id="form_novo_autor">									
 								
 					<div class="form-group">
 						<div class="input-group col-md-12">
