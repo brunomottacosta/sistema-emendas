@@ -29,6 +29,7 @@ import br.com.convergencia.emendas.util.ConversorUtil;
 import br.com.convergencia.emendas.wrapper.EmendaWrapper;
 
 @Controller
+@RequestMapping(value = "emenda/")
 public class EmendaController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmendaController.class);
@@ -47,7 +48,7 @@ public class EmendaController {
 	// ~~~~~~~~~~~~~~~~~~~~//
 	
 	/** INICIO PAGINA PESQUISA EMENDAS **/
-	@RequestMapping(value = "emenda/pesquisa")
+	@RequestMapping(value = "pesquisa")
 	public String inicio(Model model) {	
 		
 		/** LISTAS AUXILIARES **/
@@ -61,7 +62,7 @@ public class EmendaController {
 	}
 	
 	/** METODO PARA LISTAR TUDO **/
-	@RequestMapping(value = "emenda/listar", method = RequestMethod.GET)
+	@RequestMapping(value = "listar", method = RequestMethod.GET)
 	public @ResponseBody List<EmendaWrapper> listar() {
 		
 		/** CRIA LISTA DE EMENDAS E DO ENVELOPE PARA EMENDAS **/
@@ -80,7 +81,7 @@ public class EmendaController {
 	}
 	
 	/** METODO PARA PESQUISAR ATRAVES DE FILTROS **/
-	@RequestMapping(value = "emenda/buscar", method = RequestMethod.GET)
+	@RequestMapping(value = "buscar", method = RequestMethod.GET)
 	public @ResponseBody List<EmendaWrapper> buscar(
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
@@ -135,7 +136,7 @@ public class EmendaController {
 	}
 	
 	/** IR PARA CRIAR NOVO **/
-	@RequestMapping(value = "registro/emenda/novo", method = RequestMethod.GET)
+	@RequestMapping(value = "registro/novo", method = RequestMethod.GET)
 	public String novo(Model model) {
 		
 		Emenda emenda = new Emenda();
@@ -154,7 +155,7 @@ public class EmendaController {
 	}
 	
 	/** IR PARA EDITAR ATUAL **/
-	@RequestMapping(value = "registro/emenda/editar/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "registro/editar/{id}", method = RequestMethod.GET)
 	public String selecionar(@PathVariable Integer id, Model model) {
 		
 		Emenda emenda = emendaService.getEmenda(id);
@@ -173,7 +174,7 @@ public class EmendaController {
 	}
 	
 	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
-	@RequestMapping(value = "registro/emenda/salvar", method = RequestMethod.POST)
+	@RequestMapping(value = "registro/salvar", method = RequestMethod.POST)
 	public String salvar(
 			@RequestParam Integer modo,
 			@RequestParam Integer id,
@@ -229,10 +230,10 @@ public class EmendaController {
 		emendaService.save(emenda);	
 		
 		logger.info("## " + execucao + " EMENDA ID: " + emenda.getId() + " ##");		
-		return "redirect:pesquisa";
+		return "redirect:novo";
 	}
 	
-	@RequestMapping(value = "registro/emenda/remover", method = RequestMethod.POST)
+	@RequestMapping(value = "registro/remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		Emenda emenda = emendaService.getEmenda(id);
 		emendaService.delete(emenda);

@@ -13,6 +13,7 @@
         <!-- CSS -->
         <link href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/data-table/css/jquery.dataTables.bootstrap.css' />" rel="stylesheet"/>
+        <link href="<c:url value='/resources/data-table/css/jquery.dataTables.tools.css' />" rel="stylesheet"/>
        	<link href="<c:url value='/resources/bootstrap/bootstrap-select/css/bootstrap-select.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/font-awesome.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/default.css' />" rel="stylesheet"/>
@@ -29,6 +30,9 @@
         <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>
         <script src="<c:url value='/resources/data-table/js/jquery.dataTables.js' />" ></script>
         <script src="<c:url value='/resources/data-table/js/jquery.dataTables.bootstrap.js' />" ></script>
+        <script src="<c:url value='/resources/data-table/js/jquery.dataTables.tools.js' />" ></script>
+        <script src="<c:url value='/resources/data-table/js/jquery.dataTables.tools.bootstrap.js' />" ></script>
+        <script src="<c:url value='/resources/js/validation.js' />" ></script>
         <script src="<c:url value='/resources/js/js.js' />" ></script>
         
     </head>
@@ -38,9 +42,9 @@
 		<!-- NAVBAR -->
 		<div class="navbar navbar-default" id="navbar">
 		
-			<a class="navbar-brand" href="index"> <i class="fa fa-android"></i>
-				Application
-			</a>
+<!-- 			<a class="navbar-brand" href="index"> <i class="fa fa-android"></i> -->
+<!-- 				Application -->
+<!-- 			</a> -->
 			
 			<ul class="nav navbar-nav pull-right">
 			
@@ -51,7 +55,7 @@
 				<li class="dropdown">
 				
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
-						<i class="fa fa-user"></i> <strong>USERNAME</strong>
+						<i class="fa fa-user"></i> <strong>Bruno Costa</strong>
 						<b class="caret"></b>
 					</a>
 					

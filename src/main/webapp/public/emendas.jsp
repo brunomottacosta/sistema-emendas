@@ -75,7 +75,14 @@
 							<select id="gnd_emenda" data-live-search="true"
 							class="form-control drop-pesquisa selectpicker" name="gnd">										
 								<c:forEach items="${gnd}" var="gnd_var" >
-									<option value="${gnd_var.id}">${gnd_var.numero} - ${gnd_var.descricao}</option>
+									<option value="${gnd_var.id}">
+										<c:if test="${gnd_var.id == 0}">
+											${gnd_var.descricao}
+										</c:if>												
+										<c:if test="${gnd_var.id >= 1}">
+											${gnd_var.numero} - ${gnd_var.descricao}
+										</c:if>
+									</option>
 								</c:forEach>
 							</select> 
 						</div>
@@ -85,7 +92,14 @@
 							<select id="mda_emenda" data-live-search="true"
 							class="form-control drop-pesquisa selectpicker" name="modApp">										
 								<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
-									<option value="${mda_var.id}">${mda_var.numero} - ${mda_var.descricao}</option>
+									<option value="${mda_var.id}">
+										<c:if test="${mda_var.id == 0}">
+											${mda_var.descricao}
+										</c:if>												
+										<c:if test="${mda_var.id >= 1}">
+											${mda_var.numero} - ${mda_var.descricao}
+										</c:if>
+									</option>
 								</c:forEach>
 							</select> 
 						</div>
@@ -98,7 +112,7 @@
 							<select id="tipo_emenda" data-live-search="true"
 							class="form-control selectpicker" name="tipoEmenda">								
 								<c:forEach items="${tipoEmenda}" var="tipo_var">
-									<option value="${tipo_var.id}">${tipo_var.numero} - ${tipo_var.descricao}</option>
+									<option value="${tipo_var.id}">${tipo_var.descricao}</option>
 								</c:forEach>
 							</select> 
 						</div>	
@@ -158,14 +172,15 @@
 			<table id="tabela_emendas" class="table table-bordered">
 				<thead>
 					<tr>
+						<th style="width: 5em">ANO</th>
 						<th style="width: 5em">NUMERO</th>
 						<th style="width: 10em">AUTOR</th>
 						<th style="width: 10em">ORGÃO</th>
 						<th style="width: 10em">FUNC. PROG.</th>
-						<th style="width: 5em">ANO</th>
-						<th style="width: 10em">VALOR (R$)</th>
+						<th style="width: 10em">TIPO</th>
 						<th style="width: 15em">MODALIDADE</th>
 						<th style="width: 15em">G.N.D.</th>
+						<th style="width: 10em">VALOR (R$)</th>
 					</tr>
 				</thead>
 				
@@ -232,37 +247,30 @@ function botao_editar(data) {
 // datatable
 $(document).ready(function() {
 	$("#tabela_emendas").DataTable({
+		dom: 'T<"clear">lfrtip',
+		"oTableTools": {  
+             "sSwfPath": "<c:url value="../swf/copy_csv_xls_pdf.swf"/>",  
+		}, 
 		"filter": false,
 		"sAjaxDataProp": "",
 		"bProcessing": true,
 		"deferRender": true,
 		"aoColumns": [
+		              {"data" : "ano"},
 		              {"data" : "numero"},
 		              {"data" : "autor"},
 		              {"data" : "orgaoConcedente"},
 		              {"data" : "funcionalProgramatica"},
-		              {"data" : "ano"},
-		              {"data" : "valor"},
+		              {"data" : "tipoEmenda"},
 		              {"data" : "modalidadeDeAplicacao"},
-		              {"data" : "gnd"}
+		              {"data" : "gnd"},
+		              {"data" : "valor"},
 		],
-//         "columnDefs": [
-//         {
-//         	"className": "center-td",
-//     		"targets": 7,
-//     	    "data": "id",
-//     	    "render": function ( data, type, full, meta ) {
-//     	     	return botao_deletar(data);
-//     	    }
-//    	  	},
-//         {
-//    	  		"className": "center-td",
-//         	"targets": 6,
-//     	    "data": "id",
-//     	    "render": function ( data, type, full, meta ) {
-//     	     	return botao_editar(data);
-//     	    }
-//         }]
+        "columnDefs": [
+        {
+        	"className": "center-td",
+    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],    	    
+   	  	}]
 	});
 });
 
@@ -281,6 +289,7 @@ $(document).ready( function() {
 			var funcProg = $("#fnc_prog_emenda").val();
 			var ano = $("#ano_emenda").val();
 			var idModalidade = $("#mda_emenda").val();
+			var idTipoEmenda = $("#tipo_emenda").val();
 			var idGND = $("#gnd_emenda").val();
 			var idOrgaoConced = $("#org_conced_emenda").val();
 			var idAutor = $("#autor_emenda").val();
@@ -292,6 +301,7 @@ $(document).ready( function() {
 					+ "&ano=" + ano 
 					+ "&idModalidade=" + idModalidade 
 					+ "&idGND=" + idGND
+					+ "&idTipoEmenda=" + idTipoEmenda
 					+ "&funcProg=" + funcProg
 					+ "&idOrgaoConced=" + idOrgaoConced
 					+ "&idAutor=" + idAutor

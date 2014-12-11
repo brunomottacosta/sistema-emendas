@@ -34,4 +34,8 @@
         <put-attribute name="body" value="/public/tabelas/lista-orgao-concedente.jsp"/>
     </definition>
     
+    <definition name="lista-programa" extends="master.page">
+        <put-attribute name="body" value="/public/tabelas/lista-programa.jsp"/>
+    </definition>    
+    
 </tiles-definitions>

@@ -11,34 +11,32 @@
 	<i class="fa fa-bars fa-2x" id="toggle"></i>
 	
 	<ul id="dock">
-	
+		
 		<li class="launcher">
-			<i class="fa fa-home"></i> 
-			<a href="#">Home</a>
+			<i class="fa fa-search"></i> 
+			<a href="/sistema/emenda/pesquisa">Pesquisa</a>
 		</li>
 		
 		<li class="launcher">
-			<i class="fa fa-list-alt"></i> 
-			<a href="/sistema/emenda/pesquisa">Emendas</a>
+			<i class="fa fa-plus"></i> 
+			<a href="/sistema/emenda/registro/novo">Cadastro</a>
 		</li>
 		
 		<li class="launcher dropdown hover">
 			<i class="fa fa-folder-open-o"></i>
-			<a href="#">Listas</a>					
+			<a href="#">Formulários</a>					
 			<ul class="dropdown-menu">
 				<li>
-					<a href="/sistema/autor/lista">Autores</a>
+					<a href="/sistema/autor/lista">Autor</a>
 				</li>
 				<li>
-					<a href="/sistema/orgao-concedente/lista">Órgãos Condedentes</a>
+					<a href="/sistema/orgao-concedente/lista">Orgão Condedente</a>
+				</li>
+				<li>
+					<a href="/sistema/programa/lista">Programa</a>
 				</li>
 			</ul>
-		</li>		
-		
-		<li class="launcher">
-			<i class="fa fa-cog"></i> 
-			<a href="#">Configurações</a>
-		</li>
+		</li>	
 		
 	</ul>						
 	
@@ -51,12 +49,12 @@
 	<ul class="breadcrumb" id="breadcrumb">
 	
 		<li>
-			<a href="#">Lorem</a>
+			<a href="#"></a>
 		</li>
 		
-		<li class="active">
-			<a href="#">ipsum</a>
-		</li>
+<!-- 		<li class="active"> -->
+<!-- 			<a href="#">ipsum</a> -->
+<!-- 		</li> -->
 		
 	</ul>
 	

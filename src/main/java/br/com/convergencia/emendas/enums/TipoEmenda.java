@@ -3,7 +3,7 @@ package br.com.convergencia.emendas.enums;
 
 public enum TipoEmenda {
 	
-	NENHUM(0, "Nenhum"),
+	EMPTY(0, "Nenhum"),
 	INDIVIDUAL(1, "Individual"),
 	BANCADA(2, "Bancada"),
 	COLETIVA(3, "Coletiva");

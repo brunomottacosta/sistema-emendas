@@ -1,6 +1,8 @@
 package br.com.convergencia.emendas.wrapper;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
@@ -23,11 +25,26 @@ public class EmendaWrapper implements Serializable {
 	private String orgaoConcedente;
 	private String programa;
 	
+	// converte o BigDecimal para formato de dinheiro para display
+	public String setValorToFormatMoney(BigDecimal valor) {
+		NumberFormat format = NumberFormat.getCurrencyInstance();
+		String currencySymbol = format.getCurrency().getSymbol();
+		String valorFormat = format.format(valor);
+		valorFormat = valorFormat.replace(currencySymbol, "");
+		if (valorFormat.endsWith(",00")) {
+		    int centsIndex = valorFormat.lastIndexOf(",00");
+		    if (centsIndex != -1) {
+		    	valorFormat = valorFormat.substring(1, centsIndex);
+		    }
+		}
+		return valorFormat;
+	}	 
+	
 	public void setAllAtributtes(Emenda e) {
 		this.id = e.getId().toString();
 		this.numero = e.getNumero().toString();
-		this.ano = e.getAno().toString();
-		this.valor = e.getValor().toString();
+		this.ano = e.getAno().toString();		
+		this.valor = setValorToFormatMoney(e.getValor());
 		this.funcionalProgramatica = e.getFuncionalProgramatica();
 		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();
 		this.tipoEmenda = TipoEmenda.getTipoEmendaById(e.getTipoEmenda().getId()).getDescricao();

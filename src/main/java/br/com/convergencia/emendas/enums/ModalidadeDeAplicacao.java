@@ -3,7 +3,7 @@ package br.com.convergencia.emendas.enums;
 
 public enum ModalidadeDeAplicacao {
 	
-	EMPTY(0, 0, "Nenhuma"),
+	EMPTY(0, 0, "Nenhum"),
 	ESTADOS(1, 30, "Estados"),
 	MUNICIPIOS(2, 40, "Municípios"),
 	ENTIDADES_PRIVADAS(3, 50, "Entidades Privadas"),
