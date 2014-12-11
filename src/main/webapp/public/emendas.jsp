@@ -2,135 +2,170 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div>
-	<div class="container-fluid">		
+
+<div class="container-fluid">
+	
+	<div id="content_pesq_emenda">
 		
-		<!-- ######################### -->
-		<!-- ACCORDION FILTRO DE BUSCA -->
-		<!-- ######################### -->
-		
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
-			<div class="panel panel-info">
-		    	<div class="panel-heading" role="tab" id="hd_flt_busca">
-		      		<h4 class="panel-title simple-link">
-		        		<a data-toggle="collapse" data-parent="#accordion" 
-		        		href="#acc_flt_busca" aria-expanded="true" aria-controls="acc_flt_busca">
-							Filtros de Busca
-						</a>
-					</h4>
-				</div>
-				<div id="acc_flt_busca" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_flt_busca">
-					<div class="panel-body">
-						
-						<!-- ####################### -->	
-						<!-- FORMULARIO FILTRO BUSCA -->
-						<!-- ####################### -->
+		<!-- ####################### -->	
+		<!-- FORMULARIO FILTRO BUSCA -->
+		<!-- ####################### -->		
+			
+		<div id="filtro_pesq_emenda">
+			
+			<!-- ############## -->  
+			<!-- BOTOES DE ACAO -->
+			<!-- ############## -->
+							
+			<div class="row" style="margin-bottom: 20px">
+			
+				<div class="col-md-12">
 					
-						<form id="form_nova_emenda">						
-									
-							<div class="row">
-								<div class="col-md-3">								
+					<button id="btn_filtro" class="btn btn-primary" type="button">
+						<i class="fa fa-search"></i> FILTRAR
+					</button>	
+					<button id="btn_resetar" class="btn btn-warning" type="button">
+						<i class="fa fa-close"></i> LIMPAR
+					</button>	
+					
+				</div>	
+							
+			</div>		
+			
+			<!-- ################## -->  
+			<!-- FIM BOTOES DE ACAO -->
+			<!-- ################## -->
+				
+			
+			<form id="form_nova_emenda">						
 						
-									<div class="form-group">
-										<label class="control-label">Numero</label> 
-										<input type="text" name="numero" id="num_emenda" 
-										class="form-control input-sm input-pesquisa num-emenda"> 
-									</div>
-									
-									<div class="form-group">
-										<label class="control-label">Funcional Programática</label> 
-										<input type="text" name="funcionalProgramatica" id="fnc_prog_emenda" 
-										class="form-control input-sm input-pesquisa"> 
-									</div>
-										
-									<div class="form-group">
-										<label class="control-label">Ano</label> 
-										<input type="date" name="ano" id="ano_emenda"
-										class="form-control input-sm input-pesquisa ano-emenda"> 
-									</div>
-																			
-								</div>						
-								<div class="col-md-3">
-									
-									<div class="form-group">
-										<label class="control-label">G.N.D.</label> 
-										<select id="gnd_emenda" class="form-control input-sm drop-pesquisa" name="gnd">										
-											<c:forEach items="${gnd}" var="gnd_var" >
-												<option value="${gnd_var.id}">${gnd_var.numero} - ${gnd_var.descricao}</option>
-											</c:forEach>
-										</select> 
-									</div>
-									
-									<div class="form-group">
-										<label class="control-label">Modalidade de Aplicacao</label> 
-										<select id="mda_emenda" class="form-control input-sm drop-pesquisa" name="modApp">										
-											<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
-												<option value="${mda_var.id}">${mda_var.numero} - ${mda_var.descricao}</option>
-											</c:forEach>
-										</select> 
-									</div>
-								</div>
-							</div>	
-						</form>
+				<div class="row">
+				
+					<div class="col-md-3">								
+			
+						<div class="form-group">
+							<label class="control-label">Numero</label> 
+							<input type="text" name="numero" id="num_emenda" 
+							class="form-control input-pesquisa num-emenda"> 
+						</div>
 						
-						<!-- ########################### -->
-						<!-- FIM FORMULARIO FILTRO BUSCA -->
-						<!-- ########################### -->
-											
+						<div class="form-group">
+							<label class="control-label">Funcional Programática</label> 
+							<input type="text" name="funcionalProgramatica" id="fnc_prog_emenda" 
+							class="form-control input-pesquisa"> 
+						</div>
+							
+						<div class="form-group">
+							<label class="control-label">Ano</label> 
+							<input type="text" name="ano" id="ano_emenda"
+							class="form-control input-pesquisa ano-emenda"> 
+						</div>
+						
+					</div>						
+					<div class="col-md-3">
+					
+						<div class="form-group">
+							<label class="control-label">Valor</label>															
+							<input type="text" name="valor" id="valor_emenda" 
+							class="form-control money input-pesquisa" maxlength="20"> 
+						</div>																
+						
+						<div class="form-group">
+							<label class="control-label">G.N.D.</label> 
+							<select id="gnd_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="gnd">										
+								<c:forEach items="${gnd}" var="gnd_var" >
+									<option value="${gnd_var.id}">${gnd_var.numero} - ${gnd_var.descricao}</option>
+								</c:forEach>
+							</select> 
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label">Modalidade de Aplicacao</label> 
+							<select id="mda_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="modApp">										
+								<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
+									<option value="${mda_var.id}">${mda_var.numero} - ${mda_var.descricao}</option>
+								</c:forEach>
+							</select> 
+						</div>
+					
+					</div>						
+					<div class="col-md-3">
+						
+						<div class="form-group">
+							<label class="control-label">Tipo de Emenda</label> 
+							<select id="tipo_emenda" data-live-search="true"
+							class="form-control selectpicker" name="tipoEmenda">								
+								<c:forEach items="${tipoEmenda}" var="tipo_var">
+									<option value="${tipo_var.id}">${tipo_var.numero} - ${tipo_var.descricao}</option>
+								</c:forEach>
+							</select> 
+						</div>	
+						
+						<div class="form-group">
+							<label class="control-label">Autor</label> 
+							<select id="autor_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="idAutor">
+								<option value="0">Nenhum</option>
+								<c:forEach items="${autores}" var="autor_var" >
+									<option value="${autor_var.id}">${autor_var.nome}</option>
+								</c:forEach>
+							</select> 
+						</div>
+							
+						<div class="form-group">
+							<label class="control-label">Orgão Concedente</label> 
+							<select id="org_conced_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="idOrgaoConced">
+								<option value="0">Nenhum</option>
+								<c:forEach items="${orgaos}" var="org_conced_var" >
+									<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
+								</c:forEach>
+							</select> 
+						</div>
+						
 					</div>
-				</div>
-			</div>
+					
+				</div>	
+				
+			</form>
+			
 		</div>
 		
-		<!-- ############################# -->
-		<!-- FIM ACCORDION FILTRO DE BUSCA -->
-		<!-- ############################# -->
-		
-		<hr />	
-		
-		<!-- ############## -->  
-		<!-- BOTOES DE ACAO -->
-		<!-- ############## -->
-						
-		<div class="row">
-			<div class="col-md-12">
-				
-				<button id="btn_filtro" class="btn btn-primary" type="button">
-					<i class="fa fa-search"></i> FILTRAR
-				</button>	
-				<button id="btn_resetar" class="btn btn-warning" type="button">
-					<i class="fa fa-refresh"></i> RESETAR PESQUISA
-				</button>
-				<a href="lista/novo" id="btn_novo" class="btn btn-info pull-right">
-					<i class="fa fa-plus"></i> NOVO
-				</a>				
-				
-			</div>				
-		</div>		
-		
-		<!-- ################## -->  
-		<!-- FIM BOTOES DE ACAO -->
-		<!-- ################## -->  
-		
-		<hr />
+		<!-- ########################### -->
+		<!-- FIM FORMULARIO FILTRO BUSCA -->
+		<!-- ########################### -->
 		
 		<!-- ################ -->    					
 		<!-- LISTA DE EMENDAS -->
 		<!-- ################ -->  
     	
-    	<div id="pn_tb_emendas">
+    	<div id="list_pesq_emenda" class="not-visible">
+    	    
+    	    <div class="row" style="margin-bottom: 20px">
+			
+				<div class="col-md-12">
+					
+					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
+						<i class="fa fa-arrow-left"></i> VOLTAR
+					</button>
+					
+				</div>	
+							
+			</div>
     	    					
 			<table id="tabela_emendas" class="table table-bordered">
 				<thead>
 					<tr>
-						<th style="width: 10%; text-align: left">NUMERO</th>
-						<th style="width: 15%">FUNC. PROG.</th>
-						<th style="width: 5%">ANO</th>
-						<th style="width: 15%">VALOR (R$)</th>
-						<th>MODALIDADE</th>
-						<th>G.N.D.</th>
-						<th></th> <!-- COLUNA EDITAR -->
-						<th></th> <!-- COLUNA EXCLUIR -->	
+						<th style="width: 5em">NUMERO</th>
+						<th style="width: 10em">AUTOR</th>
+						<th style="width: 10em">ORGÃO</th>
+						<th style="width: 10em">FUNC. PROG.</th>
+						<th style="width: 5em">ANO</th>
+						<th style="width: 10em">VALOR (R$)</th>
+						<th style="width: 15em">MODALIDADE</th>
+						<th style="width: 15em">G.N.D.</th>
 					</tr>
 				</thead>
 				
@@ -144,35 +179,12 @@
 		
 		<!-- #################### -->
 		<!-- FIM LISTA DE EMENDAS -->
-		<!-- #################### -->    				
+		<!-- #################### -->   	
+		
+	</div>			 				
 
-	</div>
 </div>
 
-<!-- ############# -->
-<!-- MODAL FUNCOES -->
-<!-- ############# -->
-
-<div class="modal fade" id="fnc_emenda_modal" tabindex="-1" role="dialog" style="padding-top: 25em" >
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">			
-			<div class="modal-body">				
-				<div class="row">
-					<div class="col-md-12">
-						<input type="hidden" id="fnc_id_emenda">
-						<button id="btn_fnc_editar" type="button" class="btn btn-default">
-							<i class="fa fa-pencil"></i> EDITAR
-						</button>
-					</div>				
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- ################# -->
-<!-- FIM MODAL FUNCOES -->
-<!-- ################# -->
 
 <!-- ############# -->
 <!-- MODAL LOADING -->
@@ -202,6 +214,8 @@
 
 <script type="text/javascript">
 
+
+
 // botao de deletar row do datatable
 function botao_deletar(data) {
 	return '<a href="#" onclick="remove_ajax(' + data + ')">' 
@@ -219,33 +233,36 @@ function botao_editar(data) {
 $(document).ready(function() {
 	$("#tabela_emendas").DataTable({
 		"filter": false,
-		"ajax": "listar",
 		"sAjaxDataProp": "",
 		"bProcessing": true,
 		"deferRender": true,
 		"aoColumns": [
 		              {"data" : "numero"},
+		              {"data" : "autor"},
+		              {"data" : "orgaoConcedente"},
 		              {"data" : "funcionalProgramatica"},
 		              {"data" : "ano"},
 		              {"data" : "valor"},
 		              {"data" : "modalidadeDeAplicacao"},
 		              {"data" : "gnd"}
 		],
-        "columnDefs": [
-        {
-    		"targets": 7,
-    	    "data": "id",
-    	    "render": function ( data, type, full, meta ) {
-    	     	return botao_deletar(data);
-    	    }
-   	  	},
-        {
-        	"targets": 6,
-    	    "data": "id",
-    	    "render": function ( data, type, full, meta ) {
-    	     	return botao_editar(data);
-    	    }
-        }]
+//         "columnDefs": [
+//         {
+//         	"className": "center-td",
+//     		"targets": 7,
+//     	    "data": "id",
+//     	    "render": function ( data, type, full, meta ) {
+//     	     	return botao_deletar(data);
+//     	    }
+//    	  	},
+//         {
+//    	  		"className": "center-td",
+//         	"targets": 6,
+//     	    "data": "id",
+//     	    "render": function ( data, type, full, meta ) {
+//     	     	return botao_editar(data);
+//     	    }
+//         }]
 	});
 });
 
@@ -255,8 +272,8 @@ $(document).ready(function() {
 $(document).ready( function() {
 	$("#btn_filtro").click( function() {
 				
-		// destroi a antiga table
-		$("#pn_tb_emendas").fadeOut(300, function() {
+		// destroi a antiga table 
+		$("#content_pesq_emenda").hide("slide", {direction : "right"}, 500, function() {
 			$("#carregar_modal").modal("show");
 			
 			// seta os atributos da pesquisa
@@ -265,6 +282,8 @@ $(document).ready( function() {
 			var ano = $("#ano_emenda").val();
 			var idModalidade = $("#mda_emenda").val();
 			var idGND = $("#gnd_emenda").val();
+			var idOrgaoConced = $("#org_conced_emenda").val();
+			var idAutor = $("#autor_emenda").val();
 			
 			// cria a nova table
 			var table = $("#tabela_emendas").DataTable(); 
@@ -274,11 +293,15 @@ $(document).ready( function() {
 					+ "&idModalidade=" + idModalidade 
 					+ "&idGND=" + idGND
 					+ "&funcProg=" + funcProg
+					+ "&idOrgaoConced=" + idOrgaoConced
+					+ "&idAutor=" + idAutor
 			).load();
 			
 			$("#carregar_modal").modal("hide");
+			$("#filtro_pesq_emenda").hide();
+			$("#list_pesq_emenda").show();
 			$("#carregar_modal").on("hidden.bs.modal", function() {
-				$("#pn_tb_emendas").fadeIn(300);				
+				$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
 			});
 		});
 	});	
@@ -291,20 +314,17 @@ $(document).ready( function() {
 		// limpa campos de pesquisa
 		$(".input-pesquisa").val(null);
 		$(".drop-pesquisa").val(0);
+		$(".filter-option").html("Nenhum");
 		
-		// destroi a antiga table
-		$("#pn_tb_emendas").fadeOut(300, function() {
-			$("#carregar_modal").modal("show");
-			
-			// chama table inicial
-			var table = $("#tabela_emendas").DataTable(); 
-			table.ajax.url("listar").load();
-			
-			$("#carregar_modal").modal("hide");
-			$("#carregar_modal").on("hidden.bs.modal", function() {
-				$("#pn_tb_emendas").fadeIn(300);				
-			});
-		});
+	});
+});
+
+// voltar para os filtros
+$("#btn_voltar_filtro").click( function() {
+	$("#content_pesq_emenda").hide("slide", {direction : "left"}, 500, function() {
+		$("#filtro_pesq_emenda").show();
+		$("#list_pesq_emenda").hide();		
+		$("#content_pesq_emenda").show("slide", {direction : "right"}, 500);
 	});
 });
 

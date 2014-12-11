@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
+import br.com.convergencia.emendas.enums.TipoEmenda;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.AutorService;
 import br.com.convergencia.emendas.service.EmendaService;
@@ -45,13 +46,16 @@ public class EmendaController {
 	//   Métodos Mapeados  //
 	// ~~~~~~~~~~~~~~~~~~~~//
 	
-	/** INICIO PAGINA EMENDAS **/
+	/** INICIO PAGINA PESQUISA EMENDAS **/
 	@RequestMapping(value = "emenda/pesquisa")
 	public String inicio(Model model) {	
 		
 		/** LISTAS AUXILIARES **/
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
 		model.addAttribute("gnd", Arrays.asList(GND.values()));
+		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
+		model.addAttribute("autores", autorService.listAll());
+		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 		
 		return "lista-emenda";
 	}
@@ -75,45 +79,50 @@ public class EmendaController {
 		return wrapper;
 	}
 	
-	/** METODO PARA PESQUISA **/
+	/** METODO PARA PESQUISAR ATRAVES DE FILTROS **/
 	@RequestMapping(value = "emenda/buscar", method = RequestMethod.GET)
 	public @ResponseBody List<EmendaWrapper> buscar(
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
 			@RequestParam String funcProg,
 			@RequestParam Integer idModalidade,
-			@RequestParam Integer idGND) {
+			@RequestParam Integer idGND,
+			@RequestParam Integer idTipoEmenda,
+			@RequestParam Integer idOrgaoConced,
+			@RequestParam Integer idAutor) {
 		
-		Emenda emenda = new Emenda();
-				
-		emenda.setFuncionalProgramatica(funcProg);
+		Emenda emenda = new Emenda();	
 		
+		/** SETA VALORES DO FILTRO PARA BUSCAR **/
 		if (numero != null) {
-			emenda.setNumero(numero);			
-		} else {
-			emenda.setNumero(0);
-		}
+			emenda.setNumero(numero);		
+		}		
 		if (ano != null) {
 			emenda.setAno(ano);
-		} else {
-			emenda.setAno(0);
-		} 		
+		} 	
 		if (idModalidade != null) {
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(idModalidade));
-		} else {
-			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(0));;
-		}
+		} 
 		if (idGND != null) {
 			emenda.setGnd(GND.getGNDById(idGND));
-		} else {
-			emenda.setGnd(GND.getGNDById(0));
 		}
+		if (idTipoEmenda != null) {
+			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(idTipoEmenda));
+		}
+		if (idOrgaoConced != null && idOrgaoConced != 0) {
+			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+		}
+		if (idAutor != null && idAutor != 0) {
+			emenda.setAutor(autorService.getAutor(idAutor));
+		}
+			
+		emenda.setFuncionalProgramatica(funcProg); //STRINGS NAO PRECISAM DE CONDICAO
 		
-		/** CRIA LISTA DE EMENDAS E DO ENVELOPE PARA EMENDAS **/
+		/** CRIA LISTA DE OBJETOS BUSCADOS **/
 		List<Emenda> emendas =  emendaService.listByFiltro(emenda);
 		List<EmendaWrapper> wrapper = new ArrayList<EmendaWrapper>();
 		
-		/** PASSA ATRIBUTOS DE EMENDA PARA O SEU ENVELOPE E ADICIONA NA LISTA **/
+		/** PASSA ATRIBUTOS DO OBJETO PARA O SEU ENVELOPE E ADICIONA NA LISTA PARA JSON **/
 		for(Emenda e : emendas) {
 			EmendaWrapper ew = new EmendaWrapper();
 			ew.setAllAtributtes(e);
@@ -121,11 +130,12 @@ public class EmendaController {
 			wrapper.add(ew);
 		}
 		
+		/** RETORNA A LISTA EM FORMATO JSON PARA UTILIZAR NO JAVASCRIPT **/
 		return wrapper;
 	}
 	
 	/** IR PARA CRIAR NOVO **/
-	@RequestMapping(value = "emenda/lista/novo", method = RequestMethod.GET)
+	@RequestMapping(value = "registro/emenda/novo", method = RequestMethod.GET)
 	public String novo(Model model) {
 		
 		Emenda emenda = new Emenda();
@@ -135,7 +145,8 @@ public class EmendaController {
 		
 		/** LISTAS AUXILIARES **/
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
-		model.addAttribute("gnd", Arrays.asList(GND.values()));	
+		model.addAttribute("gnd", Arrays.asList(GND.values()));
+		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 				
@@ -143,7 +154,7 @@ public class EmendaController {
 	}
 	
 	/** IR PARA EDITAR ATUAL **/
-	@RequestMapping(value = "emenda/lista/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "registro/emenda/editar/{id}", method = RequestMethod.GET)
 	public String selecionar(@PathVariable Integer id, Model model) {
 		
 		Emenda emenda = emendaService.getEmenda(id);
@@ -154,6 +165,7 @@ public class EmendaController {
 		/** LISTAS AUXILIARES **/
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
 		model.addAttribute("gnd", Arrays.asList(GND.values()));		
+		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 		
@@ -161,7 +173,7 @@ public class EmendaController {
 	}
 	
 	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
-	@RequestMapping(value = "emenda/salvar", method = RequestMethod.POST)
+	@RequestMapping(value = "registro/emenda/salvar", method = RequestMethod.POST)
 	public String salvar(
 			@RequestParam Integer modo,
 			@RequestParam Integer id,
@@ -170,6 +182,7 @@ public class EmendaController {
 			@RequestParam String valor, 
 			@RequestParam Integer gnd,
 			@RequestParam Integer modApp,
+			@RequestParam Integer tipoEmenda,
 			@RequestParam String funcProg,
 			@RequestParam Integer idAutor,
 			@RequestParam Integer idOrgaoConced) {
@@ -187,6 +200,7 @@ public class EmendaController {
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
 			emenda.setGnd(GND.getGNDById(gnd));
+			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 			emenda.setAutor(autorService.getAutor(idAutor));
 			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 			
@@ -204,6 +218,7 @@ public class EmendaController {
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
 			emenda.setGnd(GND.getGNDById(gnd));
+			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 			emenda.setAutor(autorService.getAutor(idAutor));
 			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 			
@@ -217,7 +232,7 @@ public class EmendaController {
 		return "redirect:pesquisa";
 	}
 	
-	@RequestMapping(value = "emenda/remover", method = RequestMethod.POST)
+	@RequestMapping(value = "registro/emenda/remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		Emenda emenda = emendaService.getEmenda(id);
 		emendaService.delete(emenda);

@@ -16,3 +16,11 @@
 	color: #31708F;
 	text-decoration: none;
 }
+
+.not-visible {
+	display: none;
+}
+
+.center-td {
+	text-align: center;
+}

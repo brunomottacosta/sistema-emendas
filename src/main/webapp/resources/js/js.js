@@ -3,3 +3,5 @@ $(document).ready(function(){
 	$(".num-emenda").mask("99999999");
 	$(".ano-emenda").mask("9999");
 });
+
+$('.selectpicker').selectpicker();

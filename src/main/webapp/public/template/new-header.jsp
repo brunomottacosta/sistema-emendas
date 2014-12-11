@@ -19,7 +19,7 @@
 		
 		<li class="launcher">
 			<i class="fa fa-list-alt"></i> 
-			<a href="/emendas/emenda/pesquisa">Emendas</a>
+			<a href="/sistema/emenda/pesquisa">Emendas</a>
 		</li>
 		
 		<li class="launcher dropdown hover">
@@ -27,10 +27,10 @@
 			<a href="#">Listas</a>					
 			<ul class="dropdown-menu">
 				<li>
-					<a href="/emendas/autor/lista">Autores</a>
+					<a href="/sistema/autor/lista">Autores</a>
 				</li>
 				<li>
-					<a href="/emendas/orgao-concedente/lista">Órgãos Condedentes</a>
+					<a href="/sistema/orgao-concedente/lista">Órgãos Condedentes</a>
 				</li>
 			</ul>
 		</li>		

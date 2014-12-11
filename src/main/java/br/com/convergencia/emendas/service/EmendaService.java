@@ -52,7 +52,7 @@ public class EmendaService {
 		return emendaRepository.findOne(id);
 	}
 	
-	/** BUSCAS AVANCADAS **/
+	/** BUSCAS AVANCADAS **/	
 	@Transactional
 	public List<Emenda> listByFiltro(Emenda filtro) {
 		
@@ -63,7 +63,7 @@ public class EmendaService {
 		
 		for (Emenda e : lista) {
 			
-			if (filtro.getAno() != 0) {
+			if (filtro.getAno() != null) {
 				String anoFiltro = filtro.getAno().toString();
 				String anoObj = e.getAno().toString();
 				if (!anoObj.equals(anoFiltro)) {
@@ -71,7 +71,7 @@ public class EmendaService {
 				}
 			} 
 			
-			if (filtro.getNumero() != 0) {
+			if (filtro.getNumero() != null) {
 				String numFiltro = filtro.getNumero().toString();
 				String numObj = e.getNumero().toString();
 				if (!numObj.contains(numFiltro)) {
@@ -79,7 +79,7 @@ public class EmendaService {
 				}				
 			} 
 			
-			if (!filtro.getFuncionalProgramatica().isEmpty()) {				
+			if (!filtro.getFuncionalProgramatica().equals("")) {				
 				String funcProgFiltro = filtro.getFuncionalProgramatica();
 				String funcProgObj = e.getFuncionalProgramatica();
 				if (!funcProgObj.contains(funcProgFiltro)) {
@@ -95,6 +95,18 @@ public class EmendaService {
 			
 			if (filtro.getGnd().getId() != 0) {
 				if (filtro.getGnd() != e.getGnd()) {
+					interno.add(e);
+				}
+			}
+			
+			if (filtro.getAutor() != null && e.getAutor() != null) {
+				if (filtro.getAutor().getId() != e.getAutor().getId()) {
+					interno.add(e);
+				}
+			}
+			
+			if (filtro.getOrgaoConcedente() != null && e.getOrgaoConcedente() != null) {
+				if (filtro.getOrgaoConcedente().getId() != e.getOrgaoConcedente().getId()) {
 					interno.add(e);
 				}
 			}

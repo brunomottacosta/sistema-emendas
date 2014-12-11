@@ -17,33 +17,34 @@
 					<input type="hidden" value="${modo}" name="modo">
 								
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">Numero</label> 
 								<input type="text" name="numero" id="num_emenda" 
-								class="form-control num-emenda input-sm" value="${emenda.numero}"> 
+								class="form-control num-emenda" value="${emenda.numero}"> 
 							</div>
 							<div class="form-group">
 								<label class="control-label">Funcinoal Programática</label> 
 								<input type="text" name="funcProg" id="fnc_prog_emenda" 
-								class="form-control input-sm fnc-prog-emenda" value="${emenda.funcionalProgramatica}"> 
+								class="form-control fnc-prog-emenda" value="${emenda.funcionalProgramatica}"> 
 							</div>
 							<div class="form-group">
 								<label class="control-label">Ano</label>
-								<input type="date" name="ano" id="data_emenda" class="form-control input-sm ano-emenda" 
+								<input type="text" name="ano" id="data_emenda" class="form-control input-sm ano-emenda" 
 								value="${emenda.ano}"> 
 							</div>
+						</div>
+						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">Valor</label>	
 								<fmt:formatNumber value="${emenda.valor}" var="valor_fmt"  minFractionDigits="2"  />							
-								<input type="text" name="valor" id="valor_emenda" class="form-control input-sm money" 
+								<input type="text" name="valor" id="valor_emenda" class="form-control money" 
 								value="${valor_fmt}" maxlength="20"> 
 							</div>	
-						</div>
-						<div class="col-md-4">
 							<div class="form-group">
 								<label class="control-label">G.N.D.</label> 
-								<select id="gnd_emenda" class="form-control input-sm" name="gnd">
+								<select id="gnd_emenda" data-live-search="true"
+								class="form-control selectpicker" name="gnd">
 									<c:if test="${!empty emenda.gnd}">
 										<option value="${emenda.gnd.id}">
 											${emenda.gnd.numero} - ${emenda.gnd.descricao}
@@ -56,7 +57,8 @@
 							</div>								
 							<div class="form-group">
 								<label class="control-label">Modalidade de Aplicacao</label> 
-								<select id="mda_emenda" class="form-control input-sm" name="modApp">
+								<select id="mda_emenda" data-live-search="true"
+								class="form-control selectpicker" name="modApp">
 									<c:if test="${!empty emenda.modalidadeDeAplicacao}">
 										<option value="${emenda.modalidadeDeAplicacao.id}">
 											${emenda.modalidadeDeAplicacao.numero} - ${emenda.modalidadeDeAplicacao.descricao}
@@ -67,9 +69,26 @@
 									</c:forEach>
 								</select> 
 							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Tipo de Emenda</label> 
+								<select id="tipo_emenda" data-live-search="true"
+								class="form-control selectpicker" name="tipoEmenda">
+									<c:if test="${!empty emenda.tipoEmenda}">
+										<option value="${emenda.tipoEmenda.id}">
+											${emenda.tipoEmenda.descricao}
+										</option>
+									</c:if>
+									<c:forEach items="${tipoEmenda}" var="tipo_var">
+										<option value="${tipo_var.id}">${tipo_var.numero} - ${tipo_var.descricao}</option>
+									</c:forEach>
+								</select> 
+							</div>	
 							<div class="form-group">
 								<label class="control-label">Autor</label> 
-								<select id="autor_emenda" class="form-control input-sm" name="idAutor">
+								<select id="autor_emenda" data-live-search="true"
+								class="form-control selectpicker" name="idAutor">
 									<c:if test="${!empty emenda.autor}">
 										<option value="${emenda.autor.id}">${emenda.autor.nome}</option>
 									</c:if>
@@ -81,7 +100,8 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label">Orgão Concedente</label> 
-								<select id="org_conced_emenda" class="form-control input-sm" name="idOrgaoConced">
+								<select id="org_conced_emenda" data-live-search="true"
+								class="form-control selectpicker" name="idOrgaoConced">
 									<c:if test="${!empty emenda.orgaoConcedente}">
 										<option value="${emenda.orgaoConcedente.id}">${emenda.orgaoConcedente.nome}</option>
 									</c:if>

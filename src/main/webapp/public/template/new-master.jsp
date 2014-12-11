@@ -13,14 +13,17 @@
         <!-- CSS -->
         <link href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/data-table/css/jquery.dataTables.bootstrap.css' />" rel="stylesheet"/>
+       	<link href="<c:url value='/resources/bootstrap/bootstrap-select/css/bootstrap-select.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/font-awesome.min.css' />" rel="stylesheet"/>
-         <link href="<c:url value='/resources/css/default.css' />" rel="stylesheet"/>
+        <link href="<c:url value='/resources/css/default.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/stick-botton.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"/>
         
         <!-- SCRIPT -->
         <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+        <script src="<c:url value='/resources/js/jquery-ui.min.js' />"></script>
         <script src="<c:url value='/resources/js/default.js' />" ></script>
+        <script src="<c:url value='/resources/bootstrap/bootstrap-select/js/bootstrap-select.min.js' />" ></script>
         <script src="<c:url value='/resources/js/jquery.maskMoney.min.js' />" ></script>
         <script src="<c:url value='/resources/js/jquery.mask.js' />" ></script>
         <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>
