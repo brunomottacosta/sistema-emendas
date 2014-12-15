@@ -22,6 +22,7 @@ import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
 import br.com.convergencia.emendas.model.Emenda;
+import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.AutorService;
 import br.com.convergencia.emendas.service.EmendaService;
 import br.com.convergencia.emendas.service.OrgaoConcedenteService;
@@ -43,6 +44,7 @@ public class EmendaController {
 	@Autowired private EmendaService emendaService;
 	@Autowired private AutorService autorService;
 	@Autowired private ProgramaService programaService;
+	@Autowired private AcaoService acaoService;
 	@Autowired private OrgaoConcedenteService orgaoConcedenteService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
@@ -151,6 +153,7 @@ public class EmendaController {
 		model.addAttribute("gnd", Arrays.asList(GND.values()));
 		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
 		model.addAttribute("programas", programaService.listAll());
+		model.addAttribute("acoes", acaoService.listAll());		
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 				
@@ -171,6 +174,7 @@ public class EmendaController {
 		model.addAttribute("gnd", Arrays.asList(GND.values()));		
 		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
 		model.addAttribute("programas", programaService.listAll());
+		model.addAttribute("acoes", acaoService.listAll());	
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 		

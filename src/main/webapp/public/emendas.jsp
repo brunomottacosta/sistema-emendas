@@ -17,13 +17,13 @@
 			<!-- BOTOES DE ACAO -->
 			<!-- ############## -->
 							
+			<div class="page-header">
+				<h2 class="text-info">Filtros de busca para Emendas</h2>  						
+			</div>		
+			
 			<div class="row" style="margin-bottom: 20px">
 			
-				<div class="col-md-12">
-					
-					<div class="page-header">
-						<h2 class="text-info">Filtros de busca para Emendas</h2>  						
-					</div>		
+				<div class="col-md-12">					
 					
 					<button id="btn_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-search"></i> FILTRAR
@@ -32,8 +32,49 @@
 						<i class="fa fa-close"></i> LIMPAR
 					</button>						
 					
-				</div>	
+				</div>
+				
+			</div>	
+			<div class="panel panel-default">	
+				
+				<div class="panel-body">
+					
+					<p class="text-info">Escolha as colunas que serão apresentadas:</p>
+					
+					<div class="btn-group" data-toggle="buttons">
+											
+						<a class="btn btn-checkbox toggle-visible" data-column="0">
+							Ano
+						</a>						
+						<a class="btn btn-checkbox toggle-visible" data-column="1">
+							Número
+						</a>	 
+						<a class="btn btn-checkbox toggle-visible" data-column="2">
+							Autor
+						</a>
+						<a class="btn btn-checkbox toggle-visible" data-column="3">
+							Orgão
+						</a>
+						<a class="btn btn-checkbox toggle-visible" data-column="4">
+							Programática
+						</a>
+						<a class="btn btn-checkbox toggle-visible" data-column="5">
+							Tipo
+						</a>
+						<a class="btn btn-checkbox toggle-visible" data-column="6">
+							Modalidade
+						</a>
+						<a class="btn btn-checkbox toggle-visible" data-column="7">
+							G.N.D.
+						</a>
+						<a class="btn btn-checkbox toggle-visible" data-column="8">
+							Valor
+						</a>
 							
+					</div>
+				
+				</div>			
+						
 			</div>		
 			
 			<!-- ################## -->  
@@ -163,16 +204,16 @@
     	    
     	    <div class="row" style="margin-bottom: 20px">
 			
-				<div class="col-md-12">
+				<div class="col-md-4">
 					
 					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-arrow-left"></i> VOLTAR
 					</button>
 										
-				</div>	
+				</div>				
 							
-			</div>
-    	    					
+			</div>			
+
 			<table id="tabela_emendas" class="table table-bordered">
 				<thead>
 					<tr>
@@ -231,8 +272,6 @@
 <!-- ################# -->
 
 <script type="text/javascript">
-
-
 
 // botao de deletar row do datatable
 function botao_deletar(data) {
@@ -299,7 +338,7 @@ $(document).ready( function() {
 			
 			// executa requisicao ajax para trazer os dados da busca e insere na table
 			// os dados buscados tem que ser iguais aos da table criada na inicializacao
-			var table = $("#tabela_emendas").DataTable(); 
+			var table = $("#tabela_emendas").DataTable();			
 			table.ajax.url("buscar?"
 					+ "numero=" + numero 
 					+ "&ano=" + ano 
@@ -322,6 +361,27 @@ $(document).ready( function() {
 	});	
 });
 
+// escolher colunas que serão visualizadas
+$(document).ready(function() {
+    var table = $('#tabela_emendas').DataTable();
+    
+    // esconde todas as colunas por padrão
+    for (i = 0 ; i <= 8 ; i++) {
+	 	var hide = table.column( i );
+	 	hide.visible( ! hide.visible() );
+    }
+    
+    $('a.toggle-visible').on('click', function (e) {
+        e.preventDefault();
+ 
+        // atribui o valor da coluna ao data-column do botão que seleciona
+        var column = table.column( $(this).attr('data-column') );
+ 
+        // torna visível a coluna
+        column.visible( ! column.visible() );
+    } );
+} );
+
 // resetar pesquisa
 $("#btn_resetar").click( function() {		
 	
@@ -329,6 +389,7 @@ $("#btn_resetar").click( function() {
 	$(".input-pesquisa").val(null);
 	$(".drop-pesquisa").val(0);
 	$(".filter-option").html("Nenhum");	
+	$(".toggle-visible").removeClass("active");
 });
 
 

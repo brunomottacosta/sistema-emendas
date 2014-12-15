@@ -114,7 +114,6 @@
 								<c:if test="${!empty emenda.autor}">
 									<option value="${emenda.autor.id}">${emenda.autor.nome}</option>
 								</c:if>
-								<option value="0">Nenhum</option>
 								<c:forEach items="${autores}" var="autor_var" >
 									<option value="${autor_var.id}">${autor_var.nome}</option>
 								</c:forEach>
@@ -127,7 +126,6 @@
 								<c:if test="${!empty emenda.orgaoConcedente}">
 									<option value="${emenda.orgaoConcedente.id}">${emenda.orgaoConcedente.nome}</option>
 								</c:if>
-								<option value="0">Nenhum</option>
 								<c:forEach items="${orgaos}" var="org_conced_var" >
 									<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
 								</c:forEach>
@@ -141,15 +139,38 @@
 							class="form-control selectpicker" name="idPrograma">
 								<c:if test="${!empty emenda.programa}">
 									<option value="${emenda.programa.id}">${emenda.programa.nome}</option>
-								</c:if>
-								<option value="0">Nenhum</option>
+								</c:if>							
 								<c:forEach items="${programas}" var="programa_var" >
 									<option value="${programa_var.id}">${programa_var.nome}</option>
 								</c:forEach>
 							</select> 
+						</div>
+						<div class="form-group">
+							<label class="control-label">Ações</label>
+							
+							<select id="acao_emenda" data-live-search="true"
+							class="form-control selectpicker" name="idAcao">
+								<c:forEach items="${acoes}" var="acao_var" >
+									<option value="${acao_var.id}_${acao_var.nome}">${acao_var.nome}</option>
+								</c:forEach>
+							</select>
+							<a id="select_acao" class="btn" href="#">
+								<i class="fa fa-plus"></i> Incluir
+							</a>
+							<table id="tb_select_acao">
+								<thead>
+									<tr>											
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>											
+								</tbody>
+							</table>							
+							
 						</div>	
 					</div>
-				</div>					
+				</div>							
 			</form>
 			
 			<!-- ##################### -->	
@@ -184,7 +205,22 @@
 
 <script>
 
-//salvar
+$(document).ready( function() {
+	$("#select_acao").click( function() {
+		var split = $("#acao_emenda").val().split("_");
+		var id = split[0];
+		var title = split[1];
+		$("#tb_select_acao tbody").append(
+				"<tr>" +
+				"<td id='" + id + "'>" + title + "</td>" +
+				"<tr>"				
+		);
+		$('#acao_emenda').find('[value="'+ $("#acao_emenda").val() +'"]').remove();
+		$('#acao_emenda').selectpicker("refresh");
+	});
+});
+
+// salvar
 $(document).ready( function() {
 	$("#btn_salvar_emenda").click( function() {
 		$("#form_nova_emenda").submit();
