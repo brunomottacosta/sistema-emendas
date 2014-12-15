@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +28,10 @@ public class Acao implements Serializable {
 	
 	@OneToMany
 	private List<Produto> produtos;
+	
+	@ManyToOne
+	@JoinColumn(name = "idn_programa", referencedColumnName = "idn_programa")
+	private Programa programa;
 
 	public Integer getId() {
 		return id;
@@ -49,6 +55,14 @@ public class Acao implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public Programa getPrograma() {
+		return programa;
+	}
+
+	public void setPrograma(Programa programa) {
+		this.programa = programa;
 	}
 
 }

@@ -35,6 +35,9 @@
 				<li>
 					<a href="/sistema/programa/lista">Programa</a>
 				</li>
+				<li>
+					<a href="/sistema/acao/lista">Ação</a>
+				</li>
 			</ul>
 		</li>	
 		
@@ -42,20 +45,20 @@
 	
 </section>
 
-<!-- BARRA SUPERIOR -->
+<!-- BARRA FERRAMENTAS SUPERIOR -->
 
 <section id="tools">
+	
+	<nav class="navbar navbar-default mid-navbar" role="navigation">
+  		<div class="container-fluid">
+    		<ul class="nav navbar-nav">
+    			<li>
+    				<a href="#">
+    					LINK
+    				</a>
+    			</li>
+    		</ul>
+  		</div>
+	</nav>
 
-	<ul class="breadcrumb" id="breadcrumb">
-	
-		<li>
-			<a href="#"></a>
-		</li>
-		
-<!-- 		<li class="active"> -->
-<!-- 			<a href="#">ipsum</a> -->
-<!-- 		</li> -->
-		
-	</ul>
-	
 </section>

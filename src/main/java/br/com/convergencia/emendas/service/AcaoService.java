@@ -3,11 +3,13 @@ package br.com.convergencia.emendas.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.repository.AcaoRepository;
 
+@Service
 public class AcaoService {
 	
 	@Autowired private AcaoRepository acaoRepository;

@@ -24,3 +24,9 @@
 .center-td {
 	text-align: center;
 }
+
+.mid-navbar {
+	border-radius: 0px !important;
+	background-color: #dddddd!important;
+	border-color: #dddddd!important;
+}

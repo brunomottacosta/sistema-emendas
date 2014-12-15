@@ -3,7 +3,7 @@
 <!-- MODAL PARA EDITAR AUTOR -->
 <div class="modal fade" id="edit_programa_modal" tabindex="-1" role="dialog"  aria-hidden="true">
 
-	<div class="modal-dialog modal-sm">
+	<div class="modal-dialog">
 
 		<div class="modal-content">
 
@@ -12,7 +12,7 @@
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
 
-				<h4 class="modal-title">ALTERAR AUTOR</h4>
+				<h4 class="modal-title">Editar Programa:</h4>
 
 			</div>
 			

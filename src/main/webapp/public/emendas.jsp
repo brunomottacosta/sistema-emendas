@@ -164,7 +164,7 @@
 					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-arrow-left"></i> VOLTAR
 					</button>
-					
+										
 				</div>	
 							
 			</div>
@@ -189,7 +189,7 @@
 				<!-- ######################## -->
 				
 			</table>
-		
+			
 		</div>
 		
 		<!-- #################### -->
@@ -199,7 +199,6 @@
 	</div>			 				
 
 </div>
-
 
 <!-- ############# -->
 <!-- MODAL LOADING -->
@@ -246,11 +245,7 @@ function botao_editar(data) {
 
 // datatable
 $(document).ready(function() {
-	$("#tabela_emendas").DataTable({
-		dom: 'T<"clear">lfrtip',
-		"oTableTools": {  
-             "sSwfPath": "<c:url value="../swf/copy_csv_xls_pdf.swf"/>",  
-		}, 
+	$("#tabela_emendas").DataTable({	
 		"filter": false,
 		"sAjaxDataProp": "",
 		"bProcessing": true,
@@ -318,16 +313,15 @@ $(document).ready( function() {
 });
 
 // resetar pesquisa
-$(document).ready( function() {
-	$("#btn_resetar").click( function() {		
-		
-		// limpa campos de pesquisa
-		$(".input-pesquisa").val(null);
-		$(".drop-pesquisa").val(0);
-		$(".filter-option").html("Nenhum");
-		
-	});
+$("#btn_resetar").click( function() {		
+	
+	// limpa campos de pesquisa
+	$(".input-pesquisa").val(null);
+	$(".drop-pesquisa").val(0);
+	$(".filter-option").html("Nenhum");
+	
 });
+
 
 // voltar para os filtros
 $("#btn_voltar_filtro").click( function() {
@@ -355,6 +349,5 @@ function remove_ajax(id) {
 		});
     });	
 }	
-
 
 </script>

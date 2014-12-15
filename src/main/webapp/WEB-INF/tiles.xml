@@ -36,6 +36,10 @@
     
     <definition name="lista-programa" extends="master.page">
         <put-attribute name="body" value="/public/tabelas/lista-programa.jsp"/>
-    </definition>    
+    </definition> 
+     
+    <definition name="lista-acao" extends="master.page">
+        <put-attribute name="body" value="/public/tabelas/lista-acao.jsp"/>
+    </definition>   
     
 </tiles-definitions>

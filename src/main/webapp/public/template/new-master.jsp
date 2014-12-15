@@ -13,7 +13,6 @@
         <!-- CSS -->
         <link href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/data-table/css/jquery.dataTables.bootstrap.css' />" rel="stylesheet"/>
-        <link href="<c:url value='/resources/data-table/css/jquery.dataTables.tools.css' />" rel="stylesheet"/>
        	<link href="<c:url value='/resources/bootstrap/bootstrap-select/css/bootstrap-select.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/font-awesome.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/default.css' />" rel="stylesheet"/>
@@ -30,9 +29,7 @@
         <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>
         <script src="<c:url value='/resources/data-table/js/jquery.dataTables.js' />" ></script>
         <script src="<c:url value='/resources/data-table/js/jquery.dataTables.bootstrap.js' />" ></script>
-        <script src="<c:url value='/resources/data-table/js/jquery.dataTables.tools.js' />" ></script>
-        <script src="<c:url value='/resources/data-table/js/jquery.dataTables.tools.bootstrap.js' />" ></script>
-        <script src="<c:url value='/resources/js/validation.js' />" ></script>
+        <script src="<c:url value='/resources/js/jspdf.debug.js' />" ></script>
         <script src="<c:url value='/resources/js/js.js' />" ></script>
         
     </head>
