@@ -62,8 +62,8 @@ public class Emenda implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_programa", referencedColumnName = "idn_programa")
-	private Programa programa;	
-
+	private Programa programa;
+	
 	public Integer getId() {
 		return id;
 	}

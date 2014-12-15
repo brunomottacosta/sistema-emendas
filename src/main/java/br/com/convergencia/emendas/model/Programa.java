@@ -24,9 +24,9 @@ public class Programa implements Serializable {
 	@Column(name = "nome_programa")
 	private String nome;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "programa")
 	private List<Acao> acoes;
-
+	
 	public Integer getId() {
 		return id;
 	}

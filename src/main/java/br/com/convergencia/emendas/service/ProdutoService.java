@@ -3,11 +3,13 @@ package br.com.convergencia.emendas.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.convergencia.emendas.model.Produto;
 import br.com.convergencia.emendas.repository.ProdutoRepository;
 
+@Service
 public class ProdutoService {
 	
 	@Autowired private ProdutoRepository produtoRepository;

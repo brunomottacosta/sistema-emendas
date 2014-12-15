@@ -25,6 +25,7 @@ import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.AutorService;
 import br.com.convergencia.emendas.service.EmendaService;
 import br.com.convergencia.emendas.service.OrgaoConcedenteService;
+import br.com.convergencia.emendas.service.ProgramaService;
 import br.com.convergencia.emendas.util.ConversorUtil;
 import br.com.convergencia.emendas.wrapper.EmendaWrapper;
 
@@ -41,6 +42,7 @@ public class EmendaController {
 	@Autowired private ConversorUtil conversor;
 	@Autowired private EmendaService emendaService;
 	@Autowired private AutorService autorService;
+	@Autowired private ProgramaService programaService;
 	@Autowired private OrgaoConcedenteService orgaoConcedenteService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
@@ -148,10 +150,11 @@ public class EmendaController {
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
 		model.addAttribute("gnd", Arrays.asList(GND.values()));
 		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
+		model.addAttribute("programas", programaService.listAll());
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 				
-		return "dados-emenda";
+		return "cadastro-emenda";
 	}
 	
 	/** IR PARA EDITAR ATUAL **/
@@ -167,10 +170,11 @@ public class EmendaController {
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
 		model.addAttribute("gnd", Arrays.asList(GND.values()));		
 		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
+		model.addAttribute("programas", programaService.listAll());
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 		
-		return "dados-emenda";
+		return "cadastro-emenda";
 	}
 	
 	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
@@ -186,7 +190,8 @@ public class EmendaController {
 			@RequestParam Integer tipoEmenda,
 			@RequestParam String funcProg,
 			@RequestParam Integer idAutor,
-			@RequestParam Integer idOrgaoConced) {
+			@RequestParam Integer idOrgaoConced,
+			@RequestParam Integer idPrograma) {
 		
 		Emenda emenda = new Emenda();
 		
@@ -204,6 +209,7 @@ public class EmendaController {
 			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 			emenda.setAutor(autorService.getAutor(idAutor));
 			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+			emenda.setPrograma(programaService.getPrograma(idPrograma));
 			
 			execucao = "SALVANDO";			
 		} 
@@ -222,6 +228,7 @@ public class EmendaController {
 			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 			emenda.setAutor(autorService.getAutor(idAutor));
 			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+			emenda.setPrograma(programaService.getPrograma(idPrograma));
 			
 			execucao = "EDITANDO";
 		}

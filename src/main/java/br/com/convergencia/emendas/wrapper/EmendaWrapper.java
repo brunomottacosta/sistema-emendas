@@ -42,10 +42,18 @@ public class EmendaWrapper implements Serializable {
 	
 	public void setAllAtributtes(Emenda e) {
 		this.id = e.getId().toString();
-		this.numero = e.getNumero().toString();
-		this.ano = e.getAno().toString();		
-		this.valor = setValorToFormatMoney(e.getValor());
-		this.funcionalProgramatica = e.getFuncionalProgramatica();
+		if (e.getNumero() != null) {
+			this.numero = e.getNumero().toString();			
+		}
+		if (e.getAno() != null) {
+			this.ano = e.getAno().toString();			
+		}
+		if (e.getValor() != null) {
+			this.valor = setValorToFormatMoney(e.getValor());			
+		}
+		if (!e.getFuncionalProgramatica().isEmpty()) {
+			this.funcionalProgramatica = e.getFuncionalProgramatica();			
+		}
 		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();
 		this.tipoEmenda = TipoEmenda.getTipoEmendaById(e.getTipoEmenda().getId()).getDescricao();
 		this.gnd = GND.getGNDById(e.getGnd().getId()).getDescricao();

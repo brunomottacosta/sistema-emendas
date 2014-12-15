@@ -26,7 +26,7 @@ public class Acao implements Serializable {
 	@Column(name = "nome_acao")
 	private String nome;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "acao")
 	private List<Produto> produtos;
 	
 	@ManyToOne

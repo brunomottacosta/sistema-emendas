@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +23,11 @@ public class Produto implements Serializable {
 	
 	@Column(name = "nome_produto")
 	private String nome;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "idn_acao", referencedColumnName = "idn_acao")
+	private Acao acao;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -36,5 +42,13 @@ public class Produto implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Acao getAcao() {
+		return acao;
+	}
+
+	public void setAcao(Acao acao) {
+		this.acao = acao;
 	}
 }

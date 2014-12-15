@@ -38,6 +38,9 @@
 				<li>
 					<a href="/sistema/acao/lista">Ação</a>
 				</li>
+				<li>
+					<a href="/sistema/produto/lista">Produtos</a>
+				</li>
 			</ul>
 		</li>	
 		

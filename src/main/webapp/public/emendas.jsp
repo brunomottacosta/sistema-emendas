@@ -21,12 +21,16 @@
 			
 				<div class="col-md-12">
 					
+					<div class="page-header">
+						<h2 class="text-info">Filtros de busca para Emendas</h2>  						
+					</div>		
+					
 					<button id="btn_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-search"></i> FILTRAR
 					</button>	
 					<button id="btn_resetar" class="btn btn-warning" type="button">
 						<i class="fa fa-close"></i> LIMPAR
-					</button>	
+					</button>						
 					
 				</div>	
 							
@@ -250,6 +254,7 @@ $(document).ready(function() {
 		"sAjaxDataProp": "",
 		"bProcessing": true,
 		"deferRender": true,
+		// colunas da table, numero de colunas tem que ser exatamente igual ao declarado no html
 		"aoColumns": [
 		              {"data" : "ano"},
 		              {"data" : "numero"},
@@ -261,6 +266,7 @@ $(document).ready(function() {
 		              {"data" : "gnd"},
 		              {"data" : "valor"},
 		],
+		// definicoes da coluna, pode-se aplicar classes css, inserir links, etc.
         "columnDefs": [
         {
         	"className": "center-td",
@@ -275,8 +281,10 @@ $(document).ready(function() {
 $(document).ready( function() {
 	$("#btn_filtro").click( function() {
 				
-		// destroi a antiga table 
+		// muda o slide, de filtros para a lista
 		$("#content_pesq_emenda").hide("slide", {direction : "right"}, 500, function() {
+			
+			// abre o modal de loading para caso de demorar a carregar os dados da busca
 			$("#carregar_modal").modal("show");
 			
 			// seta os atributos da pesquisa
@@ -289,7 +297,8 @@ $(document).ready( function() {
 			var idOrgaoConced = $("#org_conced_emenda").val();
 			var idAutor = $("#autor_emenda").val();
 			
-			// cria a nova table
+			// executa requisicao ajax para trazer os dados da busca e insere na table
+			// os dados buscados tem que ser iguais aos da table criada na inicializacao
 			var table = $("#tabela_emendas").DataTable(); 
 			table.ajax.url("buscar?"
 					+ "numero=" + numero 
@@ -300,14 +309,15 @@ $(document).ready( function() {
 					+ "&funcProg=" + funcProg
 					+ "&idOrgaoConced=" + idOrgaoConced
 					+ "&idAutor=" + idAutor
-			).load();
-			
-			$("#carregar_modal").modal("hide");
-			$("#filtro_pesq_emenda").hide();
-			$("#list_pesq_emenda").show();
-			$("#carregar_modal").on("hidden.bs.modal", function() {
-				$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
-			});
+			).load( function() {
+				// depois de finalizada a busca, fecha o modal de loading
+				$("#carregar_modal").modal("hide");
+				$("#filtro_pesq_emenda").hide();
+				$("#list_pesq_emenda").show();
+				$("#carregar_modal").on("hidden.bs.modal", function() {
+					$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
+				});
+			});			
 		});
 	});	
 });
@@ -318,8 +328,7 @@ $("#btn_resetar").click( function() {
 	// limpa campos de pesquisa
 	$(".input-pesquisa").val(null);
 	$(".drop-pesquisa").val(0);
-	$(".filter-option").html("Nenhum");
-	
+	$(".filter-option").html("Nenhum");	
 });
 
 

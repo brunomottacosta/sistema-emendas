@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
-<!-- MODAL PARA EDITAR AUTOR -->
+<!-- MODAL PARA EDITAR PROGRAMA -->
 <div class="modal fade" id="edit_programa_modal" tabindex="-1" role="dialog"  aria-hidden="true">
 
 	<div class="modal-dialog">

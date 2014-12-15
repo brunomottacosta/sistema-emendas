@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.convergencia.emendas.model.Acao;
+import br.com.convergencia.emendas.model.Produto;
 import br.com.convergencia.emendas.service.AcaoService;
-import br.com.convergencia.emendas.service.ProgramaService;
+import br.com.convergencia.emendas.service.ProdutoService;
 
 @Controller
-@RequestMapping(value = "acao/")
-public class AcaoController {
+@RequestMapping(value = "produto/")
+public class ProdutoController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AcaoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProdutoController.class);
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 	// Injeções de Dependencia //
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 
+	@Autowired private ProdutoService produtoService;
 	@Autowired private AcaoService acaoService;
-	@Autowired private ProgramaService programaService;
 		
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -35,27 +35,25 @@ public class AcaoController {
 	@RequestMapping(value = "lista", method = RequestMethod.GET)
 	public String listAll(Model model) {
 		
+		model.addAttribute("produtos", produtoService.listAll());
 		model.addAttribute("acoes", acaoService.listAll());
-		model.addAttribute("programas", programaService.listAll());
 		
-		return "lista-acao";
+		return "lista-produto";
 	}
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	public String salvar(
 			@RequestParam String nome,
-			@RequestParam Integer idPrograma) {
+			@RequestParam Integer idAcao) {
 		
-		Acao acao = new Acao();		
+		Produto produto = new Produto();
 		
-		acao.setNome(nome);	
-		if (idPrograma != 0 && idPrograma != null) {
-			acao.setPrograma(programaService.getPrograma(idPrograma));
-		}
+		produto.setNome(nome);
+		produto.setAcao(acaoService.getAcao(idAcao));
 		
-		acaoService.save(acao);
+		produtoService.save(produto);
 		
-		logger.info("## SALVANDO NOVO PROGRAMA ##");
+		logger.info("## SALVANDO NOVO PRODUTO ##");
 		return "redirect:lista";
 	}
 	
@@ -63,27 +61,25 @@ public class AcaoController {
 	public String editar(
 			@RequestParam String nome, 
 			@RequestParam Integer id,
-			@RequestParam Integer idPrograma) {
+			@RequestParam Integer idAcao) {
 		
-		Acao acao = acaoService.getAcao(id);
+		Produto produto = produtoService.getProduto(id);
 		
-		acao.setNome(nome);
-		if (idPrograma != 0 && idPrograma != null) {
-			acao.setPrograma(programaService.getPrograma(idPrograma));
-		}
+		produto.setNome(nome);
+		produto.setAcao(acaoService.getAcao(idAcao));
 		
-		acaoService.update(acao);
+		produtoService.update(produto);
 		
-		logger.info("## EDITANDO PROGRAMA ID: " + acao.getId() + " ##");		
+		logger.info("## EDITANDO PRODUTO ID: " + produto.getId() + " ##");		
 		return "redirect:lista";
 	}
 	
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
-		Acao acao =  acaoService.getAcao(id);
-		acaoService.delete(acao);
+		Produto produto =  produtoService.getProduto(id);
+		produtoService.delete(produto);
 		
-		logger.info("## REMOVENDO PROGRAMA ID: " + acao.getId() + " ##");
+		logger.info("## REMOVENDO PRODUTO ID: " + produto.getId() + " ##");
 		response.setStatus(200);
 	}	
 }

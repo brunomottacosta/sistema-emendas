@@ -134,6 +134,21 @@
 							</select> 
 						</div>	
 					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">Programa</label> 
+							<select id="programa_emenda" data-live-search="true"
+							class="form-control selectpicker" name="idPrograma">
+								<c:if test="${!empty emenda.programa}">
+									<option value="${emenda.programa.id}">${emenda.programa.nome}</option>
+								</c:if>
+								<option value="0">Nenhum</option>
+								<c:forEach items="${programas}" var="programa_var" >
+									<option value="${programa_var.id}">${programa_var.nome}</option>
+								</c:forEach>
+							</select> 
+						</div>	
+					</div>
 				</div>					
 			</form>
 			

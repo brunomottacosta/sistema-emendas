@@ -63,7 +63,7 @@ public class EmendaService {
 		
 		for (Emenda e : lista) {
 			
-			if (filtro.getAno() != null) {
+			if (filtro.getAno() != null && e.getAno() != null) {
 				String anoFiltro = filtro.getAno().toString();
 				String anoObj = e.getAno().toString();
 				if (!anoObj.equals(anoFiltro)) {
@@ -71,7 +71,7 @@ public class EmendaService {
 				}
 			} 
 			
-			if (filtro.getNumero() != null) {
+			if (filtro.getNumero() != null && e.getNumero() != null) {
 				String numFiltro = filtro.getNumero().toString();
 				String numObj = e.getNumero().toString();
 				if (!numObj.contains(numFiltro)) {
@@ -79,7 +79,7 @@ public class EmendaService {
 				}				
 			} 
 			
-			if (!filtro.getFuncionalProgramatica().equals("")) {				
+			if (!filtro.getFuncionalProgramatica().equals("") && !e.getFuncionalProgramatica().equals("")) {				
 				String funcProgFiltro = filtro.getFuncionalProgramatica();
 				String funcProgObj = e.getFuncionalProgramatica();
 				if (!funcProgObj.contains(funcProgFiltro)) {
