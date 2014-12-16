@@ -364,9 +364,10 @@ $(document).ready( function() {
 // escolher colunas que serão visualizadas
 $(document).ready(function() {
     var table = $('#tabela_emendas').DataTable();
-    
+ 	var count = $('#tabela_emendas thead tr').children('th').length;
+ 	
     // esconde todas as colunas por padrão
-    for (i = 0 ; i <= 8 ; i++) {
+    for (i = 0 ; i < count ; i++) {
 	 	var hide = table.column( i );
 	 	hide.visible( ! hide.visible() );
     }

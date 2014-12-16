@@ -32,6 +32,10 @@ public class Acao implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idn_programa", referencedColumnName = "idn_programa")
 	private Programa programa;
+	
+	@ManyToOne
+	@JoinColumn(name = "idn_emenda", referencedColumnName = "idn_emenda")
+	private Emenda emenda;
 
 	public Integer getId() {
 		return id;
@@ -63,6 +67,14 @@ public class Acao implements Serializable {
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
+	}
+
+	public Emenda getEmenda() {
+		return emenda;
+	}
+
+	public void setEmenda(Emenda emenda) {
+		this.emenda = emenda;
 	}
 
 }

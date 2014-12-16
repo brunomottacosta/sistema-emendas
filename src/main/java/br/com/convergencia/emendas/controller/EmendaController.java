@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
+import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.AutorService;
@@ -195,50 +196,45 @@ public class EmendaController {
 			@RequestParam String funcProg,
 			@RequestParam Integer idAutor,
 			@RequestParam Integer idOrgaoConced,
-			@RequestParam Integer idPrograma) {
+			@RequestParam Integer idPrograma,
+			@RequestParam Integer[] idAcoes) {
 		
 		Emenda emenda = new Emenda();
 		
-		String execucao = "";
+		String execucao = "";					
 		
-		/** SE MODO = 1, ENTAO SALVA NOVO **/
-		if (modo == 1) {							
-			
-			emenda.setNumero(numero);
-			emenda.setAno(ano);
-			emenda.setFuncionalProgramatica(funcProg);
-			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
-			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
-			emenda.setGnd(GND.getGNDById(gnd));
-			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
-			emenda.setAutor(autorService.getAutor(idAutor));
-			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
-			emenda.setPrograma(programaService.getPrograma(idPrograma));
-			
-			execucao = "SALVANDO";			
-		} 
+		/** seta atributos normais do objeto **/
+		emenda.setNumero(numero);
+		emenda.setAno(ano);
+		emenda.setFuncionalProgramatica(funcProg);
+		emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
+		emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
+		emenda.setGnd(GND.getGNDById(gnd));
+		emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
+		emenda.setAutor(autorService.getAutor(idAutor));
+		emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+		emenda.setPrograma(programaService.getPrograma(idPrograma));
 		
-		/** SE MODO = 2, ENTAO EDITA ATUAL **/
-		else if (modo == 2) {
-			
-			emenda = emendaService.getEmenda(id);
-			
-			emenda.setNumero(numero);
-			emenda.setAno(ano);
-			emenda.setFuncionalProgramatica(funcProg);
-			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
-			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
-			emenda.setGnd(GND.getGNDById(gnd));
-			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
-			emenda.setAutor(autorService.getAutor(idAutor));
-			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
-			emenda.setPrograma(programaService.getPrograma(idPrograma));
-			
-			execucao = "EDITANDO";
-		}
-		
-		
+		/** salva o objeto previamente **/
 		emendaService.save(emenda);	
+		
+		/** para relacao n x m, confere o tamanho do array, **/
+		/** valida e adiciona a lista de objetos filhos no pai **/
+		if (idAcoes.length != 0) {
+			List<Integer> ids = new ArrayList<Integer>(Arrays.asList(idAcoes));
+							
+			for (Integer i : ids) {					
+				Acao a = acaoService.getAcao(i);					
+				a.setEmenda(emenda);
+				try {
+					acaoService.save(a);					
+				} catch (Exception e) {
+					emendaService.delete(emenda);
+				}
+			}								
+		}			
+		
+		execucao = "SALVANDO";
 		
 		logger.info("## " + execucao + " EMENDA ID: " + emenda.getId() + " ##");		
 		return "redirect:novo";

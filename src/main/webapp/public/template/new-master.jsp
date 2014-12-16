@@ -29,6 +29,7 @@
         <script src="<c:url value='/resources/js/jquery.maskMoney.min.js' />" ></script>
         <script src="<c:url value='/resources/js/jquery.mask.js' />" ></script>
         <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>
+        <script src="<c:url value='/resources/js/js.js' />" ></script>
         <script src="<c:url value='/resources/data-table/js/jquery.dataTables.js' />" ></script>
         <script src="<c:url value='/resources/data-table/js/jquery.dataTables.bootstrap.js' />" ></script>
         

@@ -47,10 +47,12 @@ public class AcaoService {
 		List<Acao> acoesByProfessor = new ArrayList<Acao>();
 		
 		for (Acao a : acoes) {
-			if (a.getPrograma() != null) {
-				if (a.getPrograma().getId() == programaId) {
-					acoesByProfessor.add(a);
-				}
+			if (a.getEmenda() == null) {
+				if (a.getPrograma() != null) {
+					if (a.getPrograma().getId() == programaId) {
+						acoesByProfessor.add(a);
+					}
+				}				
 			}
 		}
 		

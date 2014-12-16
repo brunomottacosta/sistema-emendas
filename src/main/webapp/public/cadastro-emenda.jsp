@@ -36,29 +36,33 @@
 					
 			<form action="salvar" method="post" id="form_nova_emenda" role="form">
 				
-				<input type="hidden" value="${emenda.id}" name="id">
-				<input type="hidden" value="${modo}" name="modo">
+				<input type="hidden" value="${emenda.id}" name="id" id="id_emenda">
+				<input type="hidden" value="${modo}" name="modo" id="modo_emenda">
 							
 				<div class="row">
 					<div class="col-md-3">
-						<div class="form-group">
-							<label class="control-label">Numero</label> 
-							<input type="text" name="numero" id="num_emenda" 
-							class="form-control num-emenda" value="${emenda.numero}"> 
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Numero</label> 
+									<input type="text" name="numero" id="num_emenda" 
+									class="form-control num-emenda" value="${emenda.numero}"> 
+								</div>							
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Ano</label>
+									<input type="text" name="ano" id="ano_emenda" 
+									class="form-control ano-emenda" 
+									value="${emenda.ano}"> 
+								</div>
+							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Funcinoal Programática</label> 
 							<input type="text" name="funcProg" id="fnc_prog_emenda" 
 							class="form-control fnc-prog-emenda" value="${emenda.funcionalProgramatica}"> 
-						</div>
-						<div class="form-group">
-							<label class="control-label">Ano</label>
-							<input type="text" name="ano" id="ano_emenda" 
-							class="form-control input-sm ano-emenda" 
-							value="${emenda.ano}"> 
-						</div>
-					</div>
-					<div class="col-md-3">
+						</div>						
 						<div class="form-group">
 							<label class="control-label">Valor</label>	
 							<fmt:formatNumber value="${emenda.valor}" var="valor_fmt"  minFractionDigits="2"  />							
@@ -86,6 +90,8 @@
 								</c:forEach>
 							</select> 
 						</div>								
+					</div>
+					<div class="col-md-3">
 						<div class="form-group">
 							<label class="control-label">Modalidade de Aplicacao</label> 
 							<select id="mda_emenda" data-live-search="true"
@@ -107,8 +113,6 @@
 								</c:forEach>
 							</select> 
 						</div>
-					</div>
-					<div class="col-md-3">
 						<div class="form-group">
 							<label class="control-label">Tipo de Emenda</label> 
 							<select id="tipo_emenda" data-live-search="true"
@@ -148,9 +152,6 @@
 							</select> 
 						</div>	
 					</div>					
-				</div>
-				
-				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="control-label">Programa</label> 
@@ -171,24 +172,21 @@
 								<div class="panel-heading"  style="border: 0px !important">
 									<div class="row">
 										<div class="col-md-2">
-											<a id="select_acao" href="#" class="btn">
+											<a id="select_acao" href="#" class="btn btn-default">
 												<i class="fa fa-plus"></i> Incluir
 											</a>
 										</div>
 										<div class="col-md-10">
 											<select id="acao_emenda" data-live-search="true"
-											class="form-control selectpicker" name="idAcao">
-<%-- 												<c:forEach items="${acoes}" var="acao_var" > --%>
-<%-- 													<option value="${acao_var.id}_${acao_var.nome}">${acao_var.nome}</option> --%>
-<%-- 												</c:forEach> --%>
+											class="form-control selectpicker">
 											</select>
+											<table class="table" id="tb_select_acao">							
+												<tbody>											
+												</tbody>
+											</table>								
 										</div>
 									</div>
 								</div>								
-								<table class="table" id="tb_select_acao">							
-									<tbody>											
-									</tbody>
-								</table>								
 							</div>
 							
 						</div>	
@@ -229,6 +227,7 @@
 	});	
 })();
 
+// troca a lista do combobox de acao de acordo com o programa
 $("#programa_emenda").on("change", function() {
 	$("#acao_emenda").empty();
 	var id = $("#programa_emenda").val();
@@ -253,19 +252,21 @@ $("#programa_emenda").on("change", function() {
 // incluir acao a lista para adicionar
 $(document).ready( function() {
 	$("#select_acao").click( function() {
-		var value = $("#acao_emenda").val();
-		var split = value.split("_");
-		var id = split[0];
-		var title = split[1];
-		$("#tb_select_acao tbody").append(
-				"<tr class='" + id + "'>" +
-				"<td id='" + id + "' class='add-acao' style='width:90%'>" + title + "</td>" +
-				"<td id='ac_" + id + "' style='width:10%'>" +
-				"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a>" +
-				"</tr>"				
-		);
-		$('#acao_emenda').find('[value="'+ value +'"]').remove();
-		$('#acao_emenda').selectpicker("refresh");
+		if ($("#acao_emenda").val() != null) {			
+			var value = $("#acao_emenda").val();
+			var split = value.split("_");
+			var id = split[0];
+			var title = split[1];
+			$("#tb_select_acao tbody").append(
+					"<tr id='" + id + "'>" +
+					"<td class='add-acao' style='width:90%'>" + title + "</td>" +
+					"<td id='ac_" + id + "' style='width:10%'>" +
+					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a>" +
+					"</tr>"				
+			);
+			$('#acao_emenda').find('[value="'+ value +'"]').remove();
+			$('#acao_emenda').selectpicker("refresh");
+		} 
 	});
 });
 
@@ -276,15 +277,24 @@ function remover(obj) {
 	var title = split[1];
 	$("#ac_" + id).closest("tr").remove();
 	$("#acao_emenda").append("<option value='" + obj.id + "'>" + title + "</option>")
-	.selectpicker("refresh")
-	.selectpicker("render");	
+	.selectpicker("refresh");	
 }
 
 
 // salvar
 $(document).ready( function() {
 	$("#btn_salvar_emenda").click( function() {
-		$("#form_nova_emenda").submit();		
+		
+		var trs = $("#tb_select_acao tbody").children("tr");
+		
+		$("#form_nova_emenda").append("<select id='select-acoes' name='idAcoes' multiple='multiple' hidden='hidden'></select>");
+		$.each(trs, function(pos, obj) {
+			$("#select-acoes").append(
+				"<option value='" + obj.id + "' selected='selected'></option>"	
+			);
+		});
+		
+		$("#form_nova_emenda").submit();	
 	});	 
 });
 

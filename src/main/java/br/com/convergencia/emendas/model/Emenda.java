@@ -2,6 +2,7 @@ package br.com.convergencia.emendas.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.convergencia.emendas.enums.GND;
@@ -63,6 +65,9 @@ public class Emenda implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idn_programa", referencedColumnName = "idn_programa")
 	private Programa programa;
+	
+	@OneToMany(mappedBy="emenda")
+	private List<Acao> acoes;
 	
 	public Integer getId() {
 		return id;
@@ -151,6 +156,14 @@ public class Emenda implements Serializable {
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
-	}	
+	}
+
+	public List<Acao> getAcoes() {
+		return acoes;
+	}
+
+	public void setAcoes(List<Acao> acoes) {
+		this.acoes = acoes;
+	}
 
 }
