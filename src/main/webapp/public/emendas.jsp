@@ -388,8 +388,7 @@ $("#btn_resetar").click( function() {
 	// limpa campos de pesquisa
 	$(".input-pesquisa").val(null);
 	$(".drop-pesquisa").val(0);
-	$(".filter-option").html("Nenhum");	
-	$(".toggle-visible").removeClass("active");
+	$(".filter-option").html("Nenhum");		
 });
 
 

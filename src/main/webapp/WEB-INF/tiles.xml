@@ -42,8 +42,8 @@
         <put-attribute name="body" value="/public/tabelas/lista-acao.jsp"/>
     </definition> 
     
-    <definition name="lista-produto" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-produto.jsp"/>
+    <definition name="lista-objeto" extends="master.page">
+        <put-attribute name="body" value="/public/tabelas/lista-objeto.jsp"/>
     </definition>   
     
 </tiles-definitions>

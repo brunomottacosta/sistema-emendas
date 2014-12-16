@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.convergencia.emendas.model.Produto;
+import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.service.AcaoService;
-import br.com.convergencia.emendas.service.ProdutoService;
+import br.com.convergencia.emendas.service.ObjetoService;
 
 @Controller
-@RequestMapping(value = "produto/")
-public class ProdutoController {
+@RequestMapping(value = "objeto/")
+public class ObjetoController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProdutoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ObjetoController.class);
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 	// Injeções de Dependencia //
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 
-	@Autowired private ProdutoService produtoService;
+	@Autowired private ObjetoService objetoService;
 	@Autowired private AcaoService acaoService;
 		
 	// ~~~~~~~~~~~~~~~~~~~~//
@@ -35,10 +35,10 @@ public class ProdutoController {
 	@RequestMapping(value = "lista", method = RequestMethod.GET)
 	public String listAll(Model model) {
 		
-		model.addAttribute("produtos", produtoService.listAll());
+		model.addAttribute("objetos", objetoService.listAll());
 		model.addAttribute("acoes", acaoService.listAll());
 		
-		return "lista-produto";
+		return "lista-objeto";
 	}
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
@@ -46,14 +46,14 @@ public class ProdutoController {
 			@RequestParam String nome,
 			@RequestParam Integer idAcao) {
 		
-		Produto produto = new Produto();
+		Objeto objeto = new Objeto();
 		
-		produto.setNome(nome);
-		produto.setAcao(acaoService.getAcao(idAcao));
+		objeto.setNome(nome);
+		objeto.setAcao(acaoService.getAcao(idAcao));
 		
-		produtoService.save(produto);
+		objetoService.save(objeto);
 		
-		logger.info("## SALVANDO NOVO PRODUTO ##");
+		logger.info("## SALVANDO NOVO OBJETO ##");
 		return "redirect:lista";
 	}
 	
@@ -63,23 +63,23 @@ public class ProdutoController {
 			@RequestParam Integer id,
 			@RequestParam Integer idAcao) {
 		
-		Produto produto = produtoService.getProduto(id);
+		Objeto objeto = objetoService.getObjeto(id);
 		
-		produto.setNome(nome);
-		produto.setAcao(acaoService.getAcao(idAcao));
+		objeto.setNome(nome);
+		objeto.setAcao(acaoService.getAcao(idAcao));
 		
-		produtoService.update(produto);
+		objetoService.update(objeto);
 		
-		logger.info("## EDITANDO PRODUTO ID: " + produto.getId() + " ##");		
+		logger.info("## EDITANDO OBJETO ID: " + objeto.getId() + " ##");		
 		return "redirect:lista";
 	}
 	
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
-		Produto produto =  produtoService.getProduto(id);
-		produtoService.delete(produto);
+		Objeto objeto =  objetoService.getObjeto(id);
+		objetoService.delete(objeto);
 		
-		logger.info("## REMOVENDO PRODUTO ID: " + produto.getId() + " ##");
+		logger.info("## REMOVENDO OBJETO ID: " + objeto.getId() + " ##");
 		response.setStatus(200);
 	}	
 }

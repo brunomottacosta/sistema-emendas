@@ -1,5 +1,8 @@
 package br.com.convergencia.emendas.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -7,13 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.ProgramaService;
+import br.com.convergencia.emendas.wrapper.AcaoWrapper;
 
 @Controller
 @RequestMapping(value = "acao/")
@@ -55,7 +61,7 @@ public class AcaoController {
 		
 		acaoService.save(acao);
 		
-		logger.info("## SALVANDO NOVO PROGRAMA ##");
+		logger.info("## SALVANDO NOVO ACAO ##");
 		return "redirect:lista";
 	}
 	
@@ -74,7 +80,7 @@ public class AcaoController {
 		
 		acaoService.update(acao);
 		
-		logger.info("## EDITANDO PROGRAMA ID: " + acao.getId() + " ##");		
+		logger.info("## EDITANDO ACAO ID: " + acao.getId() + " ##");		
 		return "redirect:lista";
 	}
 	
@@ -83,7 +89,23 @@ public class AcaoController {
 		Acao acao =  acaoService.getAcao(id);
 		acaoService.delete(acao);
 		
-		logger.info("## REMOVENDO PROGRAMA ID: " + acao.getId() + " ##");
+		logger.info("## REMOVENDO ACAO ID: " + acao.getId() + " ##");
 		response.setStatus(200);
-	}	
+	}
+	
+	@RequestMapping(value = "lista/programa/{programaId}", method = RequestMethod.GET)
+	public @ResponseBody List<AcaoWrapper> acoesPorPrograma(@PathVariable Integer programaId) {
+		
+		List<Acao> acoes = acaoService.findByProgramaId(programaId);
+		List<AcaoWrapper> wrapper = new ArrayList<AcaoWrapper>();
+		
+		for (Acao a : acoes) {
+			AcaoWrapper aw = new AcaoWrapper();
+			aw.setAllAttributes(a);
+			
+			wrapper.add(aw);
+		}
+		
+		return wrapper;
+	}
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
-<!-- MODAL PARA EDITAR PRODUTO -->
-<div class="modal fade" id="edit_produto_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+<!-- MODAL PARA EDITAR OBJETO -->
+<div class="modal fade" id="edit_objeto_modal" tabindex="-1" role="dialog"  aria-hidden="true">
 
 	<div class="modal-dialog">
 
@@ -18,18 +18,18 @@
 			
 			<div class="modal-body">
 
-				<form action="editar" method="POST" role="form" id="form_edita_produto">									
+				<form action="editar" method="POST" role="form" id="form_edita_objeto">									
 					
-					<input type="hidden" name="id" id="produto_id_edit"> 
+					<input type="hidden" name="id" id="objeto_id_edit"> 
 								
 					<div class="form-group">
 						<div class="input-group col-md-12">
 							<span class="input-group-addon">Nome</span>
-							<input type="text" id="produto_nome_edit" name="nome" class="form-control">								
+							<input type="text" id="objeto_nome_edit" name="nome" class="form-control">								
 						</div>
 					</div>						
 					<div class="form-group">			
-						<button id="edita_produto" class="btn btn-info btn-block">
+						<button id="edita_objeto" class="btn btn-info btn-block">
 							<i class="fa fa-floppy-o"></i> SALVAR
 						</button>
 					</div>				
@@ -49,8 +49,8 @@
 
 //salvar
 $(document).ready( function() {
-	$("#edita_produto").click( function() {
-		$("#form_edita_produto").submit();
+	$("#edita_objeto").click( function() {
+		$("#form_edita_objeto").submit();
 	});
 });
 	

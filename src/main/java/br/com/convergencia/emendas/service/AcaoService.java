@@ -1,5 +1,6 @@
 package br.com.convergencia.emendas.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,22 @@ public class AcaoService {
 	@Transactional
 	public Acao getAcao(Integer id) {
 		return acaoRepository.findOne(id);
+	}
+	
+	@Transactional
+	public List<Acao> findByProgramaId(Integer programaId) {
+		
+		List<Acao> acoes = (List<Acao>) acaoRepository.findAll();
+		List<Acao> acoesByProfessor = new ArrayList<Acao>();
+		
+		for (Acao a : acoes) {
+			if (a.getPrograma() != null) {
+				if (a.getPrograma().getId() == programaId) {
+					acoesByProfessor.add(a);
+				}
+			}
+		}
+		
+		return acoesByProfessor;
 	}
 }

@@ -4,19 +4,35 @@
 
 
 
-<div class="container-fluid">	
+<div class="container-fluid">
 
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h2 class="text-info">Formulário para Cadastro</h2>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row" style="margin-bottom: 20px">
+		<div class="col-md-12">
+			<button id="btn_salvar_emenda" class="btn btn-primary"><i class="fa fa-floppy-o"></i> SALVAR</button>
+			<c:if test="${modo == 1}">
+				<a href="novo" class="btn btn-warning" ><i class="fa fa-close"></i> LIMPAR</a>			
+			</c:if>	
+			<c:if test="${modo == 2}">
+				<a href="../novo" class="btn btn-warning" ><i class="fa fa-close"></i> LIMPAR</a>			
+			</c:if>
+		</div>
+	</div>
+		
 	<div class="row">
 	
 		<div class="col-md-12">		
 			
 			<!-- ################# -->	
 			<!-- FORMULARIO EMENDA -->
-			<!-- ################# -->
-			
-			<div class="page-header">
-  				<h2 class="text-info">Formulário para Cadastro</h2>
-			</div>
+			<!-- ################# -->			
 					
 			<form action="salvar" method="post" id="form_nova_emenda" role="form">
 				
@@ -131,8 +147,11 @@
 								</c:forEach>
 							</select> 
 						</div>	
-					</div>
-					<div class="col-md-3">
+					</div>					
+				</div>
+				
+				<div class="row">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label class="control-label">Programa</label> 
 							<select id="programa_emenda" data-live-search="true"
@@ -146,27 +165,31 @@
 							</select> 
 						</div>
 						<div class="form-group">
-							<label class="control-label">Ações</label>
+							<label class="control-label">Ações</label>												
 							
-							<select id="acao_emenda" data-live-search="true"
-							class="form-control selectpicker" name="idAcao">
-								<c:forEach items="${acoes}" var="acao_var" >
-									<option value="${acao_var.id}_${acao_var.nome}">${acao_var.nome}</option>
-								</c:forEach>
-							</select>
-							<a id="select_acao" class="btn" href="#">
-								<i class="fa fa-plus"></i> Incluir
-							</a>
-							<table id="tb_select_acao">
-								<thead>
-									<tr>											
-										<th></th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>											
-								</tbody>
-							</table>							
+							<div class="panel panel-default">
+								<div class="panel-heading"  style="border: 0px !important">
+									<div class="row">
+										<div class="col-md-2">
+											<a id="select_acao" href="#" class="btn">
+												<i class="fa fa-plus"></i> Incluir
+											</a>
+										</div>
+										<div class="col-md-10">
+											<select id="acao_emenda" data-live-search="true"
+											class="form-control selectpicker" name="idAcao">
+<%-- 												<c:forEach items="${acoes}" var="acao_var" > --%>
+<%-- 													<option value="${acao_var.id}_${acao_var.nome}">${acao_var.nome}</option> --%>
+<%-- 												</c:forEach> --%>
+											</select>
+										</div>
+									</div>
+								</div>								
+								<table class="table" id="tb_select_acao">							
+									<tbody>											
+									</tbody>
+								</table>								
+							</div>
 							
 						</div>	
 					</div>
@@ -179,22 +202,7 @@
 							
 		</div>
 		
-	</div>
-	
-	<div class="row">
-	
-		<div class="col-md-12">
-			
-			<button id="btn_salvar_emenda" class="btn btn-primary"><i class="fa fa-floppy-o"></i> SALVAR</button>
-			<c:if test="${modo == 1}">
-				<a href="novo" class="btn btn-warning" ><i class="fa fa-close"></i> LIMPAR</a>			
-			</c:if>	
-			<c:if test="${modo == 2}">
-				<a href="../novo" class="btn btn-warning" ><i class="fa fa-close"></i> LIMPAR</a>			
-			</c:if>	
-		</div>
-		
-	</div>		
+	</div>	
 	
 </div>	
 
@@ -205,26 +213,79 @@
 
 <script>
 
+// inicia combobox para selecionar acao
+(function acoes() {
+	var id = $("#programa_emenda").val();
+	$.ajax({
+		type: "GET",
+		url: "../../acao/lista/programa/" + id,
+		success: function(json) {
+			$.each(json, function(pos, obj) {
+				$("#acao_emenda").append(
+					"<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>"
+				).selectpicker("refresh");
+			});
+		}
+	});	
+})();
+
+$("#programa_emenda").on("change", function() {
+	$("#acao_emenda").empty();
+	var id = $("#programa_emenda").val();
+	$("#tb_select_acao tbody").children("tr").remove();
+	$.ajax({
+		type: "GET",
+		url: "../../acao/lista/programa/" + id,
+		success: function(json) {
+			if (json.length == 0) {
+				$("#acao_emenda").selectpicker("refresh");
+			} else {
+				$.each(json, function(pos, obj) {				
+					$("#acao_emenda").append(
+						"<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>"
+					).selectpicker("refresh");
+				});				
+			}
+		}
+	});	
+});
+
+// incluir acao a lista para adicionar
 $(document).ready( function() {
 	$("#select_acao").click( function() {
-		var split = $("#acao_emenda").val().split("_");
+		var value = $("#acao_emenda").val();
+		var split = value.split("_");
 		var id = split[0];
 		var title = split[1];
 		$("#tb_select_acao tbody").append(
-				"<tr>" +
-				"<td id='" + id + "'>" + title + "</td>" +
-				"<tr>"				
+				"<tr class='" + id + "'>" +
+				"<td id='" + id + "' class='add-acao' style='width:90%'>" + title + "</td>" +
+				"<td id='ac_" + id + "' style='width:10%'>" +
+				"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a>" +
+				"</tr>"				
 		);
-		$('#acao_emenda').find('[value="'+ $("#acao_emenda").val() +'"]').remove();
+		$('#acao_emenda').find('[value="'+ value +'"]').remove();
 		$('#acao_emenda').selectpicker("refresh");
 	});
 });
 
+// remover acao da lista para adicionar
+function remover(obj) {	
+	var split = obj.id.split("_");
+	var id = split[0];
+	var title = split[1];
+	$("#ac_" + id).closest("tr").remove();
+	$("#acao_emenda").append("<option value='" + obj.id + "'>" + title + "</option>")
+	.selectpicker("refresh")
+	.selectpicker("render");	
+}
+
+
 // salvar
 $(document).ready( function() {
 	$("#btn_salvar_emenda").click( function() {
-		$("#form_nova_emenda").submit();
-	});	
+		$("#form_nova_emenda").submit();		
+	});	 
 });
 
 

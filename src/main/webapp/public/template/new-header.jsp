@@ -39,7 +39,7 @@
 					<a href="/sistema/acao/lista">Ação</a>
 				</li>
 				<li>
-					<a href="/sistema/produto/lista">Produtos</a>
+					<a href="/sistema/objeto/lista">Objeto</a>
 				</li>
 			</ul>
 		</li>	

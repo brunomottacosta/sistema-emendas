@@ -80,7 +80,7 @@ function edita_ajax(id, nome) {
 function remove_ajax(id) {
 	$.post("remover", { 'id' : id }, 
 		function() {
-			$("#acao_" + id).closest("tr").hide();
+			$("#acao_" + id).closest("tr").remove();
 	});
 }	
 

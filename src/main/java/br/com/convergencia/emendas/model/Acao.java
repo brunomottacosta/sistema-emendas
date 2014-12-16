@@ -27,7 +27,7 @@ public class Acao implements Serializable {
 	private String nome;
 	
 	@OneToMany(mappedBy = "acao")
-	private List<Produto> produtos;
+	private List<Objeto> objetos;
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_programa", referencedColumnName = "idn_programa")
@@ -49,12 +49,12 @@ public class Acao implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<Objeto> getProdutos() {
+		return objetos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProdutos(List<Objeto> objetos) {
+		this.objetos = objetos;
 	}
 
 	public Programa getPrograma() {

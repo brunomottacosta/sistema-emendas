@@ -11,13 +11,13 @@
 				
 			<div class="col-md-12">				
 				
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_produto_modal">
+				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_objeto_modal">
 					<i class="fa fa-plus"></i> NOVO					
 				</button>
 				
 				<hr />
 				
-				<table id="tabela_produtos" class="table table-bordered">
+				<table id="tabela_objetos" class="table table-bordered">
 				
 					<thead>
 						<tr>
@@ -31,19 +31,19 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach items="${produtos}" var="p">
+						<c:forEach items="${objetos}" var="obj">
 							<tr>
-								<td>${p.id}</td>
-								<td>${p.nome}</td>
-								<td>${p.acao.nome}</td>
-								<td>${p.acao.programa.nome}</td>
+								<td>${obj.id}</td>
+								<td>${obj.nome}</td>
+								<td>${obj.acao.nome}</td>
+								<td>${obj.acao.programa.nome}</td>
 								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
+									<a href="#"	onclick="edita_ajax(${obj.id},'${obj.nome}')">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
-								<td style="text-align: center" id="produto_${p.id}">
-									<a href="#" onclick="remove_ajax(${p.id})"> 
+								<td style="text-align: center" id="objeto_${obj.id}">
+									<a href="#" onclick="remove_ajax(${obj.id})"> 
 										<i class="fa fa-trash"></i>
 									</a>
 								</td>
@@ -62,10 +62,10 @@
 </div>
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/produto-modal.jsp"></c:import>
+<c:import url="../modals/objeto-modal.jsp"></c:import>
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/produto-editar-modal.jsp"></c:import>
+<c:import url="../modals/objeto-editar-modal.jsp"></c:import>
 
 
 <!-- SCRIPTS -->
@@ -73,16 +73,16 @@
 
 //editar
 function edita_ajax(id, nome) {	
-	$("#produto_id_edit").val(id);
-	$("#produto_nome_edit").val(nome);
-	$("#edit_produto_modal").modal("show");	
+	$("#objeto_id_edit").val(id);
+	$("#objeto_nome_edit").val(nome);
+	$("#edit_objeto_modal").modal("show");	
 }
 
 // remover
 function remove_ajax(id) {
 	$.post("remover", { 'id' : id }, 
 		function() {
-			$("#produto_" + id).closest("tr").hide();
+			$("#objeto_" + id).closest("tr").hide();
 	});
 }	
 
