@@ -53,11 +53,11 @@ public class Acao implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Objeto> getProdutos() {
+	public List<Objeto> getObjetos() {
 		return objetos;
 	}
 
-	public void setProdutos(List<Objeto> objetos) {
+	public void setObjetos(List<Objeto> objetos) {
 		this.objetos = objetos;
 	}
 

@@ -29,22 +29,4 @@
 	border-radius: 0px !important;
 	background-color: #dddddd !important;
 	border-color: #dddddd !important;
-}
-
-.btn-checkbox {
-	color: #333;
-	background-color: #fff;
-	border-color: #ccc;
-}
-
-.btn-checkbox:hover, .btn-checkbox:focus, .btn-checkbox:active,
-.btn-checkbox.active, .open>.dropdown-toggle.btn-checkbox {
-	color: #333;
-	background-color: #e6e6e6;
-	border-color: #adadad;
-}
-
-.btn-checkbox:active, .btn-checkbox.active, .open>.dropdown-toggle.btn-checkbox
-	{
-	background-image: none;
-}
+}s

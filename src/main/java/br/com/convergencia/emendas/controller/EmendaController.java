@@ -63,7 +63,7 @@ public class EmendaController {
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 		
-		return "lista-emenda";
+		return "pesquisa-emenda";
 	}
 	
 	/** METODO PARA LISTAR TUDO **/
@@ -154,33 +154,11 @@ public class EmendaController {
 		model.addAttribute("gnd", Arrays.asList(GND.values()));
 		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
 		model.addAttribute("programas", programaService.listAll());
-		model.addAttribute("acoes", acaoService.listAll());		
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
 				
 		return "cadastro-emenda";
-	}
-	
-	/** IR PARA EDITAR ATUAL **/
-	@RequestMapping(value = "registro/editar/{id}", method = RequestMethod.GET)
-	public String selecionar(@PathVariable Integer id, Model model) {
-		
-		Emenda emenda = emendaService.getEmenda(id);
-		
-		model.addAttribute("emenda", emenda);
-		model.addAttribute("modo", 2);
-		
-		/** LISTAS AUXILIARES **/
-		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
-		model.addAttribute("gnd", Arrays.asList(GND.values()));		
-		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
-		model.addAttribute("programas", programaService.listAll());
-		model.addAttribute("acoes", acaoService.listAll());	
-		model.addAttribute("autores", autorService.listAll());
-		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
-		
-		return "cadastro-emenda";
-	}
+	}	
 	
 	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
 	@RequestMapping(value = "registro/salvar", method = RequestMethod.POST)
@@ -240,13 +218,57 @@ public class EmendaController {
 		return "redirect:novo";
 	}
 	
-	@RequestMapping(value = "registro/remover", method = RequestMethod.POST)
-	public void remover(Integer id, HttpServletResponse response) {
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+	
+	/** VER EMENDA **/
+	@RequestMapping(value = "visualizar/{id}", method = RequestMethod.GET)
+	public String selecionar(@PathVariable Integer id, Model model) {
+		
 		Emenda emenda = emendaService.getEmenda(id);
-		emendaService.delete(emenda);
+		
+		model.addAttribute("emenda", emenda);
+		
+		/** LISTAS AUXILIARES **/
+		model.addAttribute("acoesDaEmenda", acaoService.findByEmendaId(id));
+		
+		return "ver-emenda";
+	}
+	
+	@RequestMapping(value = "lista", method = RequestMethod.GET)
+	public String lista(Model model) {
+		model.addAttribute("emendas", emendaService.listAll());
+		
+		return "lista-emenda";
+	}
+	
+	/** REMOVER EMENDA ATRAVEZ DA LISTA AUXILIAR **/
+	@RequestMapping(value = "remover", method = RequestMethod.POST)
+	public void remover(Integer id, HttpServletResponse response) {
+		
+		Emenda emenda = emendaService.getEmenda(id);
+		List<Acao> acoesByEmenda = acaoService.findByEmendaId(id);
+		
+		if (!acoesByEmenda.isEmpty()) {
+			int n = acoesByEmenda.size();
+			try {
+				for (Acao a : acoesByEmenda) {
+					a.setEmenda(null);				
+					acaoService.save(a);				
+				}				
+			} catch (Exception e) {
+				logger.debug("## ERRO AO DELETAR EMENDA ##");
+			}
+			logger.debug("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
+		}
+		
+		try {
+			emendaService.delete(emenda);			
+		} catch (Exception e) {
+			logger.debug("## ERRO AO REMOVER EMENDA ID: " + emenda.getId() + " ##");
+		}
 		
 		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		
 		response.setStatus(200);
 	}	
-	
 }

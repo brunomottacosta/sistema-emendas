@@ -16,15 +16,23 @@
         <put-attribute name="body" value="/public/index.jsp"/>
     </definition>
     
-    <definition name="lista-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/emendas.jsp"/>
+    <definition name="pesquisa-emenda" extends="master.page">
+        <put-attribute name="body" value="/public/emenda/pesquisa-emenda.jsp"/>
     </definition>
     
     <definition name="cadastro-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/cadastro-emenda.jsp"/>
+        <put-attribute name="body" value="/public/emenda/cadastro-emenda.jsp"/>
+    </definition>
+    
+    <definition name="ver-emenda" extends="master.page">
+        <put-attribute name="body" value="/public/emenda/ver-emenda.jsp"/>
     </definition>
     
     <!-- LISTAS AUXILIARES - AQUI NENHUMA PAGINA POSSUI HEADER E FOOTER -->
+    
+    <definition name="lista-emenda" extends="master.page">
+        <put-attribute name="body" value="/public/tabelas/lista-emenda.jsp"/>
+    </definition>
     
     <definition name="lista-autor" extends="master.page">
         <put-attribute name="body" value="/public/tabelas/lista-autor.jsp"/>

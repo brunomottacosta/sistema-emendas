@@ -27,6 +27,9 @@
 			<a href="#">Formulários</a>					
 			<ul class="dropdown-menu">
 				<li>
+					<a href="/sistema/emenda/lista">Emenda</a>
+				</li>
+				<li>
 					<a href="/sistema/autor/lista">Autor</a>
 				</li>
 				<li>

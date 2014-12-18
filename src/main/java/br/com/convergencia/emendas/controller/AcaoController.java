@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.convergencia.emendas.model.Acao;
+import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.service.AcaoService;
+import br.com.convergencia.emendas.service.ObjetoService;
 import br.com.convergencia.emendas.service.ProgramaService;
 import br.com.convergencia.emendas.wrapper.AcaoWrapper;
 
@@ -33,6 +35,7 @@ public class AcaoController {
 
 	@Autowired private AcaoService acaoService;
 	@Autowired private ProgramaService programaService;
+	@Autowired private ObjetoService objetoService;
 		
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -87,12 +90,25 @@ public class AcaoController {
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		Acao acao =  acaoService.getAcao(id);
+		
+		if (!acao.getObjetos().isEmpty()) {
+			try {
+				for (Objeto o : acao.getObjetos()) {
+					o.setAcao(null);
+					objetoService.save(o);
+				}				
+			} catch (Exception e) {
+				logger.debug("## ERRO AO REMOVER ACAO ID: " + acao.getId() + " ##");
+			}
+		}
+		
 		acaoService.delete(acao);
 		
 		logger.info("## REMOVENDO ACAO ID: " + acao.getId() + " ##");
 		response.setStatus(200);
 	}
 	
+	/** GERA JSON PARA INSERIR LISTA DE ACOES DE ACORDO COM O PROGRAMA SELECIONADO **/
 	@RequestMapping(value = "lista/programa/{programaId}", method = RequestMethod.GET)
 	public @ResponseBody List<AcaoWrapper> acoesPorPrograma(@PathVariable Integer programaId) {
 		

@@ -70,6 +70,9 @@
 <!-- SCRIPTS -->
 <script type="text/javascript">
 
+//inicia datatables
+$("#tabela_org_conced").dataTable();
+
 //editar
 function edita_ajax(id, nome) {	
 	$("#orgao_id_edit").val(id);
@@ -79,10 +82,20 @@ function edita_ajax(id, nome) {
 
 // remover
 function remove_ajax(id) {
-	$.post("remover", { 'id' : id }, 
-		function() {
-			$("#org_" + id).closest("tr").hide();
-	});
+	var table = $("#tabela_org_conced").DataTable();
+	
+	// seta linha como selecionada
+	$('#tabela_org_conced tbody').on( "click", "tr", function () {
+		$(this).addClass("selected");
+		
+		// esconde row a ser deletada
+		table.row($(".selected")).remove().draw( false );
+		
+		// executa funcao de deletar
+		$.post("remover", { "id" : id }, function() {			
+	 		table.row($(this)).remove().draw( false );
+		});
+    });	
 }	
 
 </script>

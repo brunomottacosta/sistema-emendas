@@ -69,6 +69,9 @@
 <!-- SCRIPTS -->
 <script type="text/javascript">
 
+// inicia datatables
+$("#tabela_acoes").dataTable();
+
 //editar
 function edita_ajax(id, nome) {	
 	$("#acao_id_edit").val(id);
@@ -78,10 +81,22 @@ function edita_ajax(id, nome) {
 
 // remover
 function remove_ajax(id) {
-	$.post("remover", { 'id' : id }, 
-		function() {
-			$("#acao_" + id).closest("tr").remove();
-	});
-}	
+	
+	var table = $("#tabela_acoes").DataTable();
+	
+	// seta linha como selecionada
+	$('#tabela_acoes tbody').on( "click", "tr", function () {
+		$(this).addClass("selected");
+		
+		// esconde row a ser deletada
+		table.row($(".selected")).remove().draw( false );
+		
+		// executa funcao de deletar
+		$.post("remover", { "id" : id }, function() {			
+	 		table.row($(this)).remove().draw( false );
+		});
+    });	
+}
+
 
 </script>

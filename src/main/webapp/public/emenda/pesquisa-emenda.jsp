@@ -41,33 +41,33 @@
 					
 					<p class="text-info">Escolha as colunas que serão apresentadas:</p>
 					
-					<div class="btn-group" data-toggle="buttons">
+					<div id="btn_colunas_tb" data-toggle="buttons">
 											
-						<a class="btn btn-checkbox toggle-visible" data-column="0">
+						<a class="btn btn-default toggle-visible active" data-column="0">
 							Ano
 						</a>						
-						<a class="btn btn-checkbox toggle-visible" data-column="1">
+						<a class="btn btn-default toggle-visible active" data-column="1">
 							Número
 						</a>	 
-						<a class="btn btn-checkbox toggle-visible" data-column="2">
+						<a class="btn btn-default toggle-visible active" data-column="2">
 							Autor
 						</a>
-						<a class="btn btn-checkbox toggle-visible" data-column="3">
+						<a class="btn btn-default toggle-visible active" data-column="3">
 							Orgão
 						</a>
-						<a class="btn btn-checkbox toggle-visible" data-column="4">
+						<a class="btn btn-default toggle-visible" data-column="4">
 							Programática
 						</a>
-						<a class="btn btn-checkbox toggle-visible" data-column="5">
+						<a class="btn btn-default toggle-visible" data-column="5">
 							Tipo
 						</a>
-						<a class="btn btn-checkbox toggle-visible" data-column="6">
+						<a class="btn btn-default toggle-visible" data-column="6">
 							Modalidade
 						</a>
-						<a class="btn btn-checkbox toggle-visible" data-column="7">
+						<a class="btn btn-default toggle-visible" data-column="7">
 							G.N.D.
 						</a>
-						<a class="btn btn-checkbox toggle-visible" data-column="8">
+						<a class="btn btn-default toggle-visible" data-column="8">
 							Valor
 						</a>
 							
@@ -221,7 +221,7 @@
 						<th style="width: 5em">NUMERO</th>
 						<th style="width: 10em">AUTOR</th>
 						<th style="width: 10em">ORGÃO</th>
-						<th style="width: 10em">FUNC. PROG.</th>
+						<th style="width: 10em">PROGRAMÁTICA</th>
 						<th style="width: 10em">TIPO</th>
 						<th style="width: 15em">MODALIDADE</th>
 						<th style="width: 15em">G.N.D.</th>
@@ -318,8 +318,12 @@ $(document).ready(function() {
 
 // datatable apos filtro
 $(document).ready( function() {
-	$("#btn_filtro").click( function() {
-				
+	$("#btn_filtro").click( function() {		
+		
+		var btns = $("#btn_colunas_tb").children("a");
+		
+		
+		
 		// muda o slide, de filtros para a lista
 		$("#content_pesq_emenda").hide("slide", {direction : "right"}, 500, function() {
 			
@@ -368,8 +372,10 @@ $(document).ready(function() {
  	
     // esconde todas as colunas por padrão
     for (i = 0 ; i < count ; i++) {
-	 	var hide = table.column( i );
-	 	hide.visible( ! hide.visible() );
+    	if (i > 3) {
+		 	var hide = table.column( i );
+		 	hide.visible( ! hide.visible() );    		
+    	}
     }
     
     $('a.toggle-visible').on('click', function (e) {

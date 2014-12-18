@@ -15,6 +15,7 @@ import br.com.convergencia.emendas.model.OrgaoConcedente;
 import br.com.convergencia.emendas.service.OrgaoConcedenteService;
 
 @Controller
+@RequestMapping(value = "orgao-concedente/")
 public class OrgaoConcedenteController {
 		
 	private static final Logger logger = LoggerFactory.getLogger(OrgaoConcedenteController.class);
@@ -29,7 +30,7 @@ public class OrgaoConcedenteController {
 	//   Métodos Mapeados  //
 	// ~~~~~~~~~~~~~~~~~~~~//
 	
-	@RequestMapping(value = "orgao-concedente/lista", method = RequestMethod.GET)
+	@RequestMapping(value = "lista", method = RequestMethod.GET)
 	public String listAll(Model model) {
 		
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
@@ -37,7 +38,7 @@ public class OrgaoConcedenteController {
 		return "lista-orgao-concedente";
 	}
 	
-	@RequestMapping(value = "orgao-concedente/salvar", method = RequestMethod.POST)
+	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	public String salvar(@RequestParam String nome) {
 		
 		OrgaoConcedente orgao = new OrgaoConcedente();
@@ -49,7 +50,7 @@ public class OrgaoConcedenteController {
 		return "redirect:lista";
 	}
 	
-	@RequestMapping(value = "orgao-concedente/editar", method = RequestMethod.POST)
+	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(@RequestParam String nome, @RequestParam Integer id) {
 		
 		OrgaoConcedente orgao = orgaoConcedenteService.getOrgaoConcedente(id);
@@ -61,7 +62,7 @@ public class OrgaoConcedenteController {
 		return "redirect:lista";
 	}
 	
-	@RequestMapping(value = "orgao-concedente/remover", method = RequestMethod.POST)
+	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		OrgaoConcedente orgao =  orgaoConcedenteService.getOrgaoConcedente(id);
 		orgaoConcedenteService.delete(orgao);

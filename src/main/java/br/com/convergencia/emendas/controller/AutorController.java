@@ -15,6 +15,7 @@ import br.com.convergencia.emendas.model.Autor;
 import br.com.convergencia.emendas.service.AutorService;
 
 @Controller
+@RequestMapping(value = "autor/")
 public class AutorController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AutorController.class);
@@ -29,14 +30,14 @@ public class AutorController {
 	//   Métodos Mapeados  //
 	// ~~~~~~~~~~~~~~~~~~~~//
 	
-	@RequestMapping(value = "autor/lista", method = RequestMethod.GET)
+	@RequestMapping(value = "lista", method = RequestMethod.GET)
 	public String listAll(Model model) {
 		model.addAttribute("autores", autorService.listAll());
 		
 		return "lista-autor";
 	}
 	
-	@RequestMapping(value = "autor/salvar", method = RequestMethod.POST)
+	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	public String salvar(@RequestParam String nome) {
 		
 		Autor autor = new Autor();
@@ -48,7 +49,7 @@ public class AutorController {
 		return "redirect:lista";
 	}
 	
-	@RequestMapping(value = "autor/editar", method = RequestMethod.POST)
+	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(@RequestParam String nome, @RequestParam Integer id) {
 		
 		Autor autor = autorService.getAutor(id);
@@ -56,16 +57,16 @@ public class AutorController {
 		
 		autorService.update(autor);
 		
-		logger.info("## EDITANDO AUTOR ## ID: " + autor.getId());		
+		logger.info("## EDITANDO AUTOR ID: " + autor.getId() + " ##");		
 		return "redirect:lista";
 	}
 	
-	@RequestMapping(value = "autor/remover", method = RequestMethod.POST)
+	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		Autor autor =  autorService.getAutor(id);
 		autorService.delete(autor);
 		
-		logger.info("## REMOVENDO AUTOR ## ID: " + autor.getId());
+		logger.info("## REMOVENDO AUTOR ID: " + autor.getId() + " ##");
 		response.setStatus(200);
 	}	
 }

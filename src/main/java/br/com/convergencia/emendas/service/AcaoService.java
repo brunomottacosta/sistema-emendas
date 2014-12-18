@@ -43,7 +43,7 @@ public class AcaoService {
 	@Transactional
 	public List<Acao> findByProgramaId(Integer programaId) {
 		
-		List<Acao> acoes = (List<Acao>) acaoRepository.findAll();
+		List<Acao> acoes = listAll();
 		List<Acao> acoesByProfessor = new ArrayList<Acao>();
 		
 		for (Acao a : acoes) {
@@ -57,5 +57,22 @@ public class AcaoService {
 		}
 		
 		return acoesByProfessor;
+	}
+	
+	@Transactional
+	public List<Acao> findByEmendaId(Integer emendaId) {
+		
+		List<Acao> acoes = listAll();
+		List<Acao> acoesByEmenda = new ArrayList<Acao>();
+		
+		for (Acao a : acoes) {
+			if (a.getEmenda() != null) {
+				if (a.getEmenda().getId() == emendaId) {					
+					acoesByEmenda.add(a);					
+				}				
+			}
+		}
+		
+		return acoesByEmenda;
 	}
 }
