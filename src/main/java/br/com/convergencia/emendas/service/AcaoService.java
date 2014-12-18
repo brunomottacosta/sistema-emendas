@@ -46,13 +46,15 @@ public class AcaoService {
 		List<Acao> acoes = listAll();
 		List<Acao> acoesByProfessor = new ArrayList<Acao>();
 		
-		for (Acao a : acoes) {
-			if (a.getEmenda() == null) {
-				if (a.getPrograma() != null) {
-					if (a.getPrograma().getId() == programaId) {
-						acoesByProfessor.add(a);
-					}
-				}				
+		if (programaId != 0 && programaId != null) {
+			for (Acao a : acoes) {
+				if (a.getEmenda() == null) {
+					if (a.getPrograma() != null) {
+						if (a.getPrograma().getId() == programaId) {
+							acoesByProfessor.add(a);
+						}
+					}				
+				}
 			}
 		}
 		
@@ -65,11 +67,13 @@ public class AcaoService {
 		List<Acao> acoes = listAll();
 		List<Acao> acoesByEmenda = new ArrayList<Acao>();
 		
-		for (Acao a : acoes) {
-			if (a.getEmenda() != null) {
-				if (a.getEmenda().getId() == emendaId) {					
-					acoesByEmenda.add(a);					
-				}				
+		if (emendaId != 0 && emendaId != null) {
+			for (Acao a : acoes) {
+				if (a.getEmenda() != null) {
+					if (a.getEmenda().getId() == emendaId) {					
+						acoesByEmenda.add(a);					
+					}				
+				}
 			}
 		}
 		

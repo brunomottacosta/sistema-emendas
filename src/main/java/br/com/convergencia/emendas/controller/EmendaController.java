@@ -26,6 +26,7 @@ import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.AutorService;
 import br.com.convergencia.emendas.service.EmendaService;
+import br.com.convergencia.emendas.service.ObjetoService;
 import br.com.convergencia.emendas.service.OrgaoConcedenteService;
 import br.com.convergencia.emendas.service.ProgramaService;
 import br.com.convergencia.emendas.util.ConversorUtil;
@@ -47,6 +48,7 @@ public class EmendaController {
 	@Autowired private ProgramaService programaService;
 	@Autowired private AcaoService acaoService;
 	@Autowired private OrgaoConcedenteService orgaoConcedenteService;
+	@Autowired private ObjetoService objetoService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -230,6 +232,7 @@ public class EmendaController {
 		model.addAttribute("emenda", emenda);
 		
 		/** LISTAS AUXILIARES **/
+		model.addAttribute("objetosDaEmenda", objetoService.findByAllAcoes(acaoService.findByEmendaId(id)));
 		model.addAttribute("acoesDaEmenda", acaoService.findByEmendaId(id));
 		
 		return "ver-emenda";

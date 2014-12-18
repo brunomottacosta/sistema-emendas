@@ -30,16 +30,24 @@
 					</button>	
 					<button id="btn_resetar" class="btn btn-warning" type="button">
 						<i class="fa fa-close"></i> LIMPAR
-					</button>						
+					</button>									
 					
 				</div>
 				
-			</div>	
+			</div>			
+				
 			<div class="panel panel-default">	
 				
 				<div class="panel-body">
 					
-					<p class="text-info">Escolha as colunas que serão apresentadas:</p>
+					<p class="text-info" style="height: 20px">
+						<span id="descr_col" class="text-info">
+							Escolha as colunas que serão apresentadas: 
+						</span>	
+						<span id="warning_col" class="text-warning not-visible" style="cursor: pointer;">
+							<i class="fa fa-warning fa-lg"></i> Selecione pelo menos duas colunas!
+						</span>						
+					</p>
 					
 					<div id="btn_colunas_tb" data-toggle="buttons">
 											
@@ -245,6 +253,7 @@
 
 </div>
 
+
 <!-- ############# -->
 <!-- MODAL LOADING -->
 <!-- ############# -->
@@ -320,59 +329,73 @@ $(document).ready(function() {
 $(document).ready( function() {
 	$("#btn_filtro").click( function() {		
 		
-		var btns = $("#btn_colunas_tb").children("a");
+		var btns = $("#btn_colunas_tb").children("a.active");
 		
-		
-		
-		// muda o slide, de filtros para a lista
-		$("#content_pesq_emenda").hide("slide", {direction : "right"}, 500, function() {
+		if (btns.length > 1) {			
 			
-			// abre o modal de loading para caso de demorar a carregar os dados da busca
-			$("#carregar_modal").modal("show");
-			
-			// seta os atributos da pesquisa
-			var numero = $("#num_emenda").val();
-			var funcProg = $("#fnc_prog_emenda").val();
-			var ano = $("#ano_emenda").val();
-			var idModalidade = $("#mda_emenda").val();
-			var idTipoEmenda = $("#tipo_emenda").val();
-			var idGND = $("#gnd_emenda").val();
-			var idOrgaoConced = $("#org_conced_emenda").val();
-			var idAutor = $("#autor_emenda").val();
-			
-			// executa requisicao ajax para trazer os dados da busca e insere na table
-			// os dados buscados tem que ser iguais aos da table criada na inicializacao
-			var table = $("#tabela_emendas").DataTable();			
-			table.ajax.url("buscar?"
-					+ "numero=" + numero 
-					+ "&ano=" + ano 
-					+ "&idModalidade=" + idModalidade 
-					+ "&idGND=" + idGND
-					+ "&idTipoEmenda=" + idTipoEmenda
-					+ "&funcProg=" + funcProg
-					+ "&idOrgaoConced=" + idOrgaoConced
-					+ "&idAutor=" + idAutor
-			).load( function() {
-				// depois de finalizada a busca, fecha o modal de loading
-				$("#carregar_modal").modal("hide");
-				$("#filtro_pesq_emenda").hide();
-				$("#list_pesq_emenda").show();
-				$("#carregar_modal").on("hidden.bs.modal", function() {
-					$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
-				});
+			// muda o slide, de filtros para a lista
+			$("#content_pesq_emenda").hide("slide", {direction : "right"}, 500, function() {
+				
+				// abre o modal de loading para caso de demorar a carregar os dados da busca
+				$("#carregar_modal").modal("show");
+				$("#warning_col").hide();
+				
+				// seta os atributos da pesquisa
+				var numero = $("#num_emenda").val();
+				var funcProg = $("#fnc_prog_emenda").val();
+				var ano = $("#ano_emenda").val();
+				var idModalidade = $("#mda_emenda").val();
+				var idTipoEmenda = $("#tipo_emenda").val();
+				var idGND = $("#gnd_emenda").val();
+				var idOrgaoConced = $("#org_conced_emenda").val();
+				var idAutor = $("#autor_emenda").val();
+				
+				// executa requisicao ajax para trazer os dados da busca e insere na table
+				// os dados buscados tem que ser iguais aos da table criada na inicializacao
+				var table = $("#tabela_emendas").DataTable();			
+				table.ajax.url("buscar?"
+						+ "numero=" + numero 
+						+ "&ano=" + ano 
+						+ "&idModalidade=" + idModalidade 
+						+ "&idGND=" + idGND
+						+ "&idTipoEmenda=" + idTipoEmenda
+						+ "&funcProg=" + funcProg
+						+ "&idOrgaoConced=" + idOrgaoConced
+						+ "&idAutor=" + idAutor
+				).load( function() {
+					// depois de finalizada a busca, fecha o modal de loading
+					$("#carregar_modal").modal("hide");
+					$("#filtro_pesq_emenda").hide();
+					$("#list_pesq_emenda").show();
+					$("#carregar_modal").on("hidden.bs.modal", function() {
+						$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
+					});
+				});			
 			});			
-		});
+		} else {
+			$("#descr_col").hide("fade", 250, function() {
+				$("#warning_col").show("fade", 250);
+			});
+		}		
 	});	
+});
+
+// cancelar warning de colunas
+$("#warning_col").click( function() {
+	$("#warning_col").hide("fade", 250, function() {
+		$("#descr_col").show("fade", 250);
+	})	
 });
 
 // escolher colunas que serão visualizadas
 $(document).ready(function() {
     var table = $('#tabela_emendas').DataTable();
  	var count = $('#tabela_emendas thead tr').children('th').length;
+ 	var btns = $("#btn_colunas_tb").children('a.active');
  	
     // esconde todas as colunas por padrão
     for (i = 0 ; i < count ; i++) {
-    	if (i > 3) {
+    	if (i >= btns.length) {
 		 	var hide = table.column( i );
 		 	hide.visible( ! hide.visible() );    		
     	}

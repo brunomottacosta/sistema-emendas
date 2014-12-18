@@ -59,7 +59,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">Funcinoal Programática</label> 
+							<label class="control-label">Funcional Programática</label> 
 							<input type="text" name="funcProg" id="fnc_prog_emenda" 
 							class="form-control fnc-prog-emenda" value="${emenda.funcionalProgramatica}"> 
 						</div>						
@@ -169,7 +169,7 @@
 							<label class="control-label">Ações</label>												
 							
 							<div class="panel panel-default">
-								<div class="panel-heading"  style="border: 0px !important">
+								<div class="panel-heading">
 									<div class="row">
 										<div class="col-md-2">
 											<a id="select_acao" href="#" class="btn btn-default">
@@ -177,15 +177,17 @@
 											</a>
 										</div>
 										<div class="col-md-10">
-											<select id="acao_emenda" data-live-search="true"
-											class="form-control selectpicker">
-											</select>
-											<table class="table" id="tb_select_acao">							
-												<tbody>											
-												</tbody>
-											</table>								
+											<select id="acao_emenda" data-live-search="true" class="form-control selectpicker">
+												<!-- LISTA DE ACOES POR PROGRAMA -->
+											</select>																		
 										</div>
 									</div>
+								</div>
+								<div class="panel-body">
+									<table class="table" id="tb_select_acao">							
+										<tbody>											
+										</tbody>
+									</table>	
 								</div>								
 							</div>
 							
@@ -259,9 +261,9 @@ $(document).ready( function() {
 			var title = split[1];
 			$("#tb_select_acao tbody").append(
 					"<tr id='" + id + "'>" +
-					"<td class='add-acao' style='width:90%'>" + title + "</td>" +
-					"<td id='ac_" + id + "' style='width:10%'>" +
-					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a>" +
+					"<td class='add-acao' style='width:95%; border-top: 0px;'>" + title + "</td>" +
+					"<td id='ac_" + id + "' style='width:5%; border-top: 0px;'>" +
+					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
 					"</tr>"				
 			);
 			$('#acao_emenda').find('[value="'+ value +'"]').remove();

@@ -24,6 +24,7 @@
 							<th style="width: 5%">ID</th>
 							<th>NOME</th>
 							<th>PROGRAMA</th>
+							<th>Nº EMENDA</th>
 							<th style="width: 5%"></th>
 							<th style="width: 5%"></th>
 						</tr>
@@ -35,6 +36,7 @@
 								<td>${a.id}</td>
 								<td>${a.nome}</td>
 								<td>${a.programa.nome}</td>
+								<td>${a.emenda.numero}</td>
 								<td style="text-align: center">
 									<a href="#"	onclick="edita_ajax(${a.id},'${a.nome}')">
 										<i class="fa fa-pencil-square-o"></i>

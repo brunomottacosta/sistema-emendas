@@ -1,11 +1,13 @@
 package br.com.convergencia.emendas.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.repository.ObjetoRepository;
 
@@ -37,5 +39,36 @@ public class ObjetoService {
 	@Transactional
 	public Objeto getObjeto(Integer id) {
 		return objetoRepository.findOne(id);
+	}
+	
+	@Transactional
+	public List<Objeto> findByAcao(Integer acaoId) {
+		
+		List<Objeto> objetos = listAll();
+		List<Objeto> objetosByAcao = new ArrayList<Objeto>();
+		
+		if (acaoId != 0 && acaoId != null) {
+			for (Objeto obj : objetos) {
+				if (obj.getAcao().getId() == acaoId) {
+					objetosByAcao.add(obj);
+				}
+			}
+		}
+		
+		return objetosByAcao;
+	}
+	
+	@Transactional
+	public List<Objeto> findByAllAcoes(List<Acao> acoes) {
+		
+		List<Objeto> objetosByAllAcoes = new ArrayList<Objeto>();
+		
+		if (!acoes.isEmpty()) {
+			for (Acao a : acoes) {
+				objetosByAllAcoes.addAll(findByAcao(a.getId()));
+			}
+		}
+		
+		return objetosByAllAcoes;
 	}
 }
