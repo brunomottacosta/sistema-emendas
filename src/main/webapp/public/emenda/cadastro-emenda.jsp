@@ -34,10 +34,11 @@
 			<!-- FORMULARIO EMENDA -->
 			<!-- ################# -->			
 					
-			<form action="salvar" method="post" id="form_nova_emenda" role="form">
-				
-				<input type="hidden" value="${emenda.id}" name="id" id="id_emenda">
-				<input type="hidden" value="${modo}" name="modo" id="modo_emenda">
+			<form action="salvar" method="post" id="form_nova_emenda" role="form"
+			  data-bv-message="This value is not valid"
+		      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+		      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+		      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">				
 							
 				<div class="row">
 					<div class="col-md-3">
@@ -46,38 +47,39 @@
 								<div class="form-group">
 									<label class="control-label">Numero</label> 
 									<input type="text" name="numero" id="num_emenda" 
-									class="form-control num-emenda" value="${emenda.numero}"> 
+									data-bv-notempty="true"
+									class="form-control num-emenda"
+                   					required data-bv-notempty-message="Este campo nao pode ser vazio."> 
 								</div>							
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Ano</label>
 									<input type="text" name="ano" id="ano_emenda" 
-									class="form-control ano-emenda" 
-									value="${emenda.ano}"> 
+									class="form-control ano-emenda" 									
+									data-bv-notempty="true"
+									class="form-control num-emenda"
+                   					required data-bv-notempty-message="Este campo nao pode ser vazio."> 
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Funcional Programática</label> 
 							<input type="text" name="funcProg" id="fnc_prog_emenda" 
-							class="form-control fnc-prog-emenda" value="${emenda.funcionalProgramatica}"> 
+							class="form-control fnc-prog-emenda"
+							data-bv-notempty="true"
+							class="form-control num-emenda"
+           					required data-bv-notempty-message="Este campo nao pode ser vazio."> 
 						</div>						
 						<div class="form-group">
-							<label class="control-label">Valor</label>	
-							<fmt:formatNumber value="${emenda.valor}" var="valor_fmt"  minFractionDigits="2"  />							
+							<label class="control-label">Valor</label>													
 							<input type="text" name="valor" id="valor_emenda" 
-							class="form-control money" value="${valor_fmt}" maxlength="20"> 
+							class="form-control money" maxlength="20"> 
 						</div>	
 						<div class="form-group">
 							<label class="control-label">G.N.D.</label> 
 							<select id="gnd_emenda" data-live-search="true"
-							class="form-control selectpicker" name="gnd">
-								<c:if test="${!empty emenda.gnd}">
-									<option value="${emenda.gnd.id}">
-										${emenda.gnd.numero} - ${emenda.gnd.descricao}
-									</option>
-								</c:if>
+							class="form-control selectpicker" name="gnd">	
 								<c:forEach items="${gnd}" var="gnd_var" >
 									<option value="${gnd_var.id}">
 										<c:if test="${gnd_var.id == 0}">
@@ -95,12 +97,7 @@
 						<div class="form-group">
 							<label class="control-label">Modalidade de Aplicacao</label> 
 							<select id="mda_emenda" data-live-search="true"
-							class="form-control selectpicker" name="modApp">
-								<c:if test="${!empty emenda.modalidadeDeAplicacao}">
-									<option value="${emenda.modalidadeDeAplicacao.id}">
-										${emenda.modalidadeDeAplicacao.numero} - ${emenda.modalidadeDeAplicacao.descricao}
-									</option>
-								</c:if>
+							class="form-control selectpicker" name="modApp">		
 								<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
 									<option value="${mda_var.id}">
 										<c:if test="${mda_var.id == 0}">
@@ -115,13 +112,10 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">Tipo de Emenda</label> 
-							<select id="tipo_emenda" data-live-search="true"
-							class="form-control selectpicker" name="tipoEmenda">
-								<c:if test="${!empty emenda.tipoEmenda}">
-									<option value="${emenda.tipoEmenda.id}">
-										${emenda.tipoEmenda.descricao}
-									</option>
-								</c:if>
+							<select id="tipo_emenda" 
+							data-live-search="true"
+							class="form-control selectpicker" 
+							name="tipoEmenda">
 								<c:forEach items="${tipoEmenda}" var="tipo_var">
 									<option value="${tipo_var.id}">${tipo_var.descricao}</option>
 								</c:forEach>
@@ -129,11 +123,10 @@
 						</div>	
 						<div class="form-group">
 							<label class="control-label">Autor</label> 
-							<select id="autor_emenda" data-live-search="true"
-							class="form-control selectpicker" name="idAutor">
-								<c:if test="${!empty emenda.autor}">
-									<option value="${emenda.autor.id}">${emenda.autor.nome}</option>
-								</c:if>
+							<select id="autor_emenda" 
+							data-live-search="true"
+							class="form-control selectpicker"
+							name="idAutor">
 								<c:forEach items="${autores}" var="autor_var" >
 									<option value="${autor_var.id}">${autor_var.nome}</option>
 								</c:forEach>
@@ -141,11 +134,10 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">Orgão Concedente</label> 
-							<select id="org_conced_emenda" data-live-search="true"
-							class="form-control selectpicker" name="idOrgaoConced">
-								<c:if test="${!empty emenda.orgaoConcedente}">
-									<option value="${emenda.orgaoConcedente.id}">${emenda.orgaoConcedente.nome}</option>
-								</c:if>
+							<select id="org_conced_emenda" 
+							data-live-search="true"
+							class="form-control selectpicker" 
+							name="idOrgaoConced">
 								<c:forEach items="${orgaos}" var="org_conced_var" >
 									<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
 								</c:forEach>
@@ -155,11 +147,10 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="control-label">Programa</label> 
-							<select id="programa_emenda" data-live-search="true"
-							class="form-control selectpicker" name="idPrograma">
-								<c:if test="${!empty emenda.programa}">
-									<option value="${emenda.programa.id}">${emenda.programa.nome}</option>
-								</c:if>							
+							<select id="programa_emenda" 
+							data-live-search="true"
+							class="form-control selectpicker" 
+							name="idPrograma">			
 								<c:forEach items="${programas}" var="programa_var" >
 									<option value="${programa_var.id}">${programa_var.nome}</option>
 								</c:forEach>
@@ -221,9 +212,9 @@
 		url: "../../acao/lista/programa/" + id,
 		success: function(json) {
 			$.each(json, function(pos, obj) {
-				$("#acao_emenda").append(
-					"<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>"
-				).selectpicker("refresh");
+				$("#acao_emenda")
+				.append("<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>")
+				.selectpicker("refresh");
 			});
 		}
 	});	
@@ -242,9 +233,9 @@ $("#programa_emenda").on("change", function() {
 				$("#acao_emenda").selectpicker("refresh");
 			} else {
 				$.each(json, function(pos, obj) {				
-					$("#acao_emenda").append(
-						"<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>"
-					).selectpicker("refresh");
+					$("#acao_emenda")
+					.append("<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>")
+					.selectpicker("refresh");
 				});				
 			}
 		}
@@ -259,12 +250,13 @@ $(document).ready( function() {
 			var split = value.split("_");
 			var id = split[0];
 			var title = split[1];
-			$("#tb_select_acao tbody").append(
-					"<tr id='" + id + "'>" +
-					"<td class='add-acao' style='width:95%; border-top: 0px;'>" + title + "</td>" +
-					"<td id='ac_" + id + "' style='width:5%; border-top: 0px;'>" +
-					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
-					"</tr>"				
+			$("#tb_select_acao tbody")
+			.append(
+				"<tr id='" + id + "'>" +
+				"<td class='add-acao' style='width:95%; border-top: 0px;'>" + title + "</td>" +
+				"<td id='ac_" + id + "' style='width:5%; border-top: 0px;'>" +
+				"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
+				"</tr>"				
 			);
 			$('#acao_emenda').find('[value="'+ value +'"]').remove();
 			$('#acao_emenda').selectpicker("refresh");
@@ -278,7 +270,8 @@ function remover(obj) {
 	var id = split[0];
 	var title = split[1];
 	$("#ac_" + id).closest("tr").remove();
-	$("#acao_emenda").append("<option value='" + obj.id + "'>" + title + "</option>")
+	$("#acao_emenda")
+	.append("<option value='" + obj.id + "'>" + title + "</option>")
 	.selectpicker("refresh");	
 }
 
@@ -289,16 +282,20 @@ $(document).ready( function() {
 		
 		var trs = $("#tb_select_acao tbody").children("tr");
 		
-		$("#form_nova_emenda").append("<select id='select-acoes' name='idAcoes' multiple='multiple' hidden='hidden'></select>");
+		$("#form_nova_emenda")
+		.append("<select id='select-acoes' name='idAcoes' multiple='multiple' hidden='hidden'></select>");
+		
 		$.each(trs, function(pos, obj) {
-			$("#select-acoes").append(
-				"<option value='" + obj.id + "' selected='selected'></option>"	
-			);
+			$("#select-acoes")
+			.append("<option value='" + obj.id + "' selected='selected'></option>");
 		});
 		
 		$("#form_nova_emenda").submit();	
 	});	 
 });
 
+// $(document).ready(function() {
+// 	$("#form_nova_emenda").bootstrapValidator();
+// });
 
 </script>

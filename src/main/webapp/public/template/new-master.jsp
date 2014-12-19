@@ -14,6 +14,7 @@
         <link href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/data-table/css/jquery.dataTables.bootstrap.css' />" rel="stylesheet"/>
        	<link href="<c:url value='/resources/bootstrap/bootstrap-select/css/bootstrap-select.min.css' />" rel="stylesheet"/>
+       	<link href="<c:url value='/resources/bootstrap/bootstrapvalidator/css/bootstrapValidator.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/font-awesome.min.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/css/default.css' />" rel="stylesheet"/>
         <link href="<c:url value='/resources/fuelux/css/fuelux.min.css' />" rel="stylesheet"/>
@@ -26,6 +27,7 @@
         <script src="<c:url value='/resources/js/default.js' />" ></script>
         <script src="<c:url value='/resources/fuelux/js/fuelux.min.js' />" ></script>
         <script src="<c:url value='/resources/bootstrap/bootstrap-select/js/bootstrap-select.min.js' />" ></script>
+        <script src="<c:url value='/resources/bootstrap/bootstrapvalidator/js/bootstrapValidator.min.js' />" ></script>
         <script src="<c:url value='/resources/js/jquery.maskMoney.min.js' />" ></script>
         <script src="<c:url value='/resources/js/jquery.mask.js' />" ></script>
         <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>

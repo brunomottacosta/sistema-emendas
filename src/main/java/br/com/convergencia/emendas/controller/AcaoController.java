@@ -98,7 +98,7 @@ public class AcaoController {
 					objetoService.save(o);
 				}				
 			} catch (Exception e) {
-				logger.debug("## ERRO AO REMOVER ACAO ID: " + acao.getId() + " ##");
+				logger.info("## ERRO AO REMOVER ACAO ID: " + acao.getId() + " ##");
 			}
 		}
 		

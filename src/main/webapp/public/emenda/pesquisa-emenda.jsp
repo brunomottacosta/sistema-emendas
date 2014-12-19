@@ -261,7 +261,7 @@
 							
 			</div>			
 
-			<table id="tabela_emendas" class="table table-bordered">
+			<table id="tabela_emendas" class="table table-bordered">				
 				<thead>
 					<tr>
 						<th style="width: 5em">ANO</th>
@@ -274,6 +274,7 @@
 						<th style="width: 15em">G.N.D.</th>
 						<th style="width: 10em">VALOR (R$)</th>
 						<th style="width: 10em">PROGRAMA</th>
+						<th style="width: 3em"></th>
 <!-- 						<th style="width: 10em">AÇÃO</th> -->
 <!-- 						<th style="width: 10em">OBJETO</th> -->
 					</tr>
@@ -345,7 +346,7 @@ $(document).ready(function() {
 		"bProcessing": true,
 		"deferRender": true,
 		// colunas da table, numero de colunas tem que ser exatamente igual ao declarado no html
-		"aoColumns": [
+		"aoColumns": [		      		  
 		              {"data" : "ano"},
 		              {"data" : "numero"},
 		              {"data" : "autor"},
@@ -356,13 +357,20 @@ $(document).ready(function() {
 		              {"data" : "gnd"},
 		              {"data" : "valor"},
 		              {"data" : "programa"},
+		              {"data" : "id"},
 		],
 		// definicoes da coluna, pode-se aplicar classes css, inserir links, etc.
         "columnDefs": [
         {
         	"className": "center-td",
-    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],    	    
-   	  	}]
+    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],    	    
+   	  	},
+   	  	{
+			"targets": [10],  
+			"render": function(data, type, row) {
+				return '<a href="visualizar/' + data + '"><i class="fa fa-search"></a>';
+			}
+   	   	}]
 	});
 });
 
@@ -396,10 +404,7 @@ $(document).ready( function() {
 				var idAcao = $("#acao_emenda").val();
 				var idObjeto = $("#objeto_emenda").val();
 				var valor = $("#valor_emenda").val();
-				
-				var data = $("#form_pesquisa_emenda").serializeArray();
-				console.log(data);
-				
+								
 				// executa requisicao ajax para trazer os dados da busca e insere na table
 				// os dados buscados tem que ser iguais aos da table criada na inicializacao
 				var table = $("#tabela_emendas").DataTable();			
@@ -424,7 +429,8 @@ $(document).ready( function() {
 					$("#carregar_modal").on("hidden.bs.modal", function() {
 						$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
 					});
-				});			
+				});		
+				console.log(table)	
 			});			
 		} else {
 			$("#descr_col").hide("fade", 250, function() {
@@ -448,10 +454,11 @@ $(document).ready(function() {
  	var btns = $("#btn_colunas_tb").children('a.active');
  	
     // esconde todas as colunas por padrão
+    
     for (i = 0 ; i < count ; i++) {
-    	if (i >= btns.length) {
+    	if (i >= btns.length && i < count - 1) {
 		 	var hide = table.column( i );
-		 	hide.visible( ! hide.visible() );    		
+		 	hide.visible( ! hide.visible() ); 		
     	}
     }
     

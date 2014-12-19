@@ -126,6 +126,7 @@ public class EmendaController {
 			
 		
 		/** CRIA LISTA DE OBJETOS BUSCADOS **/
+		
 		List<Emenda> emendas =  emendaService.listByFiltro(mapper);
 		List<EmendaWrapper> wrapper = new ArrayList<EmendaWrapper>();
 		
@@ -164,8 +165,6 @@ public class EmendaController {
 	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
 	@RequestMapping(value = "registro/salvar", method = RequestMethod.POST)
 	public String salvar(
-			@RequestParam Integer modo,
-			@RequestParam Integer id,
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
 			@RequestParam String valor, 
@@ -263,15 +262,15 @@ public class EmendaController {
 					acaoService.save(a);				
 				}				
 			} catch (Exception e) {
-				logger.debug("## ERRO AO DELETAR EMENDA ##");
+				logger.info("## ERRO AO DELETAR EMENDA ##");
 			}
-			logger.debug("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
+			logger.info("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
 		}
 		
 		try {
 			emendaService.delete(emenda);			
 		} catch (Exception e) {
-			logger.debug("## ERRO AO DELETAR EMENDA ID: " + emenda.getId() + " ##");
+			logger.info("## ERRO AO DELETAR EMENDA ID: " + emenda.getId() + " ##");
 		}
 		
 		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		

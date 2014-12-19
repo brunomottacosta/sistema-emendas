@@ -1,6 +1,7 @@
 package br.com.convergencia.emendas.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Emenda;
+import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.repository.EmendaRepository;
 
 @Service
@@ -23,6 +26,9 @@ public class EmendaService {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 	
 	@Autowired private EmendaRepository emendaRepository;
+	@Autowired private AcaoService acaoService;
+	@Autowired private ObjetoService objetoService;
+	@Autowired private ProgramaService programaService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -58,6 +64,7 @@ public class EmendaService {
 	public List<Emenda> listByFiltro(Map<String, String> filtros) {
 		
 		logger.info("## EXECUTANDO BUSCA AVANCADA ##");
+		Long init = Calendar.getInstance().getTimeInMillis();
 		
 		List<Emenda> lista = emendaRepository.findAll();
 		List<Emenda> exclusao = new ArrayList<Emenda>();
@@ -117,10 +124,52 @@ public class EmendaService {
 					exclusao.add(e);
 				}
 			}
+			
+			if (!filtros.get("acao").equals("0")) {
+				
+				List<Acao> acoes = acaoService.findByEmendaId(e.getId());
+				Acao a = acaoService.getAcao(Integer.parseInt(filtros.get("acao")));
+				
+				if (!acoes.isEmpty()) {
+					int count = 0;
+					for (Acao ac : acoes) {
+						if (ac.getId() != a.getId()) {
+							count ++;
+						}						
+					}
+					if (acoes.size() == count) {
+						exclusao.add(e);
+					}
+				} else {
+					exclusao.add(e);
+				}
+			}
+			
+			if (!filtros.get("objeto").equals("0")) {
+				
+				List<Objeto> objs = objetoService.findByAllAcoes(acaoService.findByEmendaId(e.getId()));
+				Objeto obj = objetoService.getObjeto(Integer.parseInt(filtros.get("objeto")));
+				
+				if (!objs.isEmpty()) {
+					int count = 0;
+					for (Objeto ob : objs) {
+						if (ob.getId() != obj.getId()) {
+							count ++;
+						}						
+					} 
+					if (objs.size() == count) {
+						exclusao.add(e);
+					}
+				} else {
+					exclusao.add(e);
+				}				
+			}
 		}
 		
 		lista.removeAll(exclusao);
 		
+		Long end = Calendar.getInstance().getTimeInMillis();		
+		logger.info("## TEMPO DE BUSCA: " + (end - init) + " ms ##");
 		return lista;
 	}
 }
