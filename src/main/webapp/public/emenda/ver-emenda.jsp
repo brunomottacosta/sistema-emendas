@@ -20,7 +20,7 @@
 				<table class="table table-bordered">
 					<fmt:formatNumber type="currency" minFractionDigits="2" currencySymbol="R$" value="${emenda.valor}" var="valor_fmt" />
 					<tr>
-						<td style="width: 40%"><strong>Número</strong></td>
+						<td class="col-md-5"><strong>Número</strong></td>
 						<td>${emenda.numero}</td>
 					</tr>
 					<tr>
@@ -46,7 +46,7 @@
 			<div class="panel panel-default">
 				<table class="table table-bordered">				
 					<tr>
-						<td style="width: 40%"><strong>G.N.D.</strong></td>
+						<td class="col-md-5"><strong>G.N.D.</strong></td>
 						<td>${emenda.gnd.descricao}</td>
 					</tr>				
 					<tr>
@@ -75,7 +75,7 @@
 			<div class="panel panel-default">
 				<table class="table table-bordered">				
 					<tr>
-						<td style="width: 40%"><strong>Ações</strong></td>
+						<td class="col-md-5"><strong>Ações</strong></td>
 						<td>
 							<c:forEach items="${acoesDaEmenda}" var="acao">
 								<p>${acao.nome}</p>								
@@ -87,25 +87,24 @@
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">
-				<table class="table table-bordered">				
+				<table class="table table-bordered">
 					<tr>
-						<td style="width: 40%"><strong>Objetos</strong></td>
+						<td class="col-md-5"><strong>Objeto</strong></td>
 						<td>
-							<c:forEach items="${objetosDaEmenda}" var="obj">
-								<p>${obj.nome}</p>								
-							</c:forEach>
-						</td>
-						<td>
-							<c:forEach items="${objetosDaEmenda}" var="obj">
-								<p>${obj.acao.nome}</p>								
-							</c:forEach>
+							<table class="table table-condensed">
+								<c:forEach items="${objetosDaEmenda}" var="obj">										
+									<tr>
+										<td style="border-bottom: 1px solid black">${obj.nome}</td>
+										<td>${obj.acao.nome}</td>							
+									</tr>
+								</c:forEach>
+							</table>
 						</td>
 					</tr>
-				</table>		
+				</table>							
 			</div>
 		</div>		
-	</div>
-	
+	</div>	
 </div>	
 
 

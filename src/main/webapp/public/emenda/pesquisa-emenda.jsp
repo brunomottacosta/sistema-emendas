@@ -78,6 +78,9 @@
 						<a class="btn btn-default toggle-visible" data-column="8">
 							Valor
 						</a>
+						<a class="btn btn-default toggle-visible" data-column="9">
+							Programa
+						</a>
 							
 					</div>
 				
@@ -90,7 +93,7 @@
 			<!-- ################## -->
 				
 			
-			<form id="form_nova_emenda">						
+			<form id="form_pesquisa_emenda">						
 						
 				<div class="row">
 				
@@ -193,6 +196,42 @@
 						</div>
 						
 					</div>
+					<div class="col-md-3">
+						
+						<div class="form-group">
+							<label class="control-label">Programa</label> 
+							<select id="programa_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="idPrograma">
+								<option value="0">Nenhum</option>
+								<c:forEach items="${programas}" var="programa_var" >
+									<option value="${programa_var.id}">${programa_var.nome}</option>
+								</c:forEach>
+							</select> 
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label">Ação</label> 
+							<select id="acao_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="idAcao">
+								<option value="0">Nenhum</option>
+								<c:forEach items="${acoes}" var="acao_var" >
+									<option value="${acao_var.id}">${acao_var.nome}</option>
+								</c:forEach>
+							</select> 
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label">Objeto</label> 
+							<select id="objeto_emenda" data-live-search="true"
+							class="form-control drop-pesquisa selectpicker" name="idObjeto">
+								<option value="0">Nenhum</option>
+								<c:forEach items="${objetos}" var="obj_var" >
+									<option value="${obj_var.id}">${obj_var.nome}</option>
+								</c:forEach>
+							</select> 
+						</div>
+						
+					</div>
 					
 				</div>	
 				
@@ -234,6 +273,9 @@
 						<th style="width: 15em">MODALIDADE</th>
 						<th style="width: 15em">G.N.D.</th>
 						<th style="width: 10em">VALOR (R$)</th>
+						<th style="width: 10em">PROGRAMA</th>
+<!-- 						<th style="width: 10em">AÇÃO</th> -->
+<!-- 						<th style="width: 10em">OBJETO</th> -->
 					</tr>
 				</thead>
 				
@@ -313,12 +355,13 @@ $(document).ready(function() {
 		              {"data" : "modalidadeDeAplicacao"},
 		              {"data" : "gnd"},
 		              {"data" : "valor"},
+		              {"data" : "programa"},
 		],
 		// definicoes da coluna, pode-se aplicar classes css, inserir links, etc.
         "columnDefs": [
         {
         	"className": "center-td",
-    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],    	    
+    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],    	    
    	  	}]
 	});
 });
@@ -349,6 +392,13 @@ $(document).ready( function() {
 				var idGND = $("#gnd_emenda").val();
 				var idOrgaoConced = $("#org_conced_emenda").val();
 				var idAutor = $("#autor_emenda").val();
+				var idPrograma = $("#programa_emenda").val();
+				var idAcao = $("#acao_emenda").val();
+				var idObjeto = $("#objeto_emenda").val();
+				var valor = $("#valor_emenda").val();
+				
+				var data = $("#form_pesquisa_emenda").serializeArray();
+				console.log(data);
 				
 				// executa requisicao ajax para trazer os dados da busca e insere na table
 				// os dados buscados tem que ser iguais aos da table criada na inicializacao
@@ -362,7 +412,11 @@ $(document).ready( function() {
 						+ "&funcProg=" + funcProg
 						+ "&idOrgaoConced=" + idOrgaoConced
 						+ "&idAutor=" + idAutor
-				).load( function() {
+						+ "&idPrograma=" + idPrograma
+						+ "&idAcao=" + idAcao
+						+ "&idObjeto=" + idObjeto
+						+ "&valor=" + valor
+ 				).load( function() {
 					// depois de finalizada a busca, fecha o modal de loading
 					$("#carregar_modal").modal("hide");
 					$("#filtro_pesq_emenda").hide();

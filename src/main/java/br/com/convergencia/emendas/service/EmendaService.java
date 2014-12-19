@@ -2,6 +2,7 @@ package br.com.convergencia.emendas.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,65 +55,71 @@ public class EmendaService {
 	
 	/** BUSCAS AVANCADAS **/	
 	@Transactional
-	public List<Emenda> listByFiltro(Emenda filtro) {
+	public List<Emenda> listByFiltro(Map<String, String> filtros) {
 		
 		logger.info("## EXECUTANDO BUSCA AVANCADA ##");
 		
 		List<Emenda> lista = emendaRepository.findAll();
-		List<Emenda> interno = new ArrayList<Emenda>();
+		List<Emenda> exclusao = new ArrayList<Emenda>();
 		
 		for (Emenda e : lista) {
 			
-			if (filtro.getAno() != null && e.getAno() != null) {
-				String anoFiltro = filtro.getAno().toString();
-				String anoObj = e.getAno().toString();
-				if (!anoObj.equals(anoFiltro)) {
-					interno.add(e);
+			if (!filtros.get("ano").equals("") && e.getAno() != null) {
+				if (!filtros.get("ano").equals(e.getAno().toString())) {
+					exclusao.add(e);
 				}
 			} 
 			
-			if (filtro.getNumero() != null && e.getNumero() != null) {
-				String numFiltro = filtro.getNumero().toString();
-				String numObj = e.getNumero().toString();
-				if (!numObj.contains(numFiltro)) {
-					interno.add(e);
+			if (!filtros.get("numero").equals("") && e.getNumero() != null) {
+				if (!e.getNumero().toString().contains(filtros.get("numero"))) {
+					exclusao.add(e);
 				}				
 			} 
 			
-			if (!filtro.getFuncionalProgramatica().equals("") && !e.getFuncionalProgramatica().equals("")) {				
-				String funcProgFiltro = filtro.getFuncionalProgramatica();
-				String funcProgObj = e.getFuncionalProgramatica();
-				if (!funcProgObj.contains(funcProgFiltro)) {
-					interno.add(e);
+			if (!filtros.get("funcional").equals("") && !e.getFuncionalProgramatica().isEmpty()) {			
+				if (!e.getFuncionalProgramatica().contains(filtros.get("funcional"))) {
+					exclusao.add(e);
 				}
 			}
 			
-			if (filtro.getModalidadeDeAplicacao().getId() != 0) {
-				if (filtro.getModalidadeDeAplicacao() != e.getModalidadeDeAplicacao()) {
-					interno.add(e);
+			if (!filtros.get("modalidade").equals("0")) {
+				if (!filtros.get("modalidade").equals(e.getModalidadeDeAplicacao().getId().toString())) {
+					exclusao.add(e);
 				}
 			}
 			
-			if (filtro.getGnd().getId() != 0) {
-				if (filtro.getGnd() != e.getGnd()) {
-					interno.add(e);
+			if (!filtros.get("gnd").equals("0")) {
+				if (!filtros.get("gnd").equals(e.getGnd().getId().toString())) {
+					exclusao.add(e);
 				}
 			}
 			
-			if (filtro.getAutor() != null && e.getAutor() != null) {
-				if (filtro.getAutor().getId() != e.getAutor().getId()) {
-					interno.add(e);
+			if (!filtros.get("tipo").equals("0")) {
+				if (!filtros.get("tipo").equals(e.getTipoEmenda().getId().toString())) {
+					exclusao.add(e);
 				}
 			}
 			
-			if (filtro.getOrgaoConcedente() != null && e.getOrgaoConcedente() != null) {
-				if (filtro.getOrgaoConcedente().getId() != e.getOrgaoConcedente().getId()) {
-					interno.add(e);
+			if (!filtros.get("autor").equals("0") && e.getAutor() != null) {
+				if (Integer.parseInt(filtros.get("autor")) != e.getAutor().getId()) {
+					exclusao.add(e);
+				}
+			}
+			
+			if (!filtros.get("orgao").equals("0") && e.getOrgaoConcedente() != null) {
+				if (Integer.parseInt(filtros.get("orgao")) != e.getOrgaoConcedente().getId()) {
+					exclusao.add(e);
+				}
+			}
+			
+			if (!filtros.get("programa").equals("0") && e.getPrograma() != null) {
+				if (Integer.parseInt(filtros.get("programa")) != e.getPrograma().getId()) {
+					exclusao.add(e);
 				}
 			}
 		}
 		
-		lista.removeAll(interno);
+		lista.removeAll(exclusao);
 		
 		return lista;
 	}

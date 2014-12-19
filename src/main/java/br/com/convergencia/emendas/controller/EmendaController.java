@@ -3,7 +3,9 @@ package br.com.convergencia.emendas.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -64,6 +66,9 @@ public class EmendaController {
 		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
 		model.addAttribute("autores", autorService.listAll());
 		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
+		model.addAttribute("programas", programaService.listAll());
+		model.addAttribute("acoes", acaoService.listAll());
+		model.addAttribute("objetos", objetoService.listAll());
 		
 		return "pesquisa-emenda";
 	}
@@ -90,44 +95,38 @@ public class EmendaController {
 	/** METODO PARA PESQUISAR ATRAVES DE FILTROS **/
 	@RequestMapping(value = "buscar", method = RequestMethod.GET)
 	public @ResponseBody List<EmendaWrapper> buscar(
-			@RequestParam Integer numero,
-			@RequestParam Integer ano,
+			@RequestParam String numero,
+			@RequestParam String ano,
 			@RequestParam String funcProg,
-			@RequestParam Integer idModalidade,
-			@RequestParam Integer idGND,
-			@RequestParam Integer idTipoEmenda,
-			@RequestParam Integer idOrgaoConced,
-			@RequestParam Integer idAutor) {
-		
-		Emenda emenda = new Emenda();	
+			@RequestParam String idModalidade,
+			@RequestParam String idGND,
+			@RequestParam String idTipoEmenda,
+			@RequestParam String idOrgaoConced,
+			@RequestParam String idAutor,
+			@RequestParam String idPrograma,
+			@RequestParam String idAcao,
+			@RequestParam String idObjeto,
+			@RequestParam String valor) {	
 		
 		/** SETA VALORES DO FILTRO PARA BUSCAR **/
-		if (numero != null) {
-			emenda.setNumero(numero);		
-		}		
-		if (ano != null) {
-			emenda.setAno(ano);
-		} 	
-		if (idModalidade != null) {
-			emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(idModalidade));
-		} 
-		if (idGND != null) {
-			emenda.setGnd(GND.getGNDById(idGND));
-		}
-		if (idTipoEmenda != null) {
-			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(idTipoEmenda));
-		}
-		if (idOrgaoConced != null && idOrgaoConced != 0) {
-			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
-		}
-		if (idAutor != null && idAutor != 0) {
-			emenda.setAutor(autorService.getAutor(idAutor));
-		}
+		Map<String, String> mapper = new HashMap<String, String>();
+		
+		mapper.put("numero", numero);
+		mapper.put("ano", ano);
+		mapper.put("funcional", funcProg);
+		mapper.put("modalidade", idModalidade);
+		mapper.put("gnd", idGND);
+		mapper.put("tipo", idTipoEmenda);
+		mapper.put("orgao", idOrgaoConced);
+		mapper.put("autor", idAutor);
+		mapper.put("programa", idPrograma);
+		mapper.put("acao", idAcao);
+		mapper.put("objeto", idObjeto);
+		mapper.put("valor", valor);	
 			
-		emenda.setFuncionalProgramatica(funcProg); //STRINGS NAO PRECISAM DE CONDICAO
 		
 		/** CRIA LISTA DE OBJETOS BUSCADOS **/
-		List<Emenda> emendas =  emendaService.listByFiltro(emenda);
+		List<Emenda> emendas =  emendaService.listByFiltro(mapper);
 		List<EmendaWrapper> wrapper = new ArrayList<EmendaWrapper>();
 		
 		/** PASSA ATRIBUTOS DO OBJETO PARA O SEU ENVELOPE E ADICIONA NA LISTA PARA JSON **/
@@ -250,7 +249,11 @@ public class EmendaController {
 	public void remover(Integer id, HttpServletResponse response) {
 		
 		Emenda emenda = emendaService.getEmenda(id);
-		List<Acao> acoesByEmenda = acaoService.findByEmendaId(id);
+		List<Acao> acoesByEmenda = new ArrayList<Acao>();
+		
+		if (emenda.getPrograma() != null) {
+			acoesByEmenda = acaoService.findByEmendaId(id);
+		}
 		
 		if (!acoesByEmenda.isEmpty()) {
 			int n = acoesByEmenda.size();
@@ -268,7 +271,7 @@ public class EmendaController {
 		try {
 			emendaService.delete(emenda);			
 		} catch (Exception e) {
-			logger.debug("## ERRO AO REMOVER EMENDA ID: " + emenda.getId() + " ##");
+			logger.debug("## ERRO AO DELETAR EMENDA ID: " + emenda.getId() + " ##");
 		}
 		
 		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		

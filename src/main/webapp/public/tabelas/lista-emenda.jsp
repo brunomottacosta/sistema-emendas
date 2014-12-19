@@ -18,6 +18,7 @@
 							<th width="10%">ANO</th>
 							<th width="15%">NUMERO</th>
 							<th>AUTOR</th>
+							<th>ORGÃO</th>
 							<th>PROGRAMA</th>
 							<th style="width: 5%"></th>
 						</tr>
@@ -31,7 +32,8 @@
 									<a href="visualizar/${em.id}">${em.numero}</a>
 								</td>
 								<td>${em.autor.nome}</td>
-								<td>${em.orgaoConcedente.nome}</td>								
+								<td>${em.orgaoConcedente.nome}</td>
+								<td>${em.programa.nome}</td>								
 								<td style="text-align: center">
 									<a href="#" onclick="remove_ajax(${em.id})"> 
 										<i class="fa fa-trash"></i>

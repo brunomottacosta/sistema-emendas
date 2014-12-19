@@ -59,7 +59,7 @@ public class EmendaWrapper implements Serializable {
 		this.gnd = GND.getGNDById(e.getGnd().getId()).getDescricao();
 		this.autor = e.getAutor().getNome();
 		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
-//		this.programa = e.getPrograma().getNome();
+		this.programa = e.getPrograma().getNome();
 	}
 	
 	public String getId() {
