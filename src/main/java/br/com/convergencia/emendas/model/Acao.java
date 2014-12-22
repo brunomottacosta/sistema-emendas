@@ -3,6 +3,7 @@ package br.com.convergencia.emendas.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Acao implements Serializable {
 	@Column(name = "nome_acao")
 	private String nome;
 	
-	@OneToMany(mappedBy = "acao")
+	@OneToMany(mappedBy = "acao", cascade=CascadeType.ALL)
 	private List<Objeto> objetos;
 	
 	@ManyToOne

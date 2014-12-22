@@ -28,7 +28,9 @@
         <put-attribute name="body" value="/public/emenda/ver-emenda.jsp"/>
     </definition>
     
-    <!-- LISTAS AUXILIARES - AQUI NENHUMA PAGINA POSSUI HEADER E FOOTER -->
+    <!-- ################# -->
+    <!-- LISTAS AUXILIARES -->
+    <!-- ################# -->
     
     <definition name="lista-emenda" extends="master.page">
         <put-attribute name="body" value="/public/tabelas/lista-emenda.jsp"/>
@@ -44,7 +46,7 @@
     
     <definition name="lista-programa" extends="master.page">
         <put-attribute name="body" value="/public/tabelas/lista-programa.jsp"/>
-    </definition> 
+    </definition>    
      
     <definition name="lista-acao" extends="master.page">
         <put-attribute name="body" value="/public/tabelas/lista-acao.jsp"/>
@@ -52,6 +54,18 @@
     
     <definition name="lista-objeto" extends="master.page">
         <put-attribute name="body" value="/public/tabelas/lista-objeto.jsp"/>
-    </definition>   
+    </definition>
+    
+    <!-- ###################### -->
+    <!-- FORMULARIOS AUXILIARES -->
+    <!-- ###################### -->
+    
+    <definition name="programa-novo" extends="master.page">
+        <put-attribute name="body" value="/public/formularios/programa-novo.jsp"/>
+    </definition>    
+    
+    <definition name="programa-editar" extends="master.page">
+        <put-attribute name="body" value="/public/formularios/programa-editar.jsp"/>
+    </definition> 
     
 </tiles-definitions>

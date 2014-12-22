@@ -25,7 +25,8 @@
 							<span class="input-group-addon">Nome</span>
 							<input type="text" id="programa_nome" name="nome" class="form-control">								
 						</div>
-					</div>						
+					</div>		
+									
 					<div class="form-group">			
 						<button id="salvar_programa" class="btn btn-info btn-block">
 							<i class="fa fa-floppy-o"></i> SALVAR

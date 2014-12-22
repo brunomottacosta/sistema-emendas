@@ -29,4 +29,9 @@
 	border-radius: 0px !important;
 	background-color: #dddddd !important;
 	border-color: #dddddd !important;
-}s
+}
+
+table>tbody>tr.selected {
+	background-color: #1ABC9C;
+	color: #fff;
+}

@@ -5,15 +5,14 @@
 <div>
 
 	<div class="container-fluid">
-
-		
+					
 		<div class="row">
 				
 			<div class="col-md-12">				
 				
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_programa_modal">
+				<a href="novo" class="btn btn-warning">
 					<i class="fa fa-plus"></i> NOVO					
-				</button>
+				</a>
 				
 				<hr />
 				
@@ -34,7 +33,7 @@
 								<td>${p.id}</td>
 								<td>${p.nome}</td>
 								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
+									<a href="edicao/${p.id}">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
@@ -56,13 +55,6 @@
 	</div>
 	
 </div>
-
-<!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/programa-modal.jsp"></c:import>
-
-<!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/programa-editar-modal.jsp"></c:import>
-
 
 <!-- SCRIPTS -->
 <script type="text/javascript">

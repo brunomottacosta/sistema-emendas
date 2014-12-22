@@ -17,7 +17,7 @@
 				
 				<hr />
 				
-				<table id="tabela_objetos" class="table table-bordered">
+				<table id="tabela_objeto" class="table table-bordered">
 				
 					<thead>
 						<tr>

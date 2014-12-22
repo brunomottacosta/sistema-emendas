@@ -89,11 +89,13 @@ public class AcaoController {
 	
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
-		Acao acao =  acaoService.getAcao(id);
 		
-		if (!acao.getObjetos().isEmpty()) {
+		Acao acao =  acaoService.getAcao(id);
+		List<Objeto> objs = objetoService.findByAcao(id);
+		
+		if (!objs.isEmpty()) {
 			try {
-				for (Objeto o : acao.getObjetos()) {
+				for (Objeto o : objs) {
 					o.setAcao(null);
 					objetoService.save(o);
 				}				

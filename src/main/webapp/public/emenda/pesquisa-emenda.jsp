@@ -251,10 +251,13 @@
     	    
     	    <div class="row" style="margin-bottom: 20px">
 			
-				<div class="col-md-4">
+				<div class="col-md-12">
 					
 					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-arrow-left"></i> VOLTAR
+					</button>
+					<button id="btn_ver_emenda" class="btn btn-info" type="button">
+						<i class="fa fa-folder-open"></i> VISUALIZAR
 					</button>
 										
 				</div>				
@@ -364,17 +367,31 @@ $(document).ready(function() {
         {
         	"className": "center-td",
     		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],    	    
-   	  	},
-   	  	{
-			"targets": [10],  
-			"render": function(data, type, row) {
-				return '<a href="visualizar/' + data + '"><i class="fa fa-search"></a>';
-			}
-   	   	}]
+   	  	}]
 	});
 });
 
-
+// redirecionamento para pagina da emenda
+$(document).ready( function() {
+	var table = $('#tabela_emendas').DataTable();
+	var data = "";
+	
+	$('#tabela_emendas tbody').on( 'click', 'tr', function () {		
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+	} );
+ 
+    $('#btn_ver_emenda').click( function () {
+        data = table.row('.selected').data();
+        var url = 'visualizar/' + data.id;
+        $(window.document.location).attr('href', url);
+    } );		
+});
 
 // datatable apos filtro
 $(document).ready( function() {
@@ -430,7 +447,6 @@ $(document).ready( function() {
 						$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
 					});
 				});		
-				console.log(table)	
 			});			
 		} else {
 			$("#descr_col").hide("fade", 250, function() {
@@ -456,7 +472,7 @@ $(document).ready(function() {
     // esconde todas as colunas por padrão
     
     for (i = 0 ; i < count ; i++) {
-    	if (i >= btns.length && i < count - 1) {
+    	if (i >= btns.length && i < count) {
 		 	var hide = table.column( i );
 		 	hide.visible( ! hide.visible() ); 		
     	}
