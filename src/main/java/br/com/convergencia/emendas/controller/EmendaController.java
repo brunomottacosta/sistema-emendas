@@ -84,7 +84,7 @@ public class EmendaController {
 		/** PASSA ATRIBUTOS DE EMENDA PARA O SEU ENVELOPE E ADICIONA NA LISTA **/
 		for(Emenda e : emendas) {
 			EmendaWrapper ew = new EmendaWrapper();
-			ew.setAllAtributtes(e);
+			ew.setAllAtributtes(e, acaoService.findByEmendaId(e.getId()));
 			
 			wrapper.add(ew);
 		}
@@ -133,7 +133,7 @@ public class EmendaController {
 		/** PASSA ATRIBUTOS DO OBJETO PARA O SEU ENVELOPE E ADICIONA NA LISTA PARA JSON **/
 		for(Emenda e : emendas) {
 			EmendaWrapper ew = new EmendaWrapper();
-			ew.setAllAtributtes(e);
+			ew.setAllAtributtes(e, acaoService.findByEmendaId(e.getId()));
 			
 			wrapper.add(ew);
 		}

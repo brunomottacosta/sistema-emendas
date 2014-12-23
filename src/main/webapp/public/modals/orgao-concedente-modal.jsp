@@ -3,7 +3,7 @@
 <!-- MODAL PARA NOVO ORGAO CONCEDENTE -->
 <div class="modal fade" id="new_org_conced_modal" tabindex="-1" role="dialog"  aria-hidden="true">
 
-	<div class="modal-dialog modal-sm">
+	<div class="modal-dialog">
 
 		<div class="modal-content">
 
@@ -12,7 +12,7 @@
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
 
-				<h4 class="modal-title">ADICIONAR NOVO ORGÃO CONCEDENTE</h4>
+				<h4 class="modal-title">Orgão Concedente: Novo</h4>
 
 			</div>
 			

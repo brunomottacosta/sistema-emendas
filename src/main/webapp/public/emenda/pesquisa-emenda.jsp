@@ -81,6 +81,9 @@
 						<a class="btn btn-default toggle-visible" data-column="9">
 							Programa
 						</a>
+						<a class="btn btn-default toggle-visible" data-column="10">
+							Ações
+						</a>
 							
 					</div>
 				
@@ -257,7 +260,7 @@
 						<i class="fa fa-arrow-left"></i> VOLTAR
 					</button>
 					<button id="btn_ver_emenda" class="btn btn-info" type="button">
-						<i class="fa fa-folder-open"></i> VISUALIZAR
+						<i class="fa fa-folder-open"></i> ABRIR
 					</button>
 										
 				</div>				
@@ -277,6 +280,7 @@
 						<th style="width: 15em">G.N.D.</th>
 						<th style="width: 10em">VALOR (R$)</th>
 						<th style="width: 10em">PROGRAMA</th>
+						<th style="width: 10em">AÇÕES</th>
 						<th style="width: 3em"></th>
 <!-- 						<th style="width: 10em">AÇÃO</th> -->
 <!-- 						<th style="width: 10em">OBJETO</th> -->
@@ -360,14 +364,29 @@ $(document).ready(function() {
 		              {"data" : "gnd"},
 		              {"data" : "valor"},
 		              {"data" : "programa"},
+		              {"data" : "acoes"},
 		              {"data" : "id"},
 		],
 		// definicoes da coluna, pode-se aplicar classes css, inserir links, etc.
         "columnDefs": [
         {
         	"className": "center-td",
-    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],    	    
-   	  	}]
+    		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],    	    
+   	  	},
+   		{
+   	    	"render": function ( data, type, row ) {
+   	   	    	var string = "";
+   	   	    	$.each(data, function(pos, obj) {
+   	   	   	    	if (pos == 0) {
+						string = obj;
+   	   	   	   	    } else {
+						string = string + ", <br />" + obj
+ 	   	   	   	   	} 
+   	   	   	   	});
+             	return string;
+   	    	},	
+   	     	"targets": [ 10 ],
+   		}]
 	});
 });
 
@@ -515,10 +534,7 @@ function remove_ajax(id) {
 	// seta linha como selecionada
 	$('#tabela_emendas tbody').on( "click", "tr", function () {
 		$(this).addClass("selected");
-		
-		// esconde row a ser deletada
-		table.row($(".selected")).remove().draw( false );
-		
+				
 		// executa funcao de deletar
 		$.post("remover", { "id" : id }, function() {			
 	 		table.row($(this)).remove().draw( false );

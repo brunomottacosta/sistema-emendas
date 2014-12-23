@@ -33,7 +33,7 @@
 								<td>${p.id}</td>
 								<td>${p.nome}</td>
 								<td style="text-align: center">
-									<a href="edicao/${p.id}">
+									<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
@@ -55,6 +55,9 @@
 	</div>
 	
 </div>
+
+<!-- IMPORT DE MODALS PARA ALTERAR -->
+<c:import url="../modals/programa-editar-modal.jsp"></c:import>
 
 <!-- SCRIPTS -->
 <script type="text/javascript">

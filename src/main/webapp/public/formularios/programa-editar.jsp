@@ -32,12 +32,12 @@
 									<button type="button" class="btn btn-primary" id="add_input_acao" style="margin-bottom: 10px">
 										<i class="fa fa-plus"></i>
 									</button>
-									<button type="button" class="btn btn-danger input-remover"  id="remove_input_acao">
-										<i class="fa fa-minus"></i>
-									</button>	
 								</div>
-								<div class="col-md-11" id="inputs_acao">
+								<div class="col-md-10" id="inputs_acao">
 									<!-- INPUT DE ACOES -->
+								</div>
+								<div id="btn_acao">
+									<!-- botoes de excluir campo -->									
 								</div>
 							</div>								 							
 						</div>
@@ -71,29 +71,34 @@ var num = 0;
 					'<input id="input_' + num + '_' + obj.id + '" type="text" class="form-control input-acao" ' +
 					'style="margin-bottom: 10px" value="' + obj.nome + '">'
 				);
+				$("#btn_acao")
+				.append('<a id="del_' + num + '" type="button" style="margin-bottom: 10px" ' +
+						'class="btn btn-danger" onclick="remover('+ num +')">' + 
+				'<i class="fa fa-minus"></i></a>');
 			});
 		}
 	});
 })();
-
+ 
 // inserir novo campo para acao
 $("#add_input_acao").click( function() {
 	num = num + 1;
-	$("#inputs_acao")
-	.append('<input id="input_' + num + '" type="text" class="form-control input-acao" style="margin-bottom: 10px">');
+	$("#inputs_acao").append('<input id="input_' + num + '" type="text" class="form-control input-acao" style="margin-bottom: 10px">');
+	$("#btn_acao").append('<a id="del_' + num + '" type="button" style="margin-bottom: 10px" class="btn btn-danger" onclick="remover('+ num +')">' + 
+			'<i class="fa fa-minus"></i></a>');
 });
 
-//remover campo para acao
-$("#remove_input_acao").click( function() {
+// remover campo para acao
+function remover(id) {
 	var inputs = $("#inputs_acao").children("input");
 	$.each(inputs, function(pos, obj) {
 		var split = obj.id.split("_");
-		if (split[1] == num && num != 1) {
+		if (split[1] == id) {
 			$("#" + obj.id).remove();
-			num = num - 1;
+			$("#del_" + id).remove();
 		}
 	});
-});
+}
 
 // salvar 
 $("#salvar_programa").click( function() {

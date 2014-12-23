@@ -95,41 +95,42 @@ public class ProgramaController {
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(
 			@RequestParam Integer id,
-			@RequestParam String nome,
-			@RequestParam String[] acoes) {
+			@RequestParam String nome) {
 		
 		Programa programa = programaService.getPrograma(id);
 		programa.setNome(nome);
 		
 		programaService.save(programa);
 		
+		
 		/** para relacao n x m, confere o tamanho do array, **/
 		/** valida e adiciona a lista de objetos filhos no pai **/
-		if (acoes.length != 0) {
-			List<String> acs = new ArrayList<String>(Arrays.asList(acoes));
-							
-			for (String s : acs) {
-				Acao a = new Acao();
-				
-				/** string passada com nome e id, nesta ordem, separada por "_" **/
-				String split[] = s.split("_");
-				
-				if (!split[1].equals("0")) {
-					a = acaoService.getAcao(Integer.parseInt(split[1]));		
-					a.setNome(split[0]);
-					a.setPrograma(programa);					
-				} else {					
-					a.setNome(split[0]);
-					a.setPrograma(programa);
-				}				
-				
-				try {
-					acaoService.save(a);					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}								
-		}	
+//		if (acoes.length != 0) {
+//			
+//			List<String> acs = new ArrayList<String>(Arrays.asList(acoes));
+//							
+//			for (String s : acs) {
+//				Acao a = new Acao();
+//				
+//				/** string passada com nome e id, nesta ordem, separada por "_" **/
+//				String split[] = s.split("_");
+//				
+//				if (!split[1].equals("0")) {
+//					a = acaoService.getAcao(Integer.parseInt(split[1]));		
+//					a.setNome(split[0]);
+//					a.setPrograma(programa);					
+//				} else {					
+//					a.setNome(split[0]);
+//					a.setPrograma(programa);
+//				}				
+//				
+//				try {
+//					acaoService.save(a);					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}								
+//		}	
 		
 		
 		logger.info("## EDITANDO PROGRAMA ID: " + programa.getId() + " ##");		

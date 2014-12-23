@@ -3,16 +3,22 @@ package br.com.convergencia.emendas.wrapper;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
+import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Emenda;
 
+@Component
 public class EmendaWrapper implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private String id;
 	private String numero;
 	private String ano;
@@ -24,6 +30,7 @@ public class EmendaWrapper implements Serializable {
 	private String autor;
 	private String orgaoConcedente;
 	private String programa;
+	private List<String> acoes;
 	
 	// converte o BigDecimal para formato de dinheiro para display
 	public String setValorToFormatMoney(BigDecimal valor) {
@@ -40,7 +47,7 @@ public class EmendaWrapper implements Serializable {
 		return valorFormat;
 	}	 
 	
-	public void setAllAtributtes(Emenda e) {
+	public void setAllAtributtes(Emenda e, List<Acao> acoes) {
 		this.id = e.getId().toString();
 		if (e.getNumero() != null) {
 			this.numero = e.getNumero().toString();			
@@ -60,6 +67,12 @@ public class EmendaWrapper implements Serializable {
 		this.autor = e.getAutor().getNome();
 		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
 		this.programa = e.getPrograma().getNome();
+		if (!acoes.isEmpty()) {
+			this.acoes = new ArrayList<String>();
+			for (Acao a : acoes) {
+				this.acoes.add(a.getNome());
+			}
+		}
 	}
 	
 	public String getId() {
@@ -127,6 +140,14 @@ public class EmendaWrapper implements Serializable {
 	}
 	public void setPrograma(String programa) {
 		this.programa = programa;
+	}
+
+	public List<String> getAcoes() {
+		return acoes;
+	}
+
+	public void setAcoes(List<String> acoes) {
+		this.acoes = acoes;
 	}	
 	
 }
