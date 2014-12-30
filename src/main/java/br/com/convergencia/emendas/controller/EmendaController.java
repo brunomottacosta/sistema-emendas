@@ -95,6 +95,7 @@ public class EmendaController {
 	/** METODO PARA PESQUISAR ATRAVES DE FILTROS **/
 	@RequestMapping(value = "buscar", method = RequestMethod.GET)
 	public @ResponseBody List<EmendaWrapper> buscar(
+			/** PARAMETROS NECESSARIOS **/
 			@RequestParam String numero,
 			@RequestParam String ano,
 			@RequestParam String funcProg,
@@ -109,29 +110,29 @@ public class EmendaController {
 			@RequestParam String valor) {	
 		
 		/** SETA VALORES DO FILTRO PARA BUSCAR **/
-		Map<String, String> mapper = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		
-		mapper.put("numero", numero);
-		mapper.put("ano", ano);
-		mapper.put("funcional", funcProg);
-		mapper.put("modalidade", idModalidade);
-		mapper.put("gnd", idGND);
-		mapper.put("tipo", idTipoEmenda);
-		mapper.put("orgao", idOrgaoConced);
-		mapper.put("autor", idAutor);
-		mapper.put("programa", idPrograma);
-		mapper.put("acao", idAcao);
-		mapper.put("objeto", idObjeto);
-		mapper.put("valor", valor);	
-			
+		map.put("numero", numero);
+		map.put("ano", ano);
+		map.put("funcional", funcProg);
+		map.put("modalidade", idModalidade);
+		map.put("gnd", idGND);
+		map.put("tipo", idTipoEmenda);
+		map.put("orgao", idOrgaoConced);
+		map.put("autor", idAutor);
+		map.put("programa", idPrograma);
+		map.put("acao", idAcao);
+		map.put("objeto", idObjeto);
+		map.put("valor", valor);				
 		
-		/** CRIA LISTA DE OBJETOS BUSCADOS **/
+		/** CRIA LISTA DE OBJETOS BUSCADOS **/		
+		List<Emenda> emendas =  emendaService.listByFiltro(map);
 		
-		List<Emenda> emendas =  emendaService.listByFiltro(mapper);
+		/** LISTA AUXILIAR "WRAPPER", TODOS OS ATRIBUTOS SAO PASSADOS PARA STRING PARA FACILITAR A LEITURA NO JSON **/
 		List<EmendaWrapper> wrapper = new ArrayList<EmendaWrapper>();
 		
-		/** PASSA ATRIBUTOS DO OBJETO PARA O SEU ENVELOPE E ADICIONA NA LISTA PARA JSON **/
-		for(Emenda e : emendas) {
+		/** PASSA ATRIBUTOS DO OBJETO PARA O SEU "WRAPPER" E ADICIONA NA LISTA PARA JSON **/
+		for (Emenda e : emendas) {
 			EmendaWrapper ew = new EmendaWrapper();
 			ew.setAllAtributtes(e, acaoService.findByEmendaId(e.getId()));
 			
@@ -162,7 +163,7 @@ public class EmendaController {
 		return "cadastro-emenda";
 	}	
 	
-	/** SALVAR NOVA EMENDA E IR PARA PAGINA DE PESQUISA AO COMPLETAR **/
+	/** SALVAR NOVA EMENDA **/
 	@RequestMapping(value = "registro/salvar", method = RequestMethod.POST)
 	public String salvar(
 			@RequestParam Integer numero,
@@ -181,7 +182,7 @@ public class EmendaController {
 		
 		String execucao = "";					
 		
-		/** seta atributos normais do objeto **/
+		/** SETA ATRIBUTOS **/
 		emenda.setNumero(numero);
 		emenda.setAno(ano);
 		emenda.setFuncionalProgramatica(funcProg);
@@ -193,17 +194,24 @@ public class EmendaController {
 		emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 		emenda.setPrograma(programaService.getPrograma(idPrograma));
 		
-		/** salva o objeto previamente **/
+		/** SALVA PREVIAMENTE **/
 		emendaService.save(emenda);	
 		
-		/** para relacao n x m, confere o tamanho do array, **/
-		/** valida e adiciona a lista de objetos filhos no pai **/
+		/** PARA RELACAO N X M, CONFERE O ARRAY RECEBIDO **/
+		/** VALIDA E ADICIONA A LISTA DE OBJETOS "M" **/
 		if (idAcoes.length != 0) {
+			
+			/** PASSA O ARRAY PARA TIPO COLLECTION **/
 			List<Integer> ids = new ArrayList<Integer>(Arrays.asList(idAcoes));
-							
+			
+			/** PARA CADA ID DA COLLECTION, BUSCA UM OBJETO **/
 			for (Integer i : ids) {					
-				Acao a = acaoService.getAcao(i);					
+				Acao a = acaoService.getAcao(i);
+				
+				/** SETA O PAI NO FILHO **/
 				a.setEmenda(emenda);
+				
+				/** UPDATE NO FILHO, SE DER ERRO, APAGA O PAI SALVO PREVIAMENTE **/
 				try {
 					acaoService.save(a);					
 				} catch (Exception e) {
@@ -243,7 +251,7 @@ public class EmendaController {
 		return "lista-emenda";
 	}
 	
-	/** REMOVER EMENDA ATRAVEZ DA LISTA AUXILIAR **/
+	/** REMOVER EMENDA **/
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		

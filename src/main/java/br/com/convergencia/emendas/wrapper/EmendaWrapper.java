@@ -46,8 +46,9 @@ public class EmendaWrapper implements Serializable {
 		}
 		return valorFormat;
 	}	 
-	
+	/** RECEBE UM OBJETO E SETA TODOS OS ATRIBUTOS DO SEU "WRAPPER", PASSANDO TUDO PARA STRING **/
 	public void setAllAtributtes(Emenda e, List<Acao> acoes) {
+		
 		this.id = e.getId().toString();
 		if (e.getNumero() != null) {
 			this.numero = e.getNumero().toString();			

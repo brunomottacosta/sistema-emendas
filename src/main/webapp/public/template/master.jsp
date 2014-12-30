@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<!Doctype html>
+<!doctype html>
 <html lang="pt-BR">
 	<head>
 	
@@ -31,7 +31,11 @@
     	
         <tiles:insertAttribute name="header" />     
  		
-		<tiles:insertAttribute name="body" />  
+ 		<div style="overflow: scroll">
+ 		
+			<tiles:insertAttribute name="body" />  
+	    
+	    </div>
 	         
         <tiles:insertAttribute name="footer" />
         
