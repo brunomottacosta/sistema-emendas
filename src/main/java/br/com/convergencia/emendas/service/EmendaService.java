@@ -1,9 +1,10 @@
 package br.com.convergencia.emendas.service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,75 +62,48 @@ public class EmendaService {
 	
 	/** BUSCAS AVANCADAS **/	
 	@Transactional
-	public List<Emenda> listByFiltro(Map<String, String> filtros) {
+	public List<Emenda> listByFiltro(Map<String, String> itens) {
 		
 		logger.info("## EXECUTANDO BUSCA AVANCADA ##");
 		Long init = Calendar.getInstance().getTimeInMillis();
 		
 		List<Emenda> lista = emendaRepository.findAll();
-		List<Emenda> exclusao = new ArrayList<Emenda>();
+		Stream<Emenda> busca = lista.parallelStream();
 		
-		for (Emenda e : lista) {
+		/** FILTROS UTILIZANDO LAMBDA EXPRESSIONS JAVA 8 **/
+		if (!itens.get("ano").isEmpty()) {
+			busca = busca.filter(e -> e.getAno().toString().equals(itens.get("ano")));			
+		}
+		if (!itens.get("numero").isEmpty()) {
+			busca = busca.filter(e -> e.getNumero().toString().contains(itens.get("numero")));
+		}
+		if (!itens.get("funcional").isEmpty()) {
+			busca = busca.filter(e -> e.getFuncionalProgramatica().contains(itens.get("funcional")));
+		}
+		if (!itens.get("modalidade").equals("0")) {
+			busca = busca.filter(e -> e.getModalidadeDeAplicacao().getId().toString().equals(itens.get("modalidade")));
+		}
+		if (!itens.get("gnd").equals("0")) {
+			busca = busca.filter(e -> e.getGnd().getId().toString().equals(itens.get("gnd")));
+		}
+		if (!itens.get("tipo").equals("0")) {
+			busca = busca.filter(e -> e.getTipoEmenda().getId().toString().equals(itens.get("tipo")));
+		}
+		if (!itens.get("orgao").equals("0")) {
+			busca = busca.filter(e -> e.getOrgaoConcedente().getId().toString().equals(itens.get("orgao")));
+		}
+		if (!itens.get("autor").equals("0")) {
+			busca = busca.filter(e -> e.getAutor().getId().toString().equals(itens.get("autor")));
+		}
+		if (!itens.get("programa").equals("0")) {
+			busca = busca.filter(e -> e.getPrograma().getId().toString().equals(itens.get("programa")));
+		}
+		if (!itens.get("acao").equals("0")) {
+			Acao a = acaoService.getAcao(Integer.parseInt(itens.get("acao")));
 			
-			if (!filtros.get("ano").equals("") && e.getAno() != null) {
-				if (!filtros.get("ano").equals(e.getAno().toString())) {
-					exclusao.add(e);
-				}
-			} 
-			
-			if (!filtros.get("numero").equals("") && e.getNumero() != null) {
-				if (!e.getNumero().toString().contains(filtros.get("numero"))) {
-					exclusao.add(e);
-				}				
-			} 
-			
-			if (!filtros.get("funcional").equals("") && !e.getFuncionalProgramatica().isEmpty()) {			
-				if (!e.getFuncionalProgramatica().contains(filtros.get("funcional"))) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("modalidade").equals("0")) {
-				if (!filtros.get("modalidade").equals(e.getModalidadeDeAplicacao().getId().toString())) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("gnd").equals("0")) {
-				if (!filtros.get("gnd").equals(e.getGnd().getId().toString())) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("tipo").equals("0")) {
-				if (!filtros.get("tipo").equals(e.getTipoEmenda().getId().toString())) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("autor").equals("0") && e.getAutor() != null) {
-				if (Integer.parseInt(filtros.get("autor")) != e.getAutor().getId()) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("orgao").equals("0") && e.getOrgaoConcedente() != null) {
-				if (Integer.parseInt(filtros.get("orgao")) != e.getOrgaoConcedente().getId()) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("programa").equals("0") && e.getPrograma() != null) {
-				if (Integer.parseInt(filtros.get("programa")) != e.getPrograma().getId()) {
-					exclusao.add(e);
-				}
-			}
-			
-			if (!filtros.get("acao").equals("0")) {
-				
+			/** FILTER RECEBE SEMPRE TRUE OU FALSE, ENTAO RETORNO NECESSITA SER UM BOOLEAN **/
+			busca = busca.filter(e -> {
 				List<Acao> acoes = acaoService.findByEmendaId(e.getId());
-				Acao a = acaoService.getAcao(Integer.parseInt(filtros.get("acao")));
-				
 				if (!acoes.isEmpty()) {
 					int count = 0;
 					for (Acao ac : acoes) {
@@ -138,38 +112,44 @@ public class EmendaService {
 						}						
 					}
 					if (acoes.size() == count) {
-						exclusao.add(e);
+						return false;
+					} else {
+						return true;
 					}
 				} else {
-					exclusao.add(e);
-				}
-			}
+					return false;
+				}			
+			});
+		}
+		if (!itens.get("objeto").equals("0")) {
+			Objeto o = objetoService.getObjeto(Integer.parseInt(itens.get("objeto")));
 			
-			if (!filtros.get("objeto").equals("0")) {
-				
+			/** FILTER RECEBE SEMPRE TRUE OU FALSE, ENTAO RETORNO NECESSITA SER UM BOOLEAN **/
+			busca = busca.filter(e -> {
 				List<Objeto> objs = objetoService.findByAllAcoes(acaoService.findByEmendaId(e.getId()));
-				Objeto obj = objetoService.getObjeto(Integer.parseInt(filtros.get("objeto")));
-				
 				if (!objs.isEmpty()) {
 					int count = 0;
 					for (Objeto ob : objs) {
-						if (ob.getId() != obj.getId()) {
+						if (ob.getId() != o.getId()) {
 							count ++;
 						}						
-					} 
+					}
 					if (objs.size() == count) {
-						exclusao.add(e);
+						return false;
+					} else {
+						return true;
 					}
 				} else {
-					exclusao.add(e);
-				}				
-			}
+					return false;
+				}			
+			});
 		}
 		
-		lista.removeAll(exclusao);
+		List<Emenda> result = busca.collect(Collectors.toList());
 		
 		Long end = Calendar.getInstance().getTimeInMillis();		
 		logger.info("## TEMPO DE BUSCA: " + (end - init) + " ms ##");
-		return lista;
+		
+		return result;
 	}
 }

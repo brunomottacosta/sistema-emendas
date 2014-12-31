@@ -32,24 +32,29 @@ public class EmendaWrapper implements Serializable {
 	private String programa;
 	private List<String> acoes;
 	
-	// converte o BigDecimal para formato de dinheiro para display
+	/** CONVERTE BIGDECIMAL EM STRING FORMATADO R$ **/
 	public String setValorToFormatMoney(BigDecimal valor) {
-		NumberFormat format = NumberFormat.getCurrencyInstance();
-		String currencySymbol = format.getCurrency().getSymbol();
-		String valorFormat = format.format(valor);
-		valorFormat = valorFormat.replace(currencySymbol, "");
-		if (valorFormat.endsWith(",00")) {
-		    int centsIndex = valorFormat.lastIndexOf(",00");
+		
+		NumberFormat formatador = NumberFormat.getCurrencyInstance();
+		String symbol = formatador.getCurrency().getSymbol();
+		String formatado = formatador.format(valor);
+		formatado = formatado.replace(symbol, "");
+		
+		if (formatado.endsWith(",00")) {
+		    int centsIndex = formatado.lastIndexOf(",00");
 		    if (centsIndex != -1) {
-		    	valorFormat = valorFormat.substring(1, centsIndex);
+		    	formatado = formatado.substring(1, centsIndex);
 		    }
 		}
-		return valorFormat;
-	}	 
+		
+		return formatado;
+	}	
+	
 	/** RECEBE UM OBJETO E SETA TODOS OS ATRIBUTOS DO SEU "WRAPPER", PASSANDO TUDO PARA STRING **/
 	public void setAllAtributtes(Emenda e, List<Acao> acoes) {
 		
 		this.id = e.getId().toString();
+		
 		if (e.getNumero() != null) {
 			this.numero = e.getNumero().toString();			
 		}

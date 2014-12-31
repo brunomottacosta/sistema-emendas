@@ -31,7 +31,11 @@
 	border-color: #dddddd !important;
 }
 
-table>tbody>tr.selected {
+#tabela_emendas {
+	cursor: pointer;
+}
+
+#tabela_emendas .selected {
 	background-color: #1ABC9C;
 	color: #fff;
 }
