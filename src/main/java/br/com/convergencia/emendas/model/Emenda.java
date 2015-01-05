@@ -69,6 +69,8 @@ public class Emenda implements Serializable {
 	@OneToMany(mappedBy="emenda")
 	private List<Acao> acoes;
 	
+	private List<IndicacaoEmenda> indicacoes;
+	
 	public Integer getId() {
 		return id;
 	}

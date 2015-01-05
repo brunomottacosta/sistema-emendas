@@ -244,6 +244,7 @@ public class EmendaController {
 		return "ver-emenda";
 	}
 	
+	/** LISTA AUXILIAR **/
 	@RequestMapping(value = "lista", method = RequestMethod.GET)
 	public String lista(Model model) {
 		model.addAttribute("emendas", emendaService.listAll());
@@ -255,15 +256,20 @@ public class EmendaController {
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
 		
+		/** BUSCA PELO ID E CRIA LISTA VAZIA DE ACOES**/
 		Emenda emenda = emendaService.getEmenda(id);
 		List<Acao> acoesByEmenda = new ArrayList<Acao>();
 		
+		/** SE EMENDA TIVER UM PROGRAMA, BUSCA AS ACOES DESSA EMENDA E PREENCHE A LISTA**/
 		if (emenda.getPrograma() != null) {
 			acoesByEmenda = acaoService.findByEmendaId(id);
 		}
 		
+		/** SE A LISTA BUSCADA AINDA ESTIVER VAZIA N FAZ NADA **/
 		if (!acoesByEmenda.isEmpty()) {
 			int n = acoesByEmenda.size();
+			
+			/** REMOVE A RELAÇAO DA ACAO COM A EMENDA **/
 			try {
 				for (Acao a : acoesByEmenda) {
 					a.setEmenda(null);				
@@ -276,6 +282,7 @@ public class EmendaController {
 		}
 		
 		try {
+			/** REMOVE A EMENDA APOS REMOVER TODAS AS RELAÇÕES **/
 			emendaService.delete(emenda);			
 		} catch (Exception e) {
 			logger.info("## ERRO AO DELETAR EMENDA ID: " + emenda.getId() + " ##");

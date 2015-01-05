@@ -16,12 +16,12 @@
 	
 	<div class="row" style="margin-bottom: 20px">
 		<div class="col-md-12">
-			<button id="btn_salvar_emenda" class="btn btn-primary"><i class="fa fa-floppy-o"></i> SALVAR</button>
+			<button id="btn_salvar_emenda" class="btn btn-primary"><i class="fa fa-floppy-o"></i> SALVAR</button>			
 			<c:if test="${modo == 1}">
-				<a href="novo" class="btn btn-warning" ><i class="fa fa-close"></i> LIMPAR</a>			
+				<a href="novo" class="btn btn-warning pull-right" ><i class="fa fa-close"></i> LIMPAR</a>			
 			</c:if>	
 			<c:if test="${modo == 2}">
-				<a href="../novo" class="btn btn-warning" ><i class="fa fa-close"></i> LIMPAR</a>			
+				<a href="../novo" class="btn btn-warning pull-right" ><i class="fa fa-close"></i> LIMPAR</a>			
 			</c:if>
 		</div>
 	</div>

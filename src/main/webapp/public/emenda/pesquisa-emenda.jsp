@@ -18,7 +18,7 @@
 			<!-- ############## -->
 							
 			<div class="page-header">
-				<h2 class="text-info">Filtros de busca para Emendas</h2>  						
+				<h2 class="text-info">Filtros de Busca</h2>  						
 			</div>		
 			
 			<div class="row" style="margin-bottom: 20px">
@@ -259,7 +259,7 @@
 					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-arrow-left"></i> VOLTAR
 					</button>
-					<button id="btn_ver_emenda" class="btn btn-info" type="button">
+					<button id="btn_ver_emenda" class="btn btn-info" type="button" disabled="disabled">
 						<i class="fa fa-folder-open"></i> ABRIR
 					</button>
 										
@@ -395,22 +395,32 @@ $(document).ready( function() {
 	var table = $('#tabela_emendas').DataTable();
 	var data = "";
 	
+	// mostra tr selecionada, ativa ou desativa botao para abrir
 	$('#tabela_emendas tbody').on( 'click', 'tr', function () {		
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
-        }
-        else {
+        } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-	} );
+        
+        if ( $('#tabela_emendas tbody tr').hasClass('selected')) {
+        	$('#btn_ver_emenda').attr('disabled', false);
+        } else {
+        	$('#btn_ver_emenda').attr('disabled', true);
+        }
+	});
  
     $('#btn_ver_emenda').click( function () {
         data = table.row('.selected').data();
         var url = 'visualizar/' + data.id;
         $(window.document.location).attr('href', url);
-    } );		
+    });		
 });
+
+( function() {
+	$('#btn_ver_emenda').attr('disabled', true);
+})();
 
 // datatable apos filtro
 $(document).ready( function() {
