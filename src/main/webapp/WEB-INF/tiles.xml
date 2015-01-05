@@ -56,6 +56,10 @@
         <put-attribute name="body" value="/public/tabelas/lista-objeto.jsp"/>
     </definition>
     
+    <definition name="lista-orgao-convenente" extends="master.page">
+        <put-attribute name="body" value="/public/tabelas/lista-orgao-convenente.jsp"/>
+    </definition>
+    
     <!-- ###################### -->
     <!-- FORMULARIOS AUXILIARES -->
     <!-- ###################### -->
@@ -66,6 +70,14 @@
     
     <definition name="programa-editar" extends="master.page">
         <put-attribute name="body" value="/public/formularios/programa-editar.jsp"/>
+    </definition>
+    
+    <definition name="orgao-convenente-novo" extends="master.page">
+        <put-attribute name="body" value="/public/formularios/orgao-convenente-novo.jsp"/>
+    </definition> 
+    
+    <definition name="orgao-convenente-editar" extends="master.page">
+        <put-attribute name="body" value="/public/formularios/orgao-convenente-editar.jsp"/>
     </definition> 
     
 </tiles-definitions>

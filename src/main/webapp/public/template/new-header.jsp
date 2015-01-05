@@ -36,6 +36,9 @@
 					<a href="/sistema/orgao-concedente/lista">Orgão Condedente</a>
 				</li>
 				<li>
+					<a href="/sistema/orgao-convenente/lista">Orgão Convenente</a>
+				</li>
+				<li>
 					<a href="/sistema/programa/lista">Programa</a>
 				</li>
 				<li>

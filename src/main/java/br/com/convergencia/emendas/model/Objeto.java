@@ -11,17 +11,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "objeto")
 public class Objeto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "idn_produto")
+	@Column(name = "idn_objeto")
 	private Integer id;
 	
-	@Column(name = "nome_produto")
+	@Column(name = "nome_objeto")
 	private String nome;
 	
 	@ManyToOne

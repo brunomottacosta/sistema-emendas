@@ -5,12 +5,19 @@
 <div>
 
 	<div class="container-fluid">
-
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+					<h2 class="text-info">Lista de Ações Cadastradas</h2>
+				</div>
+			</div>
+		</div>
 		
 		<div class="row">
 				
-			<div class="col-md-12">				
-				
+			<div class="col-md-12">
+
 				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_acao_modal">
 					<i class="fa fa-plus"></i> NOVO					
 				</button>

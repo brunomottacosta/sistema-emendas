@@ -9,83 +9,78 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="page-header">
-					<h2 class="text-info">Lista de Programas Cadastrados</h2>
+					<h2 class="text-info">Lista de Orgãos Convenentes Cadastrados</h2>
 				</div>
 			</div>
-		</div>	
-					
+		</div>
+		
 		<div class="row">
 				
 			<div class="col-md-12">				
 				
-				<a href="novo" class="btn btn-warning">
-					<i class="fa fa-plus"></i> NOVO					
+				<a class="btn btn-warning" href="novo">
+					<i class="fa fa-plus"></i> NOVO						
 				</a>
 				
 				<hr />
 				
-				<table id="tabela_programas" class="table table-bordered">
+				<!-- ###################### -->
+				<!-- LISTA ORGAO CONCEDENTE -->
+				<!-- ###################### -->
 				
+				<table id="tabela_org_conv" class="table table-bordered">				
 					<thead>
 						<tr>
 							<th style="width: 5%">ID</th>
 							<th>NOME</th>
+							<th>CNPJ</th>
 							<th style="width: 5%"></th>
 							<th style="width: 5%"></th>
 						</tr>
 					</thead>
 					
 					<tbody>
-						<c:forEach items="${programas}" var="p">
+						<c:forEach items="${convenentes}" var="conv">
 							<tr>
-								<td>${p.id}</td>
-								<td>${p.nome}</td>
+								<td>${conv.id}</td>
+								<td>${conv.nome}</td>
+								<td>${conv.cnpj}</td>
 								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
+									<a href="alteracao/${conv.id}">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
-								<td style="text-align: center" id="programa_${p.id}">
-									<a href="#" onclick="remove_ajax(${p.id})"> 
+								<td style="text-align: center" id="org_${conv.id}">
+									<a href="#" onclick="remove_ajax(${conv.id})"> 
 										<i class="fa fa-trash"></i>
 									</a>
 								</td>
 							</tr>
 						</c:forEach>
-					</tbody>
-										
+					</tbody>										
 				</table>
-
-			</div>
-			
-		</div>
-		
-	</div>
-	
+				
+				<!-- ########################## -->
+				<!-- FIM LISTA ORGAO CONCEDENTE -->
+				<!-- ########################## -->
+				
+			</div>			
+		</div>		
+	</div>	
 </div>
-
-<!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/programa-editar-modal.jsp"></c:import>
 
 <!-- SCRIPTS -->
 <script type="text/javascript">
 
 //inicia datatables
-$("#tabela_programas").dataTable();
-
-//editar
-function edita_ajax(id, nome) {	
-	$("#programa_id_edit").val(id);
-	$("#programa_nome_edit").val(nome);
-	$("#edit_programa_modal").modal("show");	
-}
+$("#tabela_org_conv").dataTable();
 
 // remover
 function remove_ajax(id) {
-	var table = $("#tabela_programas").DataTable();
+	var table = $("#tabela_org_conv").DataTable();
 	
 	// seta linha como selecionada
-	$('#tabela_programas tbody').on( "click", "tr", function () {
+	$('#tabela_org_conv tbody').on( "click", "tr", function () {
 		$(this).addClass("selected");
 		
 		// esconde row a ser deletada

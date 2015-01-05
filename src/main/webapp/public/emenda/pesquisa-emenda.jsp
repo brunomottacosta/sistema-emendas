@@ -5,6 +5,10 @@
 
 <div class="container-fluid">
 	
+	<div class="page-header">
+		<h2 class="text-info">Filtros de Busca</h2>  						
+	</div>		
+	
 	<div id="content_pesq_emenda">
 		
 		<!-- ####################### -->	
@@ -17,9 +21,6 @@
 			<!-- BOTOES DE ACAO -->
 			<!-- ############## -->
 							
-			<div class="page-header">
-				<h2 class="text-info">Filtros de Busca</h2>  						
-			</div>		
 			
 			<div class="row" style="margin-bottom: 20px">
 			
@@ -397,9 +398,9 @@ $(document).ready( function() {
 	
 	// mostra tr selecionada, ativa ou desativa botao para abrir
 	$('#tabela_emendas tbody').on( 'click', 'tr', function () {		
-        if ( $(this).hasClass('selected') ) {
+        if ( $(this).hasClass('selected')) {
             $(this).removeClass('selected');
-        } else {
+        } else if (!$(this).hasClass('odd')) {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
@@ -410,7 +411,8 @@ $(document).ready( function() {
         	$('#btn_ver_emenda').attr('disabled', true);
         }
 	});
- 
+
+ 	// encaminha para pagina individual da emenda
     $('#btn_ver_emenda').click( function () {
         data = table.row('.selected').data();
         var url = 'visualizar/' + data.id;
@@ -431,7 +433,7 @@ $(document).ready( function() {
 		if (btns.length > 1) {			
 			
 			// muda o slide, de filtros para a lista
-			$("#content_pesq_emenda").hide("slide", {direction : "right"}, 500, function() {
+			$("#content_pesq_emenda").hide("fade", 350, function() {
 				
 				// abre o modal de loading para caso de demorar a carregar os dados da busca
 				$("#carregar_modal").modal("show");
@@ -473,7 +475,7 @@ $(document).ready( function() {
 					$("#filtro_pesq_emenda").hide();
 					$("#list_pesq_emenda").show();
 					$("#carregar_modal").on("hidden.bs.modal", function() {
-						$("#content_pesq_emenda").show("slide", {direction : "left"}, 500);				
+						$("#content_pesq_emenda").show("fade", 350);				
 					});
 				});		
 			});			
@@ -521,19 +523,23 @@ $(document).ready(function() {
 // resetar pesquisa
 $("#btn_resetar").click( function() {		
 	
-	// limpa campos de pesquisa
-	$(".input-pesquisa").val(null);
-	$(".drop-pesquisa").val(0);
-	$(".filter-option").html("Nenhum");		
+	$("#form_pesquisa_emenda").hide("fade", 350, function() {
+		
+		// limpa campos de pesquisa
+		$(".input-pesquisa").val(null);
+		$(".drop-pesquisa").val(0);
+		$(".filter-option").html("Nenhum");	
+		$("#form_pesquisa_emenda").show("fade", 350);
+	});		
 });
 
 
 // voltar para os filtros
 $("#btn_voltar_filtro").click( function() {
-	$("#content_pesq_emenda").hide("slide", {direction : "left"}, 500, function() {
+	$("#content_pesq_emenda").hide("fade", 350, function() {
 		$("#filtro_pesq_emenda").show();
 		$("#list_pesq_emenda").hide();		
-		$("#content_pesq_emenda").show("slide", {direction : "right"}, 500);
+		$("#content_pesq_emenda").show("fade", 350);
 	});
 });
 

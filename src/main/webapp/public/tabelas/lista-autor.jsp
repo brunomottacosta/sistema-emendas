@@ -5,7 +5,14 @@
 <div>
 
 	<div class="container-fluid">
-
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+					<h2 class="text-info">Lista de Autores Cadastrados</h2>
+				</div>
+			</div>
+		</div>
 		
 		<div class="row">
 				

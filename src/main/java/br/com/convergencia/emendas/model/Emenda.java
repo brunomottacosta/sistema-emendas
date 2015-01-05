@@ -69,6 +69,7 @@ public class Emenda implements Serializable {
 	@OneToMany(mappedBy="emenda")
 	private List<Acao> acoes;
 	
+	@OneToMany(mappedBy="emenda")
 	private List<IndicacaoEmenda> indicacoes;
 	
 	public Integer getId() {
@@ -166,6 +167,14 @@ public class Emenda implements Serializable {
 
 	public void setAcoes(List<Acao> acoes) {
 		this.acoes = acoes;
+	}
+
+	public List<IndicacaoEmenda> getIndicacoes() {
+		return indicacoes;
+	}
+
+	public void setIndicacoes(List<IndicacaoEmenda> indicacoes) {
+		this.indicacoes = indicacoes;
 	}
 
 }
