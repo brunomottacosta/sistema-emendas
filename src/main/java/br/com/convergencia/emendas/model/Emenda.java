@@ -66,8 +66,9 @@ public class Emenda implements Serializable {
 	@JoinColumn(name = "idn_programa", referencedColumnName = "idn_programa")
 	private Programa programa;
 	
-	@OneToMany(mappedBy="emenda")
-	private List<Acao> acoes;
+	@ManyToOne
+	@JoinColumn(name = "idn_acao", referencedColumnName = "idn_acao")
+	private Acao acao;
 	
 	@OneToMany(mappedBy="emenda")
 	private List<IndicacaoEmenda> indicacoes;
@@ -161,12 +162,13 @@ public class Emenda implements Serializable {
 		this.programa = programa;
 	}
 
-	public List<Acao> getAcoes() {
-		return acoes;
+
+	public Acao getAcao() {
+		return acao;
 	}
 
-	public void setAcoes(List<Acao> acoes) {
-		this.acoes = acoes;
+	public void setAcao(Acao acao) {
+		this.acao = acao;
 	}
 
 	public List<IndicacaoEmenda> getIndicacoes() {

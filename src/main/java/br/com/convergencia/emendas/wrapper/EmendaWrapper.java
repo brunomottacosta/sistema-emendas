@@ -3,7 +3,6 @@ package br.com.convergencia.emendas.wrapper;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -30,7 +29,7 @@ public class EmendaWrapper implements Serializable {
 	private String autor;
 	private String orgaoConcedente;
 	private String programa;
-	private List<String> acoes;
+	private String acao;
 	
 	/** CONVERTE BIGDECIMAL EM STRING FORMATADO R$ **/
 	public String setValorToFormatMoney(BigDecimal valor) {
@@ -73,12 +72,7 @@ public class EmendaWrapper implements Serializable {
 		this.autor = e.getAutor().getNome();
 		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
 		this.programa = e.getPrograma().getNome();
-		if (!acoes.isEmpty()) {
-			this.acoes = new ArrayList<String>();
-			for (Acao a : acoes) {
-				this.acoes.add(a.getNome());
-			}
-		}
+		this.acao = e.getAcao().getNome();
 	}
 	
 	public String getId() {
@@ -148,12 +142,13 @@ public class EmendaWrapper implements Serializable {
 		this.programa = programa;
 	}
 
-	public List<String> getAcoes() {
-		return acoes;
+	public String getAcao() {
+		return acao;
 	}
 
-	public void setAcoes(List<String> acoes) {
-		this.acoes = acoes;
-	}	
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+
 	
 }

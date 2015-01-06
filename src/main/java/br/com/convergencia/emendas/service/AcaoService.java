@@ -44,39 +44,23 @@ public class AcaoService {
 	public List<Acao> findByProgramaId(Integer programaId) {
 		
 		List<Acao> acoes = listAll();
-		List<Acao> acoesByProfessor = new ArrayList<Acao>();
+		List<Acao> acoesByPrograma = new ArrayList<Acao>();
 		
 		if (programaId != 0 && programaId != null) {
-			for (Acao a : acoes) {
-				if (a.getEmenda() == null) {
-					if (a.getPrograma() != null) {
-						if (a.getPrograma().getId() == programaId) {
-							acoesByProfessor.add(a);
-						}
-					}				
+			acoes.parallelStream().filter(a -> {
+				if (a.getPrograma() != null) {
+					if (a.getPrograma().getId() == programaId) {
+						return true;
+					} else {
+						return false;
+					}
 				}
-			}
+				return false;
+			});			
 		}
 		
-		return acoesByProfessor;
+		return acoesByPrograma;
 	}
 	
-	@Transactional
-	public List<Acao> findByEmendaId(Integer emendaId) {
-		
-		List<Acao> acoes = listAll();
-		List<Acao> acoesByEmenda = new ArrayList<Acao>();
-		
-		if (emendaId != 0 && emendaId != null) {
-			for (Acao a : acoes) {
-				if (a.getEmenda() != null) {
-					if (a.getEmenda().getId() == emendaId) {					
-						acoesByEmenda.add(a);					
-					}				
-				}
-			}
-		}
-		
-		return acoesByEmenda;
-	}
+	
 }

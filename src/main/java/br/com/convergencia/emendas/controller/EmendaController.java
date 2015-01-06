@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
-import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.AutorService;
@@ -176,7 +175,7 @@ public class EmendaController {
 			@RequestParam Integer idAutor,
 			@RequestParam Integer idOrgaoConced,
 			@RequestParam Integer idPrograma,
-			@RequestParam Integer[] idAcoes) {
+			@RequestParam Integer idAcao) {
 		
 		Emenda emenda = new Emenda();
 		
@@ -193,32 +192,33 @@ public class EmendaController {
 		emenda.setAutor(autorService.getAutor(idAutor));
 		emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 		emenda.setPrograma(programaService.getPrograma(idPrograma));
+		emenda.setAcao(acaoService.getAcao(idAcao));
 		
 		/** SALVA PREVIAMENTE **/
 		emendaService.save(emenda);	
 		
 		/** PARA RELACAO N X M, CONFERE O ARRAY RECEBIDO **/
 		/** VALIDA E ADICIONA A LISTA DE OBJETOS "M" **/
-		if (idAcoes.length != 0) {
+//		if (idAcoes.length != 0) {
 			
 			/** PASSA O ARRAY PARA TIPO COLLECTION **/
-			List<Integer> ids = new ArrayList<Integer>(Arrays.asList(idAcoes));
+//			List<Integer> ids = new ArrayList<Integer>(Arrays.asList(idAcoes));
 			
 			/** PARA CADA ID DA COLLECTION, BUSCA UM OBJETO **/
-			for (Integer i : ids) {					
-				Acao a = acaoService.getAcao(i);
+//			for (Integer i : ids) {					
+//				Acao a = acaoService.getAcao(i);
 				
 				/** SETA O PAI NO FILHO **/
-				a.setEmenda(emenda);
+//				a.setEmenda(emenda);
 				
 				/** UPDATE NO FILHO, SE DER ERRO, APAGA O PAI SALVO PREVIAMENTE **/
-				try {
-					acaoService.save(a);					
-				} catch (Exception e) {
-					emendaService.delete(emenda);
-				}
-			}								
-		}			
+//				try {
+//					acaoService.save(a);					
+//				} catch (Exception e) {
+//					emendaService.delete(emenda);
+//				}
+//			}								
+//		}			
 		
 		execucao = "SALVANDO";
 		
@@ -258,28 +258,28 @@ public class EmendaController {
 		
 		/** BUSCA PELO ID E CRIA LISTA VAZIA DE ACOES**/
 		Emenda emenda = emendaService.getEmenda(id);
-		List<Acao> acoesByEmenda = new ArrayList<Acao>();
-		
-		/** SE EMENDA TIVER UM PROGRAMA, BUSCA AS ACOES DESSA EMENDA E PREENCHE A LISTA**/
-		if (emenda.getPrograma() != null) {
-			acoesByEmenda = acaoService.findByEmendaId(id);
-		}
-		
-		/** SE A LISTA BUSCADA AINDA ESTIVER VAZIA N FAZ NADA **/
-		if (!acoesByEmenda.isEmpty()) {
-			int n = acoesByEmenda.size();
-			
-			/** REMOVE A RELAÇAO DA ACAO COM A EMENDA **/
-			try {
-				for (Acao a : acoesByEmenda) {
-					a.setEmenda(null);				
-					acaoService.save(a);				
-				}				
-			} catch (Exception e) {
-				logger.info("## ERRO AO DELETAR EMENDA ##");
-			}
-			logger.info("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
-		}
+//		List<Acao> acoesByEmenda = new ArrayList<Acao>();
+//		
+//		/** SE EMENDA TIVER UM PROGRAMA, BUSCA AS ACOES DESSA EMENDA E PREENCHE A LISTA**/
+//		if (emenda.getPrograma() != null) {
+//			acoesByEmenda = acaoService.findByEmendaId(id);
+//		}
+//		
+//		/** SE A LISTA BUSCADA AINDA ESTIVER VAZIA N FAZ NADA **/
+//		if (!acoesByEmenda.isEmpty()) {
+//			int n = acoesByEmenda.size();
+//			
+//			/** REMOVE A RELAÇAO DA ACAO COM A EMENDA **/
+//			try {
+//				for (Acao a : acoesByEmenda) {
+//					a.setEmenda(null);				
+//					acaoService.save(a);				
+//				}				
+//			} catch (Exception e) {
+//				logger.info("## ERRO AO DELETAR EMENDA ##");
+//			}
+//			logger.info("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
+//		}
 		
 		try {
 			/** REMOVE A EMENDA APOS REMOVER TODAS AS RELAÇÕES **/
