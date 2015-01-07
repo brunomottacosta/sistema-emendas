@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.ObjetoService;
+import br.com.convergencia.emendas.service.ProgramaService;
 
 @Controller
 @RequestMapping(value = "objeto/")
@@ -27,6 +28,7 @@ public class ObjetoController {
 
 	@Autowired private ObjetoService objetoService;
 	@Autowired private AcaoService acaoService;
+	@Autowired private ProgramaService programaService;
 		
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -37,6 +39,7 @@ public class ObjetoController {
 		
 		model.addAttribute("objetos", objetoService.listAll());
 		model.addAttribute("acoes", acaoService.listAll());
+		model.addAttribute("programas", programaService.listAll());
 		
 		return "lista-objeto";
 	}

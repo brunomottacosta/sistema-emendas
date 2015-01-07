@@ -12,7 +12,7 @@
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
 
-				<h4 class="modal-title">Orgão Concedente: Novo</h4>
+				<h4 class="modal-title">Orgão Concedente - Novo</h4>
 
 			</div>
 			

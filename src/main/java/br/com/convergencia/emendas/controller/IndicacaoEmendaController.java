@@ -1,5 +1,7 @@
 package br.com.convergencia.emendas.controller;
 
+import java.math.BigDecimal;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -16,6 +18,9 @@ import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.model.IndicacaoEmenda;
 import br.com.convergencia.emendas.service.EmendaService;
 import br.com.convergencia.emendas.service.IndicacaoEmendaService;
+import br.com.convergencia.emendas.service.ObjetoService;
+import br.com.convergencia.emendas.service.OrgaoConvenenteService;
+import br.com.convergencia.emendas.util.ConversorUtil;
 
 @Controller
 @RequestMapping(value = "emenda/indicacao/")
@@ -26,34 +31,52 @@ public class IndicacaoEmendaController {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 	// Injeções de Dependencia //
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
-
+	
+	@Autowired private ConversorUtil conversor;
 	@Autowired private IndicacaoEmendaService indicacaoEService;
 	@Autowired private EmendaService emendaService;
+	@Autowired private OrgaoConvenenteService convenenteService;
+	@Autowired private ObjetoService objetoService;
 		
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
 	// ~~~~~~~~~~~~~~~~~~~~//
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public String listAll(@PathVariable Integer id, Model model) {
+	public String lista(@PathVariable Integer id, Model model) {
 		
 		Emenda emenda = emendaService.getEmenda(id);
 		
 		model.addAttribute("emenda", emenda);
+		model.addAttribute("convenentes", convenenteService.listAll());
+		model.addAttribute("objetos", objetoService.findByAcao(emenda.getAcao().getId()));
 		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
 		
 		return "indicacao-emenda";
 	}
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
-	public String salvar(@RequestParam String nome) {
+	public String salvar(
+			@RequestParam Integer emenda,
+			@RequestParam Integer convenente,
+			@RequestParam Integer objeto,
+			@RequestParam String valor) {
 		
 		IndicacaoEmenda indicacao = new IndicacaoEmenda();
 		
+		try {
+			indicacao.setEmenda(emendaService.getEmenda(emenda));
+			indicacao.setConvenente(convenenteService.getOrgaoConvenente(convenente));
+			indicacao.setObjeto(objetoService.getObjeto(objeto));
+			indicacao.setValorDestinado(new BigDecimal(conversor.mascaraApenasNumero(valor)));			
+		} catch (Exception e) {
+			logger.info("ERRO AO VALIDAR OS DADOS RECEBIDOS");
+		}
 		indicacaoEService.save(indicacao);
 		
 		logger.info("## SALVANDO NOVA INDICACAO ##");
-		return "redirect:lista";
+		
+		return "redirect:/emenda/indicacao/" + emenda;
 	}
 	
 	@RequestMapping(value = "editar", method = RequestMethod.POST)

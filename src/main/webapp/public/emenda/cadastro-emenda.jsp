@@ -33,7 +33,7 @@
 			<!-- ################# -->			
 					
 			<form action="salvar" method="post" id="form_nova_emenda" role="form"
-			  data-bv-message="This value is not valid"
+			  data-bv-message="Valor não válido"
 		      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
 		      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
 		      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">				
@@ -287,15 +287,15 @@ function remover(obj) {
 $(document).ready( function() {
 	$("#btn_salvar_emenda").click( function() {
 		
-		var trs = $("#tb_select_acao tbody").children("tr");
+// 		var trs = $("#tb_select_acao tbody").children("tr");
 		
-		$("#form_nova_emenda")
-		.append("<select id='select-acoes' name='idAcoes' multiple='multiple' hidden='hidden'></select>");
+// 		$("#form_nova_emenda")
+// 		.append("<select id='select-acoes' name='idAcoes' multiple='multiple' hidden='hidden'></select>");
 		
-		$.each(trs, function(pos, obj) {
-			$("#select-acoes")
-			.append("<option value='" + obj.id + "' selected='selected'></option>");
-		});
+// 		$.each(trs, function(pos, obj) {
+// 			$("#select-acoes")
+// 			.append("<option value='" + obj.id + "' selected='selected'></option>");
+// 		});
 		
 		$("#form_nova_emenda").submit();	
 	});	 

@@ -1,5 +1,6 @@
 package br.com.convergencia.emendas.service;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.convergencia.emendas.model.Emenda;
+import br.com.convergencia.emendas.model.IndicacaoEmenda;
 import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.repository.EmendaRepository;
 
@@ -29,6 +31,7 @@ public class EmendaService {
 	@Autowired private AcaoService acaoService;
 	@Autowired private ObjetoService objetoService;
 	@Autowired private ProgramaService programaService;
+	@Autowired private IndicacaoEmendaService indicacaoEService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -130,5 +133,23 @@ public class EmendaService {
 		logger.info("## TEMPO DE BUSCA: " + (end - init) + " ms ##");
 		
 		return result;
+	}
+	
+	/** METODOS EXTRAS FODASTICOS **/
+	public BigDecimal calculaValorDisponivel(Emenda e) {
+		
+		BigDecimal valorDisponivel = new BigDecimal(0);
+		BigDecimal valorUsado = new BigDecimal(0);
+		BigDecimal valorTotal = e.getValor();
+		
+		List<IndicacaoEmenda> indicacoes = indicacaoEService.findByEmenda(e);
+		
+		for (IndicacaoEmenda indicacao : indicacoes) {
+			valorUsado = valorUsado.add(indicacao.getValorDestinado());
+		}
+		
+		valorDisponivel = valorTotal.min(valorUsado);
+		
+		return valorDisponivel;
 	}
 }

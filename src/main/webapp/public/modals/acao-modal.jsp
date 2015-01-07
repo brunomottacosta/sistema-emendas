@@ -14,7 +14,7 @@
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
 
-				<h4 class="modal-title">Adicionar Ação</h4>
+				<h4 class="modal-title">Ação - Novo</h4>
 
 			</div>
 			

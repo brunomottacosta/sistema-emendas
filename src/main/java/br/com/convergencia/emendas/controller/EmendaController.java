@@ -241,7 +241,7 @@ public class EmendaController {
 		model.addAttribute("objetosDaEmenda", objetoService.findByEmenda(id));
 		
 		return "ver-emenda";
-	}
+	}	
 	
 	/** LISTA AUXILIAR **/
 	@RequestMapping(value = "lista", method = RequestMethod.GET)
