@@ -73,14 +73,8 @@
 			<div class="panel panel-default">
 				<table class="table table-bordered">				
 					<tr>
-						<td>
-							<strong>Ações</strong>
-						</td>
-						<c:forEach items="${acoesDaEmenda}" var="acao">
-							<tr>
-								<td class="text-info">${acao.nome}</td>
-							</tr>
-						</c:forEach>
+						<td class="col-md-5"><strong>Ação</strong></td>					
+						<td class="text-info">${emenda.acao.nome}</td>						
 					</tr>
 				</table>		
 			</div>

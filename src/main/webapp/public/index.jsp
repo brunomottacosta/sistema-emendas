@@ -2,7 +2,7 @@
 
 <div>
 
-	<div class="container">
+	<div class="container-fluid">
 		
 		<div class="jumbotron">
 			<h2>Here lies..</h2>

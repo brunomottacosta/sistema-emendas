@@ -2,6 +2,7 @@ package br.com.convergencia.emendas.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,23 +42,14 @@ public class AcaoService {
 	}
 	
 	@Transactional
-	public List<Acao> findByProgramaId(Integer programaId) {
+	public List<Acao> findByPrograma(Integer programaId) {
 		
 		List<Acao> acoes = listAll();
 		List<Acao> acoesByPrograma = new ArrayList<Acao>();
 		
 		if (programaId != 0 && programaId != null) {
-			acoes.parallelStream().filter(a -> {
-				if (a.getPrograma() != null) {
-					if (a.getPrograma().getId() == programaId) {
-						return true;
-					} else {
-						return false;
-					}
-				}
-				return false;
-			});			
-		}
+			acoesByPrograma = acoes.stream().filter(a -> a.getPrograma().getId() == programaId).collect(Collectors.toList());			
+		}		
 		
 		return acoesByPrograma;
 	}

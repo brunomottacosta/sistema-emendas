@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.repository.EmendaRepository;
@@ -98,35 +97,15 @@ public class EmendaService {
 		if (!itens.get("programa").equals("0")) {
 			busca = busca.filter(e -> e.getPrograma().getId().toString().equals(itens.get("programa")));
 		}
-		if (!itens.get("acao").equals("0")) {
-			Acao a = acaoService.getAcao(Integer.parseInt(itens.get("acao")));
-			
-			/** FILTER RECEBE SEMPRE TRUE OU FALSE, ENTAO RETORNO NECESSITA SER UM BOOLEAN **/
-			busca = busca.filter(e -> {
-				List<Acao> acoes = acaoService.findByEmendaId(e.getId());
-				if (!acoes.isEmpty()) {
-					int count = 0;
-					for (Acao ac : acoes) {
-						if (ac.getId() != a.getId()) {
-							count ++;
-						}						
-					}
-					if (acoes.size() == count) {
-						return false;
-					} else {
-						return true;
-					}
-				} else {
-					return false;
-				}			
-			});
+		if (!itens.get("acao").equals("0")) {			
+			busca = busca.filter(e -> e.getAcao().getId().toString().equals(itens.get("acao")));
 		}
 		if (!itens.get("objeto").equals("0")) {
 			Objeto o = objetoService.getObjeto(Integer.parseInt(itens.get("objeto")));
 			
 			/** FILTER RECEBE SEMPRE TRUE OU FALSE, ENTAO RETORNO NECESSITA SER UM BOOLEAN **/
 			busca = busca.filter(e -> {
-				List<Objeto> objs = objetoService.findByAllAcoes(acaoService.findByEmendaId(e.getId()));
+				List<Objeto> objs = objetoService.findByEmenda(e.getId());
 				if (!objs.isEmpty()) {
 					int count = 0;
 					for (Objeto ob : objs) {

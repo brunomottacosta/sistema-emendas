@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.repository.ObjetoRepository;
 
@@ -42,6 +41,23 @@ public class ObjetoService {
 	}
 	
 	@Transactional
+	public List<Objeto> findByEmenda(Integer emendaId) {
+		
+		List<Objeto> objetos = listAll();
+		List<Objeto> objetosByEmenda = new ArrayList<Objeto>();
+		
+		if (emendaId != 0 && emendaId != null) {
+			for (Objeto obj : objetos) {
+				if (obj.getAcao().getId() == emendaId) {
+					objetosByEmenda.add(obj);
+				}
+			}
+		}
+		
+		return objetosByEmenda;
+	}
+	
+	@Transactional
 	public List<Objeto> findByAcao(Integer acaoId) {
 		
 		List<Objeto> objetos = listAll();
@@ -56,19 +72,5 @@ public class ObjetoService {
 		}
 		
 		return objetosByAcao;
-	}
-	
-	@Transactional
-	public List<Objeto> findByAllAcoes(List<Acao> acoes) {
-		
-		List<Objeto> objetosByAllAcoes = new ArrayList<Objeto>();
-		
-		if (!acoes.isEmpty()) {
-			for (Acao a : acoes) {
-				objetosByAllAcoes.addAll(findByAcao(a.getId()));
-			}
-		}
-		
-		return objetosByAllAcoes;
-	}
+	}	
 }

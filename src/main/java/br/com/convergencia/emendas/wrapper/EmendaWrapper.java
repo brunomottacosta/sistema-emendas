@@ -3,14 +3,12 @@ package br.com.convergencia.emendas.wrapper;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
-import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Emenda;
 
 @Component
@@ -50,7 +48,7 @@ public class EmendaWrapper implements Serializable {
 	}	
 	
 	/** RECEBE UM OBJETO E SETA TODOS OS ATRIBUTOS DO SEU "WRAPPER", PASSANDO TUDO PARA STRING **/
-	public void setAllAtributtes(Emenda e, List<Acao> acoes) {
+	public void setAllAtributtes(Emenda e) {
 		
 		this.id = e.getId().toString();
 		

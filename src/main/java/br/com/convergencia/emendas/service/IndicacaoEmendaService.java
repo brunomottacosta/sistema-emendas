@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.model.IndicacaoEmenda;
 import br.com.convergencia.emendas.repository.IndicacaoEmendaRepository;
 
@@ -30,12 +31,17 @@ public class IndicacaoEmendaService {
 	}
 	
 	@Transactional
-	public List<IndicacaoEmenda> listAll() {
-		return (List<IndicacaoEmenda>) indicacaoEmendaRepository.findAll();
+	public IndicacaoEmenda getIndicacaoEmenda(Integer id) {
+		return indicacaoEmendaRepository.findOne(id);
 	}
 	
 	@Transactional
-	public IndicacaoEmenda getIndicacaoEmenda(Integer id) {
-		return indicacaoEmendaRepository.findOne(id);
+	public List<IndicacaoEmenda> listAll() {
+		return (List<IndicacaoEmenda>) indicacaoEmendaRepository.findAll();
+	}
+		
+	@Transactional
+	public List<IndicacaoEmenda> findByEmenda(Emenda emenda) {
+		return indicacaoEmendaRepository.findByEmenda(emenda);
 	}
 }

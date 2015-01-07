@@ -83,7 +83,7 @@ public class EmendaController {
 		/** PASSA ATRIBUTOS DE EMENDA PARA O SEU ENVELOPE E ADICIONA NA LISTA **/
 		for(Emenda e : emendas) {
 			EmendaWrapper ew = new EmendaWrapper();
-			ew.setAllAtributtes(e, acaoService.findByEmendaId(e.getId()));
+			ew.setAllAtributtes(e);
 			
 			wrapper.add(ew);
 		}
@@ -133,7 +133,7 @@ public class EmendaController {
 		/** PASSA ATRIBUTOS DO OBJETO PARA O SEU "WRAPPER" E ADICIONA NA LISTA PARA JSON **/
 		for (Emenda e : emendas) {
 			EmendaWrapper ew = new EmendaWrapper();
-			ew.setAllAtributtes(e, acaoService.findByEmendaId(e.getId()));
+			ew.setAllAtributtes(e);
 			
 			wrapper.add(ew);
 		}
@@ -238,8 +238,7 @@ public class EmendaController {
 		model.addAttribute("emenda", emenda);
 		
 		/** LISTAS AUXILIARES **/
-		model.addAttribute("objetosDaEmenda", objetoService.findByAllAcoes(acaoService.findByEmendaId(id)));
-		model.addAttribute("acoesDaEmenda", acaoService.findByEmendaId(id));
+		model.addAttribute("objetosDaEmenda", objetoService.findByEmenda(id));
 		
 		return "ver-emenda";
 	}

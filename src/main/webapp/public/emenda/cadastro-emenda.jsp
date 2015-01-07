@@ -155,32 +155,41 @@
 							</select> 
 						</div>
 						<div class="form-group">
-							<label class="control-label">Ações</label>												
+							<label class="control-label">Ação</label> 
+							<select id="acao_emenda" 
+							data-live-search="true"
+							class="form-control selectpicker" 
+							name="idAcao">
+								<!-- LISTA DE ACOES POR PROGRAMA -->	
+							</select> 
+						</div>
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="control-label">Ações</label>												 -->
 							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="row">
-										<div class="col-md-2">
-											<a id="select_acao" href="#" class="btn btn-default">
-												<i class="fa fa-plus"></i> Incluir
-											</a>
-										</div>
-										<div class="col-md-10">
-											<select id="acao_emenda" data-live-search="true" class="form-control selectpicker">
-												<!-- LISTA DE ACOES POR PROGRAMA -->
-											</select>																		
-										</div>
-									</div>
-								</div>
-								<div class="panel-body">
-									<table class="table" id="tb_select_acao">							
-										<tbody>											
-										</tbody>
-									</table>	
-								</div>								
-							</div>
+<!-- 							<div class="panel panel-default"> -->
+<!-- 								<div class="panel-heading"> -->
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-md-2"> -->
+<!-- 											<a id="select_acao" href="#" class="btn btn-default"> -->
+<!-- 												<i class="fa fa-plus"></i> Incluir -->
+<!-- 											</a> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-md-10"> -->
+<!-- 											<select id="acao_emenda" data-live-search="true" class="form-control selectpicker"> -->
+<!-- 												LISTA DE ACOES POR PROGRAMA -->
+<!-- 											</select>																		 -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="panel-body"> -->
+<!-- 									<table class="table" id="tb_select_acao">							 -->
+<!-- 										<tbody>											 -->
+<!-- 										</tbody> -->
+<!-- 									</table>	 -->
+<!-- 								</div>								 -->
+<!-- 							</div> -->
 							
-						</div>	
+<!-- 						</div>	 -->
 					</div>
 				</div>							
 			</form>
@@ -211,7 +220,7 @@
 		success: function(json) {
 			$.each(json, function(pos, obj) {
 				$("#acao_emenda")
-				.append("<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>")
+				.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
 				.selectpicker("refresh");
 			});
 		}
@@ -232,7 +241,7 @@ $("#programa_emenda").on("change", function() {
 			} else {
 				$.each(json, function(pos, obj) {				
 					$("#acao_emenda")
-					.append("<option value='" + obj.id + "_" + obj.nome +"'>" + obj.nome + "</option>")
+					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
 					.selectpicker("refresh");
 				});				
 			}

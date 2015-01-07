@@ -71,15 +71,11 @@ public class AcaoController {
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(
 			@RequestParam String nome, 
-			@RequestParam Integer id,
-			@RequestParam Integer idPrograma) {
+			@RequestParam Integer id) {
 		
 		Acao acao = acaoService.getAcao(id);
 		
-		acao.setNome(nome);
-		if (idPrograma != 0 && idPrograma != null) {
-			acao.setPrograma(programaService.getPrograma(idPrograma));
-		}
+		acao.setNome(nome);		
 		
 		acaoService.update(acao);
 		
@@ -114,7 +110,7 @@ public class AcaoController {
 	@RequestMapping(value = "lista/programa/{programaId}", method = RequestMethod.GET)
 	public @ResponseBody List<AcaoWrapper> acoesPorPrograma(@PathVariable Integer programaId) {
 		
-		List<Acao> acoes = acaoService.findByProgramaId(programaId);
+		List<Acao> acoes = acaoService.findByPrograma(programaId);
 		List<AcaoWrapper> wrapper = new ArrayList<AcaoWrapper>();
 		
 		for (Acao a : acoes) {

@@ -83,7 +83,7 @@
 							Programa
 						</a>
 						<a class="btn btn-default toggle-visible" data-column="10">
-							Ações
+							Ação
 						</a>
 							
 					</div>
@@ -281,7 +281,7 @@
 						<th style="width: 15em">G.N.D.</th>
 						<th style="width: 10em">VALOR (R$)</th>
 						<th style="width: 10em">PROGRAMA</th>
-						<th style="width: 10em">AÇÕES</th>
+						<th style="width: 10em">AÇÃO</th>
 						<th style="width: 3em"></th>
 <!-- 						<th style="width: 10em">AÇÃO</th> -->
 <!-- 						<th style="width: 10em">OBJETO</th> -->
@@ -365,7 +365,7 @@ $(document).ready(function() {
 		              {"data" : "gnd"},
 		              {"data" : "valor"},
 		              {"data" : "programa"},
-		              {"data" : "acoes"},
+		              {"data" : "acao"},
 		              {"data" : "id"},
 		],
 		// definicoes da coluna, pode-se aplicar classes css, inserir links, etc.
@@ -373,21 +373,7 @@ $(document).ready(function() {
         {
         	"className": "center-td",
     		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],    	    
-   	  	},
-   		{
-   	    	"render": function ( data, type, row ) {
-   	   	    	var string = "";
-   	   	    	$.each(data, function(pos, obj) {
-   	   	   	    	if (pos == 0) {
-						string = obj;
-   	   	   	   	    } else {
-						string = string + ", <br />" + obj
- 	   	   	   	   	} 
-   	   	   	   	});
-             	return string;
-   	    	},	
-   	     	"targets": [ 10 ],
-   		}]
+   	  	}]
 	});
 });
 
@@ -400,7 +386,7 @@ $(document).ready( function() {
 	$('#tabela_emendas tbody').on( 'click', 'tr', function () {		
         if ( $(this).hasClass('selected')) {
             $(this).removeClass('selected');
-        } else if (!$(this).hasClass('odd')) {
+        } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
