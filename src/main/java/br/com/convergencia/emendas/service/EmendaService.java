@@ -1,6 +1,7 @@
 package br.com.convergencia.emendas.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.model.IndicacaoEmenda;
 import br.com.convergencia.emendas.model.Objeto;
@@ -81,13 +83,7 @@ public class EmendaService {
 		}
 		if (!itens.get("funcional").isEmpty()) {
 			busca = busca.filter(e -> e.getFuncionalProgramatica().contains(itens.get("funcional")));
-		}
-		if (!itens.get("modalidade").equals("0")) {
-			busca = busca.filter(e -> e.getModalidadeDeAplicacao().getId().toString().equals(itens.get("modalidade")));
-		}
-		if (!itens.get("gnd").equals("0")) {
-			busca = busca.filter(e -> e.getGnd().getId().toString().equals(itens.get("gnd")));
-		}
+		}		
 		if (!itens.get("tipo").equals("0")) {
 			busca = busca.filter(e -> e.getTipoEmenda().getId().toString().equals(itens.get("tipo")));
 		}
@@ -126,6 +122,48 @@ public class EmendaService {
 				}			
 			});
 		}
+		if (!itens.get("modalidade").equals("0")) {
+			busca = busca.filter(e -> {
+				String modalidade = itens.get("modalidade");				
+				String[] s = e.getModalidadeDeAplicacao().split("_");
+				if (s.length > 0) {
+					int count = 0;
+					for (String st : s) {
+						if (!st.equals(modalidade)) {
+							count ++;
+						}
+					}
+					if (s.length == count) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			});
+		}
+		if (!itens.get("gnd").equals("0")) {
+			busca = busca.filter(e -> {
+				String gnd = itens.get("gnd");				
+				String[] s = e.getGnd().split("_");
+				if (s.length > 0) {
+					int count = 0;
+					for (String st : s) {
+						if (!st.equals(gnd)) {
+							count ++;
+						}
+					}
+					if (s.length == count) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			});
+		}
 		
 		List<Emenda> result = busca.collect(Collectors.toList());
 		
@@ -135,7 +173,7 @@ public class EmendaService {
 		return result;
 	}
 	
-	/** METODOS EXTRAS FODASTICOS **/
+	/** CALCULO VALOR DISPONIVEL EMENDA **/
 	public BigDecimal calculaValorDisponivel(Emenda e) {
 		
 		BigDecimal valorDisponivel = new BigDecimal(0);
@@ -151,5 +189,12 @@ public class EmendaService {
 		valorDisponivel = valorTotal.min(valorUsado);
 		
 		return valorDisponivel;
+	}
+	
+	public List<GND> buscarGnds(String s) {
+		
+		List<GND> lista = new ArrayList<GND>();
+		
+		return lista;
 	}
 }

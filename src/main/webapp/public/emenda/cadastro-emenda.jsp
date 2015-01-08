@@ -32,82 +32,72 @@
 			<!-- FORMULARIO EMENDA -->
 			<!-- ################# -->			
 					
-			<form action="salvar" method="post" id="form_nova_emenda" role="form"
-			  data-bv-message="Valor não válido"
-		      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-		      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-		      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">				
+			<form action="salvar" method="post" id="form_nova_emenda" role="form">				
 							
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Numero</label> 
 									<input type="text" name="numero" id="num_emenda" 
-									data-bv-notempty="true"
-									class="form-control num-emenda"
-                   					required data-bv-notempty-message="Este campo nao pode ser vazio."> 
+									class="form-control">
+					                 
 								</div>							
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Ano</label>
 									<input type="text" name="ano" id="ano_emenda" 
-									class="form-control ano-emenda" 									
-									data-bv-notempty="true"
-									class="form-control num-emenda"
-                   					required data-bv-notempty-message="Este campo nao pode ser vazio."> 
+									class="form-control ano-emenda"> 
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Funcional Programática</label> 
 							<input type="text" name="funcProg" id="fnc_prog_emenda" 
-							class="form-control fnc-prog-emenda"
-							data-bv-notempty="true"
-							class="form-control num-emenda"
-           					required data-bv-notempty-message="Este campo nao pode ser vazio."> 
+							class="form-control fnc-prog-emenda"> 
 						</div>						
 						<div class="form-group">
 							<label class="control-label">Valor</label>													
 							<input type="text" name="valor" id="valor_emenda" 
-							class="form-control money" maxlength="20"> 
+							class="form-control"> 
 						</div>	
 						<div class="form-group">
-							<label class="control-label">G.N.D.</label> 
-							<select id="gnd_emenda" data-live-search="true"
-							class="form-control selectpicker" name="gnd">	
-								<c:forEach items="${gnd}" var="gnd_var" >
-									<option value="${gnd_var.id}">
-										<c:if test="${gnd_var.id == 0}">
-											${gnd_var.descricao}
-										</c:if>												
-										<c:if test="${gnd_var.id >= 1}">
-											${gnd_var.numero} - ${gnd_var.descricao}
-										</c:if>
-									</option>
-								</c:forEach>
-							</select> 
+							<label class="control-label">G.N.D.</label>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-md-2">
+											<a id="select_gnd" href="#" class="btn btn-default">
+												<i class="fa fa-plus"></i>
+											</a>
+										</div>
+										<div class="col-md-10">  
+											<select id="gnd_emenda" data-live-search="true"
+											class="form-control selectpicker" name="gnd">	
+												<option value="0">Selecione</option>
+												<c:forEach items="${gnd}" var="gnd_var" >
+													<c:if test="${gnd_var.id >= 1}">
+														<option value="${gnd_var.id}_${gnd_var.descricao}">
+															${gnd_var.numero} - ${gnd_var.descricao}
+														</option>
+													</c:if>									
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body">
+									<table class="table" id="tb_select_gnd">							
+										<tbody>											
+										</tbody>
+									</table>	
+								</div>								
+							</div>  
 						</div>								
 					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="control-label">Modalidade de Aplicacao</label> 
-							<select id="mda_emenda" data-live-search="true"
-							class="form-control selectpicker" name="modApp">		
-								<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
-									<option value="${mda_var.id}">
-										<c:if test="${mda_var.id == 0}">
-											${mda_var.descricao}
-										</c:if>												
-										<c:if test="${mda_var.id >= 1}">
-											${mda_var.numero} - ${mda_var.descricao}
-										</c:if>
-									</option>
-								</c:forEach>
-							</select> 
-						</div>
+					<div class="col-md-4">						
 						<div class="form-group">
 							<label class="control-label">Tipo de Emenda</label> 
 							<select id="tipo_emenda" 
@@ -115,7 +105,12 @@
 							class="form-control selectpicker" 
 							name="tipoEmenda">
 								<c:forEach items="${tipoEmenda}" var="tipo_var">
-									<option value="${tipo_var.id}">${tipo_var.descricao}</option>
+									<c:if test="${tipo_var.id == 0}">
+										<option value="">Selecione</option>
+									</c:if>	
+									<c:if test="${tipo_var.id >= 1}">
+										<option value="${tipo_var.id}">${tipo_var.descricao}</option>
+									</c:if>	
 								</c:forEach>
 							</select> 
 						</div>	
@@ -125,6 +120,7 @@
 							data-live-search="true"
 							class="form-control selectpicker"
 							name="idAutor">
+								<option value="0">Selecione</option>
 								<c:forEach items="${autores}" var="autor_var" >
 									<option value="${autor_var.id}">${autor_var.nome}</option>
 								</c:forEach>
@@ -136,19 +132,54 @@
 							data-live-search="true"
 							class="form-control selectpicker" 
 							name="idOrgaoConced">
+								<option value="0">Selecione</option>	
 								<c:forEach items="${orgaos}" var="org_conced_var" >
 									<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
 								</c:forEach>
 							</select> 
+						</div>
+						<div class="form-group">
+							<label class="control-label">Modalidade de Aplicacao</label>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-md-2">
+											<a id="select_modalidade" href="#" class="btn btn-default">
+												<i class="fa fa-plus"></i>
+											</a>
+										</div>
+										<div class="col-md-10"> 
+											<select id="mda_emenda" data-live-search="true"
+											class="form-control selectpicker" name="modApp">		
+												<option value="0">Selecione</option>
+												<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
+													<c:if test="${mda_var.id >= 1}">
+														<option value="${mda_var.id}_${mda_var.descricao}">																								
+																${mda_var.numero} - ${mda_var.descricao}
+														</option> 
+													</c:if>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body">
+									<table class="table" id="tb_select_modalidade">							
+										<tbody>											
+										</tbody>
+									</table>	
+								</div>								
+							</div> 
 						</div>	
 					</div>					
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label">Programa</label> 
 							<select id="programa_emenda" 
 							data-live-search="true"
 							class="form-control selectpicker" 
-							name="idPrograma">			
+							name="idPrograma">
+								<option value="0">Selecione</option>			
 								<c:forEach items="${programas}" var="programa_var" >
 									<option value="${programa_var.id}">${programa_var.nome}</option>
 								</c:forEach>
@@ -162,34 +193,7 @@
 							name="idAcao">
 								<!-- LISTA DE ACOES POR PROGRAMA -->	
 							</select> 
-						</div>
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="control-label">Ações</label>												 -->
-							
-<!-- 							<div class="panel panel-default"> -->
-<!-- 								<div class="panel-heading"> -->
-<!-- 									<div class="row"> -->
-<!-- 										<div class="col-md-2"> -->
-<!-- 											<a id="select_acao" href="#" class="btn btn-default"> -->
-<!-- 												<i class="fa fa-plus"></i> Incluir -->
-<!-- 											</a> -->
-<!-- 										</div> -->
-<!-- 										<div class="col-md-10"> -->
-<!-- 											<select id="acao_emenda" data-live-search="true" class="form-control selectpicker"> -->
-<!-- 												LISTA DE ACOES POR PROGRAMA -->
-<!-- 											</select>																		 -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="panel-body"> -->
-<!-- 									<table class="table" id="tb_select_acao">							 -->
-<!-- 										<tbody>											 -->
-<!-- 										</tbody> -->
-<!-- 									</table>	 -->
-<!-- 								</div>								 -->
-<!-- 							</div> -->
-							
-<!-- 						</div>	 -->
+						</div>		
 					</div>
 				</div>							
 			</form>
@@ -214,17 +218,25 @@
 // inicia combobox para selecionar acao
 (function acoes() {
 	var id = $("#programa_emenda").val();
-	$.ajax({
-		type: "GET",
-		url: "../../acao/lista/programa/" + id,
-		success: function(json) {
-			$.each(json, function(pos, obj) {
-				$("#acao_emenda")
-				.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
-				.selectpicker("refresh");
-			});
-		}
-	});	
+	if (id == 0) {
+		$("#acao_emenda")
+		.append("<option value='0'>Selecione o Programa</option>")
+		.attr("disabled", true)
+		.selectpicker("refresh");
+	} else {
+		$.ajax({
+			type: "GET",
+			url: "../../acao/lista/programa/" + id,
+			success: function(json) {
+				$.each(json, function(pos, obj) {
+					$("#acao_emenda")
+					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
+					.attr("disabled", false)
+					.selectpicker("refresh");
+				});
+			}
+		});	
+	}
 })();
 
 // troca a lista do combobox de acao de acordo com o programa
@@ -232,77 +244,126 @@ $("#programa_emenda").on("change", function() {
 	$("#acao_emenda").empty();
 	var id = $("#programa_emenda").val();
 	$("#tb_select_acao tbody").children("tr").remove();
-	$.ajax({
-		type: "GET",
-		url: "../../acao/lista/programa/" + id,
-		success: function(json) {
-			if (json.length == 0) {
-				$("#acao_emenda").selectpicker("refresh");
-			} else {
-				$.each(json, function(pos, obj) {				
-					$("#acao_emenda")
-					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
-					.selectpicker("refresh");
-				});				
+	if (id == 0) {
+		$("#acao_emenda")
+		.append("<option value='0'>Selecione o Programa</option>")
+		.attr("disabled", true)
+		.selectpicker("refresh");
+	} else {
+		$.ajax({
+			type: "GET",
+			url: "../../acao/lista/programa/" + id,
+			success: function(json) {
+				if (json.length == 0) {
+					$("#acao_emenda").selectpicker("refresh");
+				} else {
+					$.each(json, function(pos, obj) {				
+						$("#acao_emenda")
+						.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
+						.attr("disabled", false)
+						.selectpicker("refresh");
+					});				
+				}
 			}
-		}
-	});	
+		});	
+	}
 });
 
-// incluir acao a lista para adicionar
+// incluir modalidade a lista para adicionar
 $(document).ready( function() {
-	$("#select_acao").click( function() {
-		if ($("#acao_emenda").val() != null) {			
-			var value = $("#acao_emenda").val();
+	$("#select_modalidade").click( function() {
+		if ($("#mda_emenda").val() != null) {			
+			var value = $("#mda_emenda").val();
 			var split = value.split("_");
 			var id = split[0];
 			var title = split[1];
-			$("#tb_select_acao tbody")
-			.append(
-				"<tr id='" + id + "'>" +
-				"<td class='add-acao' style='width:95%; border-top: 0px;'>" + title + "</td>" +
-				"<td id='ac_" + id + "' style='width:5%; border-top: 0px;'>" +
-				"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
-				"</tr>"				
-			);
-			$('#acao_emenda').find('[value="'+ value +'"]').remove();
-			$('#acao_emenda').selectpicker("refresh");
+			if (split[0] > 0) {
+				$("#tb_select_modalidade tbody")
+				.append(
+					"<tr id='" + id + "'>" +
+					"<td class='add-modalidade' style='width:95%; border-top: 0px;'>" + id + " - " + title + "</td>" +
+					"<td id='mod_" + id + "' style='width:5%; border-top: 0px;'>" +
+					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
+					"</tr>"				
+				);
+				$('#mda_emenda').find('[value="'+ value +'"]').remove();
+				$('#mda_emenda').selectpicker("refresh");
+			}
 		} 
 	});
 });
 
-// remover acao da lista para adicionar
+//incluir gnd a lista para adicionar
+$(document).ready( function() {
+	$("#select_gnd").click( function() {
+		if ($("#gnd_emenda").val() != null) {			
+			var value = $("#gnd_emenda").val();
+			var split = value.split("_");
+			var id = split[0];
+			var title = split[1];
+			if (split[0] > 0) {
+				$("#tb_select_gnd tbody")
+				.append(
+					"<tr id='" + id + "'>" +
+					"<td class='add-gnd' style='width:95%; border-top: 0px;'>" + id + " - " + title + "</td>" +
+					"<td id='gnd_" + id + "' style='width:5%; border-top: 0px;'>" +
+					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
+					"</tr>"				
+				);
+				$('#gnd_emenda').find('[value="'+ value +'"]').remove();
+				$('#gnd_emenda').selectpicker("refresh");
+			}
+		} 
+	});
+});
+
+// remover modalidade da lista para adicionar
 function remover(obj) {	
 	var split = obj.id.split("_");
 	var id = split[0];
 	var title = split[1];
-	$("#ac_" + id).closest("tr").remove();
-	$("#acao_emenda")
-	.append("<option value='" + obj.id + "'>" + title + "</option>")
+	$("#mod_" + id).closest("tr").remove();
+	$("#mda_emenda")
+	.append("<option value='" + obj.id + "'>" + id + " - " + title + "</option>")
 	.selectpicker("refresh");	
 }
 
+//remover gnd da lista para adicionar
+function remover(obj) {	
+	var split = obj.id.split("_");
+	var id = split[0];
+	var title = split[1];
+	$("#gnd_" + id).closest("tr").remove();
+	$("#gnd_emenda")
+	.append("<option value='" + obj.id + "'>" + id + " - " + title + "</option>")
+	.selectpicker("refresh");	
+}
 
 // salvar
 $(document).ready( function() {
 	$("#btn_salvar_emenda").click( function() {
 		
-// 		var trs = $("#tb_select_acao tbody").children("tr");
+		var trs_gnd = $("#tb_select_gnd tbody").children("tr");
+		var trs_modalidade = $("#tb_select_modalidade tbody").children("tr");
 		
-// 		$("#form_nova_emenda")
-// 		.append("<select id='select-acoes' name='idAcoes' multiple='multiple' hidden='hidden'></select>");
+		$("#form_nova_emenda")
+		.append("<select id='gnd_multi' name='gnd' multiple='multiple' hidden='hidden'></select>")
+		.append("<select id='mod_multi' name='modApp' multiple='multiple' hidden='hidden'></select>");
 		
-// 		$.each(trs, function(pos, obj) {
-// 			$("#select-acoes")
-// 			.append("<option value='" + obj.id + "' selected='selected'></option>");
-// 		});
+		$.each(trs_gnd, function(pos, obj) {
+			$("#gnd_multi")
+			.append("<option value='" + obj.id + "' selected='selected'></option>");
+		});
+		
+		$.each(trs_modalidade, function(pos, obj) {
+			$("#mod_multi")
+			.append("<option value='" + obj.id + "' selected='selected'></option>");
+		});
 		
 		$("#form_nova_emenda").submit();	
 	});	 
 });
 
-// $(document).ready(function() {
-// 	$("#form_nova_emenda").bootstrapValidator();
-// });
+
 
 </script>

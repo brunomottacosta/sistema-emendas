@@ -34,13 +34,22 @@
 						
 						<div class="form-group">
 							<label>Objeto</label>
-							<select id="objeto" name="objeto"
-							class="form-control selectpicker"
-							data-live-search="true">
-								<c:forEach items="${objetos}" var="objeto_var">
-									<option value="${objeto_var.id}">${objeto_var.nome}</option>
-								</c:forEach>
-							</select>
+							<div class="row">
+								<div class="col-md-10">
+									<select id="objeto" name="objeto"
+									class="form-control selectpicker"
+									data-live-search="true">
+										<c:forEach items="${objetos}" var="objeto_var">
+											<option value="${objeto_var.id}">${objeto_var.nome}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="col-md-2">
+									<a class="btn btn-info btn-block" data-toggle="modal" data-target="#new_objeto_modal">
+										<i class="fa fa-plus"></i>
+									</a>
+								</div>							
+							</div>
 						</div>
 						
 						<div class="form-group">
@@ -110,6 +119,9 @@
 	</div>
 	
 </div>	
+
+<!-- IMPORT DE MODALS PARA ADICIONAR -->
+<c:import url="../modals/objeto-indicacao-modal.jsp"></c:import>
 
 <!-- ################# -->
 <!-- ##### SCRIPTS ### -->

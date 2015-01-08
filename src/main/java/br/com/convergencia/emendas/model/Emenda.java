@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.com.convergencia.emendas.enums.GND;
-import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
 
 @Entity
@@ -46,13 +44,11 @@ public class Emenda implements Serializable {
 	@Column(name = "tipo_emenda")
 	private TipoEmenda tipoEmenda;
 	
-	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "mod_app_emenda")
-	private ModalidadeDeAplicacao modalidadeDeAplicacao;
+	private String modalidadeDeAplicacao;
 	
-	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "gnd_emenda")
-	private GND gnd;
+	private String gnd;
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_autor", referencedColumnName = "idn_autor")
@@ -121,11 +117,11 @@ public class Emenda implements Serializable {
 		return orgaoConcedente;
 	}
 
-	public ModalidadeDeAplicacao getModalidadeDeAplicacao() {
+	public String getModalidadeDeAplicacao() {
 		return modalidadeDeAplicacao;
 	}
 
-	public GND getGnd() {
+	public String getGnd() {
 		return gnd;
 	}
 
@@ -146,11 +142,11 @@ public class Emenda implements Serializable {
 		this.orgaoConcedente = orgaoConcedente;
 	}
 
-	public void setModalidadeDeAplicacao(ModalidadeDeAplicacao modalidadeDeAplicacao) {
+	public void setModalidadeDeAplicacao(String modalidadeDeAplicacao) {
 		this.modalidadeDeAplicacao = modalidadeDeAplicacao;
 	}
 
-	public void setGnd(GND gnd) {
+	public void setGnd(String gnd) {
 		this.gnd = gnd;
 	}
 

@@ -6,8 +6,6 @@ import java.text.NumberFormat;
 
 import org.springframework.stereotype.Component;
 
-import br.com.convergencia.emendas.enums.GND;
-import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
 import br.com.convergencia.emendas.model.Emenda;
 
@@ -64,13 +62,14 @@ public class EmendaWrapper implements Serializable {
 		if (!e.getFuncionalProgramatica().isEmpty()) {
 			this.funcionalProgramatica = e.getFuncionalProgramatica();			
 		}
-		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();
 		this.tipoEmenda = TipoEmenda.getTipoEmendaById(e.getTipoEmenda().getId()).getDescricao();
-		this.gnd = GND.getGNDById(e.getGnd().getId()).getDescricao();
 		this.autor = e.getAutor().getNome();
 		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
 		this.programa = e.getPrograma().getNome();
 		this.acao = e.getAcao().getNome();
+		
+//		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();
+//		this.gnd = GND.getGNDById(e.getGnd().getId()).getDescricao();
 	}
 	
 	public String getId() {

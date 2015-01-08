@@ -60,6 +60,23 @@ public class ObjetoController {
 		return "redirect:lista";
 	}
 	
+	@RequestMapping(value = "salvarEmIndicacao", method = RequestMethod.POST)
+	public String salvarEmIndicacao(
+			@RequestParam String nome,
+			@RequestParam Integer idAcao,
+			@RequestParam Integer idEmenda) {
+		
+		Objeto objeto = new Objeto();
+		
+		objeto.setNome(nome);
+		objeto.setAcao(acaoService.getAcao(idAcao));
+		
+		objetoService.save(objeto);
+		
+		logger.info("## SALVANDO NOVO OBJETO ##");
+		return "redirect:/emenda/indicacao/" + idEmenda;
+	}
+	
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(
 			@RequestParam String nome, 

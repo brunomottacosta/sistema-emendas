@@ -168,8 +168,8 @@ public class EmendaController {
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
 			@RequestParam String valor, 
-			@RequestParam Integer gnd,
-			@RequestParam Integer modApp,
+			@RequestParam Integer[] gnd,
+			@RequestParam Integer[] modApp,
 			@RequestParam Integer tipoEmenda,
 			@RequestParam String funcProg,
 			@RequestParam Integer idAutor,
@@ -186,39 +186,58 @@ public class EmendaController {
 		emenda.setAno(ano);
 		emenda.setFuncionalProgramatica(funcProg);
 		emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
-		emenda.setModalidadeDeAplicacao(ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(modApp));
-		emenda.setGnd(GND.getGNDById(gnd));
 		emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 		emenda.setAutor(autorService.getAutor(idAutor));
 		emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 		emenda.setPrograma(programaService.getPrograma(idPrograma));
-		emenda.setAcao(acaoService.getAcao(idAcao));
+		emenda.setAcao(acaoService.getAcao(idAcao));		
 		
-		/** SALVA PREVIAMENTE **/
-		emendaService.save(emenda);	
+		for (Integer s : gnd) {
+			System.out.println(s);
+		}
+		for (Integer s : modApp) {
+			System.out.println(s);
+		}
 		
 		/** PARA RELACAO N X M, CONFERE O ARRAY RECEBIDO **/
 		/** VALIDA E ADICIONA A LISTA DE OBJETOS "M" **/
-//		if (idAcoes.length != 0) {
-			
-			/** PASSA O ARRAY PARA TIPO COLLECTION **/
-//			List<Integer> ids = new ArrayList<Integer>(Arrays.asList(idAcoes));
-			
-			/** PARA CADA ID DA COLLECTION, BUSCA UM OBJETO **/
-//			for (Integer i : ids) {					
-//				Acao a = acaoService.getAcao(i);
-				
-				/** SETA O PAI NO FILHO **/
-//				a.setEmenda(emenda);
-				
-				/** UPDATE NO FILHO, SE DER ERRO, APAGA O PAI SALVO PREVIAMENTE **/
-//				try {
-//					acaoService.save(a);					
-//				} catch (Exception e) {
-//					emendaService.delete(emenda);
-//				}
-//			}								
-//		}			
+		if (gnd.length > 0) {				
+			String gndEmenda = "";			
+			if (gnd.length == 1) {
+				gndEmenda = gnd[0].toString();
+			} else if (gnd.length > 1) {		
+				for (Integer i : gnd) {
+					if (gndEmenda.isEmpty()) {
+						gndEmenda = i.toString();
+					} else {
+						gndEmenda = gndEmenda + "." + i.toString();						
+					}
+				} 				
+			}
+			emenda.setGnd(gndEmenda);
+		}
+		
+		if (modApp.length > 0) {				
+			String modAppEmenda = "";			
+			if (modApp.length == 1) {
+				modAppEmenda = gnd[0].toString();
+			} else if (modApp.length > 1) {			
+				for (Integer i : modApp) {
+					if (modAppEmenda.isEmpty()) {
+						modAppEmenda = i.toString();
+					} else {
+						modAppEmenda = modAppEmenda + "." + i.toString();						
+					}
+				}			
+			}
+			emenda.setModalidadeDeAplicacao(modAppEmenda);
+		}
+		
+		System.out.println(emenda.getModalidadeDeAplicacao());
+		System.out.println(emenda.getGnd());
+		
+		/** SALVA PREVIAMENTE **/
+		emendaService.save(emenda);	
 		
 		execucao = "SALVANDO";
 		
