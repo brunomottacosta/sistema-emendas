@@ -2,19 +2,25 @@ package br.com.convergencia.emendas.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import br.com.convergencia.emendas.enums.GND;
+import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
 
 @Entity
@@ -47,8 +53,14 @@ public class Emenda implements Serializable {
 	@Column(name = "mod_app_emenda")
 	private String modalidadeDeAplicacao;
 	
+	@Transient
+	private List<ModalidadeDeAplicacao> modalidades;
+	
 	@Column(name = "gnd_emenda")
 	private String gnd;
+	
+	@Transient
+	private List<GND> gnds;
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_autor", referencedColumnName = "idn_autor")
@@ -66,7 +78,7 @@ public class Emenda implements Serializable {
 	@JoinColumn(name = "idn_acao", referencedColumnName = "idn_acao")
 	private Acao acao;
 	
-	@OneToMany(mappedBy="emenda")
+	@OneToMany(mappedBy="emenda", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<IndicacaoEmenda> indicacoes;
 	
 	public Integer getId() {
@@ -175,4 +187,37 @@ public class Emenda implements Serializable {
 		this.indicacoes = indicacoes;
 	}
 
+	public List<ModalidadeDeAplicacao> getModalidades() {
+		String[] ids = {};
+		List<ModalidadeDeAplicacao> modalidades = new ArrayList<ModalidadeDeAplicacao>();
+		ids = this.modalidadeDeAplicacao.split("_");
+		
+		for (String s : ids) {
+			ModalidadeDeAplicacao modalidade = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(Integer.parseInt(s));
+			modalidades.add(modalidade);
+		}
+		this.modalidades = modalidades;
+		return modalidades;
+	}
+	
+	public void setModalidades(List<ModalidadeDeAplicacao> modalidades) {
+		this.modalidades = modalidades;
+	}
+	
+	public List<GND> getGnds() {
+		String[] ids = {};
+		List<GND> gnds = new ArrayList<GND>();
+		ids = this.gnd.split("_");
+		
+		for (String s : ids) {
+			GND gnd = GND.getGNDById(Integer.parseInt(s));
+			gnds.add(gnd);
+		}
+		this.gnds = gnds;
+		return gnds;
+	}
+	
+	public void setGnds(List<GND> gnds) {
+		this.gnds = gnds;
+	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <div class="container-fluid">
 
@@ -45,11 +46,31 @@
 				<table class="table table-bordered">				
 					<tr>
 						<td class="col-md-5"><strong>G.N.D.</strong></td>
-						<td class="text-info">${emenda.gnd.descricao}</td>
+						<td class="text-info">
+							<c:set var="num_of_gnd" value="${fn:length(emenda.gnds)}" />
+							<c:forEach items="${emenda.gnds}" var="gnd_var" varStatus="gnd_counter">
+								<c:if test="${gnd_counter.count < num_of_gnd}">
+									${gnd_var.descricao},								
+								</c:if>
+								<c:if test="${gnd_counter.count >= num_of_gnd}">
+									${gnd_var.descricao}
+								</c:if>
+							</c:forEach>
+						</td>
 					</tr>				
 					<tr>
 						<td><strong>Modalidade de Aplicação</strong></td>
-						<td class="text-info">${emenda.modalidadeDeAplicacao.descricao}</td>
+						<td class="text-info">
+							<c:set var="num_of_mod" value="${fn:length(emenda.modalidades)}" />
+							<c:forEach items="${emenda.modalidades}" var="mod_var" varStatus="mod_counter">
+								<c:if test="${mod_counter.count < num_of_mod}">
+									${mod_var.descricao}, 							
+								</c:if>
+								<c:if test="${mod_counter.count >= num_of_mod}">
+									${mod_var.descricao}
+								</c:if>								
+							</c:forEach>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Autor</strong></td>

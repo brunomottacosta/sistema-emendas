@@ -41,7 +41,7 @@
 								<div class="form-group">
 									<label class="control-label">Numero</label> 
 									<input type="text" name="numero" id="num_emenda" 
-									class="form-control">
+									class="form-control num-emenda">
 					                 
 								</div>							
 							</div>
@@ -61,7 +61,7 @@
 						<div class="form-group">
 							<label class="control-label">Valor</label>													
 							<input type="text" name="valor" id="valor_emenda" 
-							class="form-control"> 
+							class="form-control money"> 
 						</div>	
 						<div class="form-group">
 							<label class="control-label">G.N.D.</label>
@@ -75,7 +75,7 @@
 										</div>
 										<div class="col-md-10">  
 											<select id="gnd_emenda" data-live-search="true"
-											class="form-control selectpicker" name="gnd">	
+											class="form-control selectpicker">	
 												<option value="0">Selecione</option>
 												<c:forEach items="${gnd}" var="gnd_var" >
 													<c:if test="${gnd_var.id >= 1}">
@@ -150,7 +150,7 @@
 										</div>
 										<div class="col-md-10"> 
 											<select id="mda_emenda" data-live-search="true"
-											class="form-control selectpicker" name="modApp">		
+											class="form-control selectpicker">		
 												<option value="0">Selecione</option>
 												<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
 													<c:if test="${mda_var.id >= 1}">
@@ -283,7 +283,7 @@ $(document).ready( function() {
 					"<tr id='" + id + "'>" +
 					"<td class='add-modalidade' style='width:95%; border-top: 0px;'>" + id + " - " + title + "</td>" +
 					"<td id='mod_" + id + "' style='width:5%; border-top: 0px;'>" +
-					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
+					"<a href='#' id='" + value + "' onclick='removerMod(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
 					"</tr>"				
 				);
 				$('#mda_emenda').find('[value="'+ value +'"]').remove();
@@ -307,7 +307,7 @@ $(document).ready( function() {
 					"<tr id='" + id + "'>" +
 					"<td class='add-gnd' style='width:95%; border-top: 0px;'>" + id + " - " + title + "</td>" +
 					"<td id='gnd_" + id + "' style='width:5%; border-top: 0px;'>" +
-					"<a href='#' id='" + value + "' onclick='remover(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
+					"<a href='#' id='" + value + "' onclick='removerGnd(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
 					"</tr>"				
 				);
 				$('#gnd_emenda').find('[value="'+ value +'"]').remove();
@@ -318,7 +318,7 @@ $(document).ready( function() {
 });
 
 // remover modalidade da lista para adicionar
-function remover(obj) {	
+function removerMod(obj) {	
 	var split = obj.id.split("_");
 	var id = split[0];
 	var title = split[1];
@@ -329,7 +329,7 @@ function remover(obj) {
 }
 
 //remover gnd da lista para adicionar
-function remover(obj) {	
+function removerGnd(obj) {	
 	var split = obj.id.split("_");
 	var id = split[0];
 	var title = split[1];
@@ -342,13 +342,20 @@ function remover(obj) {
 // salvar
 $(document).ready( function() {
 	$("#btn_salvar_emenda").click( function() {
+
+		if ($("#gnd_multi") != null) {
+			$("#gnd_multi").remove();
+		}
+		if ($("#mod_multi") != null) {
+			$("#mod_multi").remove();
+		}
 		
 		var trs_gnd = $("#tb_select_gnd tbody").children("tr");
-		var trs_modalidade = $("#tb_select_modalidade tbody").children("tr");
+		var trs_modalidade = $("#tb_select_modalidade tbody").children("tr");		
 		
 		$("#form_nova_emenda")
-		.append("<select id='gnd_multi' name='gnd' multiple='multiple' hidden='hidden'></select>")
-		.append("<select id='mod_multi' name='modApp' multiple='multiple' hidden='hidden'></select>");
+		.append("<select id='gnd_multi' name='gnd' multiple='multiple' hidden='hidden'></select>" +
+				"<select id='mod_multi' name='modApp' multiple='multiple' hidden='hidden'></select>")
 		
 		$.each(trs_gnd, function(pos, obj) {
 			$("#gnd_multi")

@@ -3,9 +3,13 @@ package br.com.convergencia.emendas.wrapper;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import br.com.convergencia.emendas.enums.GND;
+import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
 import br.com.convergencia.emendas.enums.TipoEmenda;
 import br.com.convergencia.emendas.model.Emenda;
 
@@ -20,8 +24,8 @@ public class EmendaWrapper implements Serializable {
 	private String valor;
 	private String funcionalProgramatica;
 	private String tipoEmenda;
-	private String modalidadeDeAplicacao;
-	private String gnd;
+	private List<String> modalidadeDeAplicacao;
+	private List<String> gnd;
 	private String autor;
 	private String orgaoConcedente;
 	private String programa;
@@ -66,10 +70,19 @@ public class EmendaWrapper implements Serializable {
 		this.autor = e.getAutor().getNome();
 		this.orgaoConcedente = e.getOrgaoConcedente().getNome();
 		this.programa = e.getPrograma().getNome();
-		this.acao = e.getAcao().getNome();
+		this.acao = e.getAcao().getNome();		
 		
-//		this.modalidadeDeAplicacao = ModalidadeDeAplicacao.getModalidadeDeAplicacaoById(e.getModalidadeDeAplicacao().getId()).getDescricao();
-//		this.gnd = GND.getGNDById(e.getGnd().getId()).getDescricao();
+		List<String> listMod = new ArrayList<String>();
+		for (ModalidadeDeAplicacao mod : e.getModalidades()) {
+			listMod.add(mod.getDescricao());
+		}
+		this.modalidadeDeAplicacao = listMod;
+		
+		List<String> listGnd = new ArrayList<String>();
+		for (GND gnd : e.getGnds()) {
+			listGnd.add(gnd.getDescricao());
+		}
+		this.gnd = listGnd;
 	}
 	
 	public String getId() {
@@ -108,16 +121,16 @@ public class EmendaWrapper implements Serializable {
 	public void setTipoEmenda(String tipoEmenda) {
 		this.tipoEmenda = tipoEmenda;
 	}
-	public String getModalidadeDeAplicacao() {
+	public List<String> getModalidadeDeAplicacao() {
 		return modalidadeDeAplicacao;
 	}
-	public void setModalidadeDeAplicacao(String modalidadeDeAplicacao) {
+	public void setModalidadeDeAplicacao(List<String> modalidadeDeAplicacao) {
 		this.modalidadeDeAplicacao = modalidadeDeAplicacao;
 	}
-	public String getGnd() {
+	public List<String> getGnd() {
 		return gnd;
 	}
-	public void setGnd(String gnd) {
+	public void setGnd(List<String> gnd) {
 		this.gnd = gnd;
 	}
 	public String getAutor() {

@@ -191,14 +191,7 @@ public class EmendaController {
 		emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
 		emenda.setPrograma(programaService.getPrograma(idPrograma));
 		emenda.setAcao(acaoService.getAcao(idAcao));		
-		
-		for (Integer s : gnd) {
-			System.out.println(s);
-		}
-		for (Integer s : modApp) {
-			System.out.println(s);
-		}
-		
+	
 		/** PARA RELACAO N X M, CONFERE O ARRAY RECEBIDO **/
 		/** VALIDA E ADICIONA A LISTA DE OBJETOS "M" **/
 		if (gnd.length > 0) {				
@@ -210,31 +203,28 @@ public class EmendaController {
 					if (gndEmenda.isEmpty()) {
 						gndEmenda = i.toString();
 					} else {
-						gndEmenda = gndEmenda + "." + i.toString();						
+						gndEmenda = gndEmenda + "_" + i.toString();						
 					}
 				} 				
 			}
 			emenda.setGnd(gndEmenda);
 		}
 		
-		if (modApp.length > 0) {				
+		if (modApp.length > 0) {
 			String modAppEmenda = "";			
 			if (modApp.length == 1) {
-				modAppEmenda = gnd[0].toString();
+				modAppEmenda = modApp[0].toString();
 			} else if (modApp.length > 1) {			
 				for (Integer i : modApp) {
 					if (modAppEmenda.isEmpty()) {
 						modAppEmenda = i.toString();
 					} else {
-						modAppEmenda = modAppEmenda + "." + i.toString();						
+						modAppEmenda = modAppEmenda + "_" + i.toString();						
 					}
 				}			
 			}
 			emenda.setModalidadeDeAplicacao(modAppEmenda);
 		}
-		
-		System.out.println(emenda.getModalidadeDeAplicacao());
-		System.out.println(emenda.getGnd());
 		
 		/** SALVA PREVIAMENTE **/
 		emendaService.save(emenda);	
@@ -299,14 +289,11 @@ public class EmendaController {
 //			logger.info("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
 //		}
 		
-		try {
-			/** REMOVE A EMENDA APOS REMOVER TODAS AS RELAÇÕES **/
-			emendaService.delete(emenda);			
-		} catch (Exception e) {
-			logger.info("## ERRO AO DELETAR EMENDA ID: " + emenda.getId() + " ##");
-		}
-		
+	
+		/** REMOVE A EMENDA APOS REMOVER TODAS AS RELAÇÕES **/
+		emendaService.delete(emenda);
 		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		
+
 		response.setStatus(200);
 	}	
 }

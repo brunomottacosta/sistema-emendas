@@ -51,7 +51,7 @@ public class EmendaService {
 	
 	@Transactional
 	public void delete(Emenda emenda) {
-		emendaRepository.delete(emenda);
+		emendaRepository.delete(emenda.getId());
 	}
 	
 	@Transactional
