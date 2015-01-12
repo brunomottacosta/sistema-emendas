@@ -27,6 +27,7 @@ import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.AutorService;
 import br.com.convergencia.emendas.service.EmendaService;
+import br.com.convergencia.emendas.service.IndicacaoEmendaService;
 import br.com.convergencia.emendas.service.ObjetoService;
 import br.com.convergencia.emendas.service.OrgaoConcedenteService;
 import br.com.convergencia.emendas.service.ProgramaService;
@@ -50,6 +51,7 @@ public class EmendaController {
 	@Autowired private AcaoService acaoService;
 	@Autowired private OrgaoConcedenteService orgaoConcedenteService;
 	@Autowired private ObjetoService objetoService;
+	@Autowired private IndicacaoEmendaService indicacaoEService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -179,60 +181,79 @@ public class EmendaController {
 		
 		Emenda emenda = new Emenda();
 		
-		String execucao = "";					
-		
-		/** SETA ATRIBUTOS **/
-		emenda.setNumero(numero);
-		emenda.setAno(ano);
-		emenda.setFuncionalProgramatica(funcProg);
-		emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
-		emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
-		emenda.setAutor(autorService.getAutor(idAutor));
-		emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
-		emenda.setPrograma(programaService.getPrograma(idPrograma));
-		emenda.setAcao(acaoService.getAcao(idAcao));		
-	
-		/** PARA RELACAO N X M, CONFERE O ARRAY RECEBIDO **/
-		/** VALIDA E ADICIONA A LISTA DE OBJETOS "M" **/
-		if (gnd.length > 0) {				
-			String gndEmenda = "";			
-			if (gnd.length == 1) {
-				gndEmenda = gnd[0].toString();
-			} else if (gnd.length > 1) {		
-				for (Integer i : gnd) {
-					if (gndEmenda.isEmpty()) {
-						gndEmenda = i.toString();
-					} else {
-						gndEmenda = gndEmenda + "_" + i.toString();						
-					}
-				} 				
+		/** VERIFICA SE OS DADOS SAO VALIDOS, CASO NAO SEJAM, RETORNA ERRO **/
+		if (numero == null 	   || ano == null    || valor.isEmpty()    ||
+			gnd[0] == 0        || modApp[0] == 0 ||	tipoEmenda == 0    ||
+			funcProg.isEmpty() || idAutor == 0   || idOrgaoConced == 0 ||
+			idPrograma == 0    || idAcao == 0                             ) {
+				
+			logger.info("## DADOS NÃO VÁLIDOS ##");		
+			return "redirect:novo";
+			
+		/** CASO NAO OCORRA ERRO NA VALIDACAO, EXECUTA O RESTO DO CODIGO PARA SALVAR **/
+		} else {
+			
+			String execucao = "";					
+			
+			/** SETA ATRIBUTOS **/
+			emenda.setNumero(numero);
+			emenda.setAno(ano);
+			emenda.setFuncionalProgramatica(funcProg);
+			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
+			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
+			emenda.setAutor(autorService.getAutor(idAutor));
+			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+			emenda.setPrograma(programaService.getPrograma(idPrograma));
+			emenda.setAcao(acaoService.getAcao(idAcao));		
+			
+			/** RECEBE ARRAY DO ENUM E ADICIONA A CLASSE UMA STRING CONTENDO OS IDS **/
+			if (gnd.length > 0) {				
+				String gndEmenda = "";			
+				if (gnd.length == 1) {
+					gndEmenda = gnd[0].toString();
+				} else if (gnd.length > 1) {		
+					for (Integer i : gnd) {
+						if (gndEmenda.isEmpty()) {
+							gndEmenda = i.toString();
+						} else {
+							gndEmenda = gndEmenda + "_" + i.toString();						
+						}
+					} 				
+				}
+				/** SETA NO GND E NAO NA LISTA GNDS**/
+				/** GNDS SERA UM ATRIBUTO TRANSIENT, QUE NAO APARECERA NO BANCO **/
+				/** NA HORA QUE A CLASSE É BUSCADA, GNDS SERÁ SETADA DE ACORDO COM A STRING EM GND **/
+				emenda.setGnd(gndEmenda);
 			}
-			emenda.setGnd(gndEmenda);
-		}
-		
-		if (modApp.length > 0) {
-			String modAppEmenda = "";			
-			if (modApp.length == 1) {
-				modAppEmenda = modApp[0].toString();
-			} else if (modApp.length > 1) {			
-				for (Integer i : modApp) {
-					if (modAppEmenda.isEmpty()) {
-						modAppEmenda = i.toString();
-					} else {
-						modAppEmenda = modAppEmenda + "_" + i.toString();						
-					}
-				}			
+			
+			/** RECEBE ARRAY DO ENUM E ADICIONA A CLASSE UMA STRING CONTENDO OS IDS **/
+			if (modApp.length > 0) {
+				String modAppEmenda = "";			
+				if (modApp.length == 1) {
+					modAppEmenda = modApp[0].toString();
+				} else if (modApp.length > 1) {			
+					for (Integer i : modApp) {
+						if (modAppEmenda.isEmpty()) {
+							modAppEmenda = i.toString();
+						} else {
+							modAppEmenda = modAppEmenda + "_" + i.toString();						
+						}
+					}			
+				}
+				/** SETA EM MODALIDADE DE APLICACAO E NAO NA LISTA MODALIDADES **/
+				/** MODALIDADES SERA UM ATRIBUTO TRANSIENT, QUE NAO APARECERA NO BANCO **/
+				/** NA HORA QUE A CLASSE É BUSCADA, MODALIDADES SERÁ SETADA DE ACORDO COM A STRING EM MODALIDADE DE APLICACAO **/
+				emenda.setModalidadeDeAplicacao(modAppEmenda);
 			}
-			emenda.setModalidadeDeAplicacao(modAppEmenda);
-		}
-		
-		/** SALVA PREVIAMENTE **/
-		emendaService.save(emenda);	
-		
-		execucao = "SALVANDO";
-		
-		logger.info("## " + execucao + " EMENDA ID: " + emenda.getId() + " ##");		
-		return "redirect:novo";
+			
+			/** SALVA PREVIAMENTE **/
+			emendaService.save(emenda);	
+			
+			execucao = "SALVANDO";
+			
+			logger.info("## " + execucao + " EMENDA ID: " + emenda.getId() + " ##");		
+			return "redirect:novo";
+		}		
 	}
 	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -245,6 +266,8 @@ public class EmendaController {
 		Emenda emenda = emendaService.getEmenda(id);
 		
 		model.addAttribute("emenda", emenda);
+		model.addAttribute("objetosAssociados", objetoService.findByEmenda(id));
+		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
 		
 		/** LISTAS AUXILIARES **/
 		model.addAttribute("objetosDaEmenda", objetoService.findByEmenda(id));
@@ -263,32 +286,8 @@ public class EmendaController {
 	/** REMOVER EMENDA **/
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
 	public void remover(Integer id, HttpServletResponse response) {
-		
-		/** BUSCA PELO ID E CRIA LISTA VAZIA DE ACOES**/
-		Emenda emenda = emendaService.getEmenda(id);
-//		List<Acao> acoesByEmenda = new ArrayList<Acao>();
-//		
-//		/** SE EMENDA TIVER UM PROGRAMA, BUSCA AS ACOES DESSA EMENDA E PREENCHE A LISTA**/
-//		if (emenda.getPrograma() != null) {
-//			acoesByEmenda = acaoService.findByEmendaId(id);
-//		}
-//		
-//		/** SE A LISTA BUSCADA AINDA ESTIVER VAZIA N FAZ NADA **/
-//		if (!acoesByEmenda.isEmpty()) {
-//			int n = acoesByEmenda.size();
-//			
-//			/** REMOVE A RELAÇAO DA ACAO COM A EMENDA **/
-//			try {
-//				for (Acao a : acoesByEmenda) {
-//					a.setEmenda(null);				
-//					acaoService.save(a);				
-//				}				
-//			} catch (Exception e) {
-//				logger.info("## ERRO AO DELETAR EMENDA ##");
-//			}
-//			logger.info("## ACOES DA EMENDA REMOVIDAS... TOTAL DE " + n + " ACOES ##");
-//		}
-		
+
+		Emenda emenda = emendaService.getEmenda(id);		
 	
 		/** REMOVE A EMENDA APOS REMOVER TODAS AS RELAÇÕES **/
 		emendaService.delete(emenda);

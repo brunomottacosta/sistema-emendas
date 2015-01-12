@@ -1,7 +1,6 @@
 package br.com.convergencia.emendas.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.model.IndicacaoEmenda;
 import br.com.convergencia.emendas.model.Objeto;
@@ -173,28 +171,28 @@ public class EmendaService {
 		return result;
 	}
 	
-	/** CALCULO VALOR DISPONIVEL EMENDA **/
-	public BigDecimal calculaValorDisponivel(Emenda e) {
+	/** CALCULO VALOR UTILIZADO EMENDA **/
+	public BigDecimal calcularValorUtilizado(Emenda e) {
 		
-		BigDecimal valorDisponivel = new BigDecimal(0);
-		BigDecimal valorUsado = new BigDecimal(0);
-		BigDecimal valorTotal = e.getValor();
-		
+		BigDecimal valorUsado = new BigDecimal(0);		
 		List<IndicacaoEmenda> indicacoes = indicacaoEService.findByEmenda(e);
 		
 		for (IndicacaoEmenda indicacao : indicacoes) {
 			valorUsado = valorUsado.add(indicacao.getValorDestinado());
 		}
 		
-		valorDisponivel = valorTotal.min(valorUsado);
-		
-		return valorDisponivel;
+		return valorUsado;
 	}
 	
-	public List<GND> buscarGnds(String s) {
+	/** CALCULO VALOR DISPONIVEL EMENDA **/
+	public BigDecimal calculaValorDisponivel(Emenda e) {
 		
-		List<GND> lista = new ArrayList<GND>();
+		BigDecimal valorDisponivel = new BigDecimal(0);
+		BigDecimal valorUsado = calcularValorUtilizado(e);
+		BigDecimal valorTotal = e.getValor();		
 		
-		return lista;
+		valorDisponivel = valorTotal.subtract(valorUsado);
+		
+		return valorDisponivel;
 	}
 }

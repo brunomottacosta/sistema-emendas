@@ -13,13 +13,30 @@
 	</div> 
 	
 	<div class="row">
+		<div class="col-md-12">
+			
+			<a href="../../visualizar/${emenda.id}" class="btn btn-default">
+				<i class="fa fa-arrow-left"></i> Voltar para Emenda 
+			</a>
+
+		</div>
+	</div>  
+	
+	<div class="row" style="margin-top: 20px">
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-body">
 				
-					<form action="salvar" method="post" id="form_ind_emenda" role="form"> 
+					<form action="../salvar" method="post" id="form_ind_emenda" role="form"> 
 						
 						<input type="hidden" name="emenda" value="${emenda.id}">
+						<input type="hidden" name="indicacao" value="${indicacao.id}">
+						
+						<c:if test="${error != 0}">
+							<div class="alert alert-danger" role="alert">
+								<i class="fa fa-exclamation-triangle"></i> Valor especificado maior que o valor disponível.
+							</div>
+						</c:if>
 						
 						<div class="form-group">
 							<label>Orgão Convenente</label>
@@ -55,7 +72,7 @@
 						<div class="form-group">
 							<label class="control-label">Valor Destinado</label>													
 							<input type="text" name="valor" id="valor" class="form-control"> 
-						</div>			
+						</div>						
 						
 						<input type="submit" class="btn btn-primary" value="Salvar">
 						
@@ -73,12 +90,14 @@
 						<td class="text-info">${valor_fmt}</td>
 					</tr>
 					<tr>
+						<fmt:formatNumber value="${valorUtilizado}" var="valor_util_fmt" type="currency" minFractionDigits="2" currencySymbol="R$"/>
 						<td><strong>Valor Utilizado</strong></td>
-						<td class="text-danger">${valor_fmt}</td>
+						<td class="text-danger">${valor_util_fmt}</td>
 					</tr>
 					<tr>
+						<fmt:formatNumber value="${valorDisponivel}" var="valor_disp_fmt" type="currency" minFractionDigits="2" currencySymbol="R$"/>
 						<td><strong>Valor Disponível</strong></td>
-						<td class="text-success">${valor_fmt}</td>
+						<td class="text-success">${valor_disp_fmt}</td>
 					</tr>
 				</table>
 			</div>

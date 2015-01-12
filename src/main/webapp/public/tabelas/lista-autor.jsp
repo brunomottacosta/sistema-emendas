@@ -77,7 +77,7 @@
 // inicia datatables
 $("#tabela_autores").dataTable();
 
-//editar
+// editar
 function edita_ajax(id, nome) {	
 	$("#autor_id_edit").val(id);
 	$("#autor_nome_edit").val(nome);

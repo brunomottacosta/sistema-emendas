@@ -85,13 +85,13 @@ public class Emenda implements Serializable {
 		return id;
 	}
 
-	public Integer getNumero() {
-		return numero;
-	}
-	
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public Integer getNumero() {
+		return numero;
+	}	
 	
 	public void setNumero(Integer numero) {
 		this.numero = numero;
@@ -186,7 +186,8 @@ public class Emenda implements Serializable {
 	public void setIndicacoes(List<IndicacaoEmenda> indicacoes) {
 		this.indicacoes = indicacoes;
 	}
-
+	
+	/** CRIA LISTA DO ENUM UTILIZANDO A STRING SALVA NO BANCO, SEPARANDO OS IDS PELO "_" **/
 	public List<ModalidadeDeAplicacao> getModalidades() {
 		String[] ids = {};
 		List<ModalidadeDeAplicacao> modalidades = new ArrayList<ModalidadeDeAplicacao>();
@@ -204,6 +205,7 @@ public class Emenda implements Serializable {
 		this.modalidades = modalidades;
 	}
 	
+	/** CRIA LISTA DO ENUM UTILIZANDO A STRING SALVA NO BANCO, SEPARANDO OS IDS PELO "_" **/
 	public List<GND> getGnds() {
 		String[] ids = {};
 		List<GND> gnds = new ArrayList<GND>();

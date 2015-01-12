@@ -11,9 +11,19 @@
 				<h2 class="text-info">Emenda: <span class="text-primary" style="font-size: 90%">${emenda.numero} - ${emenda.ano}</span></h2>
 			</div>
 		</div>
-	</div> 
+	</div>
 	
 	<div class="row">
+		<div class="col-md-12">
+			
+			<a href="../indicacao/${emenda.id}/0" class="btn btn-default">
+				Lista de Indicações <i class="fa fa-arrow-right"></i>
+			</a>
+
+		</div>
+	</div>  
+	
+	<div class="row" style="margin-top: 20px">
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<table class="table table-bordered">
@@ -107,7 +117,7 @@
 						<td>
 							<strong>Objetos</strong>
 						</td>						
-						<c:forEach items="${objetosDaEmenda}" var="obj">										
+						<c:forEach items="${objetosAssociados}" var="obj">										
 							<tr>
 								<td class="text-info">${obj.nome}</td>
 								<td class="text-info">${obj.acao.nome}</td>							
@@ -117,7 +127,8 @@
 				</table>							
 			</div>
 		</div>		
-	</div>	
+	</div>
+		
 </div>	
 
 

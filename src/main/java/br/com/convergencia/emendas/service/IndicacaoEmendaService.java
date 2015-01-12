@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.convergencia.emendas.model.Emenda;
 import br.com.convergencia.emendas.model.IndicacaoEmenda;
+import br.com.convergencia.emendas.model.Objeto;
 import br.com.convergencia.emendas.repository.IndicacaoEmendaRepository;
 
 @Service
@@ -43,5 +44,10 @@ public class IndicacaoEmendaService {
 	@Transactional
 	public List<IndicacaoEmenda> findByEmenda(Emenda emenda) {
 		return indicacaoEmendaRepository.findByEmenda(emenda);
+	}
+	
+	@Transactional
+	public List<IndicacaoEmenda> findByObjeto(Objeto objeto) {
+		return indicacaoEmendaRepository.findByObjeto(objeto);
 	}
 }

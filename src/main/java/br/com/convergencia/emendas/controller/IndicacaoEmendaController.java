@@ -42,8 +42,9 @@ public class IndicacaoEmendaController {
 	//   Métodos Mapeados  //
 	// ~~~~~~~~~~~~~~~~~~~~//
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public String lista(@PathVariable Integer id, Model model) {
+	/** IR PARA TELA DE INDICACAO **/
+	@RequestMapping(value = "{id}/{erro}", method = RequestMethod.GET)
+	public String lista(@PathVariable Integer id, @PathVariable Integer erro, Model model) {
 		
 		Emenda emenda = emendaService.getEmenda(id);
 		
@@ -52,9 +53,18 @@ public class IndicacaoEmendaController {
 		model.addAttribute("objetos", objetoService.findByAcao(emenda.getAcao().getId()));
 		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
 		
+		/* ATRIBUTOS INDIVIDUAIS */
+		model.addAttribute("valorDisponivel", emendaService.calculaValorDisponivel(emenda));
+		model.addAttribute("valorUtilizado", emendaService.calcularValorUtilizado(emenda));
+		
+		/* ERRO */
+		model.addAttribute("error", erro);
+		
+		
 		return "indicacao-emenda";
 	}
 	
+	/** SALVAR INDICACAO **/
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	public String salvar(
 			@RequestParam Integer emenda,
@@ -62,22 +72,29 @@ public class IndicacaoEmendaController {
 			@RequestParam Integer objeto,
 			@RequestParam String valor) {
 		
+		Emenda e = emendaService.getEmenda(emenda);
 		IndicacaoEmenda indicacao = new IndicacaoEmenda();
 		
-		try {
-			indicacao.setEmenda(emendaService.getEmenda(emenda));
-			indicacao.setConvenente(convenenteService.getOrgaoConvenente(convenente));
-			indicacao.setObjeto(objetoService.getObjeto(objeto));
-			indicacao.setValorDestinado(new BigDecimal(conversor.mascaraApenasNumero(valor)));			
-		} catch (Exception e) {
-			logger.info("ERRO AO VALIDAR OS DADOS RECEBIDOS");
-		}
-		indicacaoEService.save(indicacao);
+		if (conversor.mascaraApenasNumero(valor) < emendaService.calculaValorDisponivel(e).doubleValue()) {
+			try {
+				indicacao.setEmenda(emendaService.getEmenda(emenda));
+				indicacao.setConvenente(convenenteService.getOrgaoConvenente(convenente));
+				indicacao.setObjeto(objetoService.getObjeto(objeto));
+				indicacao.setValorDestinado(new BigDecimal(conversor.mascaraApenasNumero(valor)));			
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				logger.info("ERRO AO VALIDAR OS DADOS RECEBIDOS");
+			}
+			indicacaoEService.save(indicacao);
+			
+			logger.info("## SALVANDO NOVA INDICACAO ##");			
+			return "redirect:/emenda/indicacao/" + emenda + "/" + 0;
+		} else {
+			return "redirect:/emenda/indicacao/" + emenda + "/" + 1;
+		}	
 		
-		logger.info("## SALVANDO NOVA INDICACAO ##");
-		
-		return "redirect:/emenda/indicacao/" + emenda;
-	}
+	}	
+	
 	
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(@RequestParam String nome, @RequestParam Integer id) {

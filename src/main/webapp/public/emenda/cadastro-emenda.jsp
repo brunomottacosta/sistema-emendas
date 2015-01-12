@@ -220,8 +220,7 @@
 	var id = $("#programa_emenda").val();
 	if (id == 0) {
 		$("#acao_emenda")
-		.append("<option value='0'>Selecione o Programa</option>")
-		.attr("disabled", true)
+		.append("<option value='0'>Selecione o Programa</option>")		
 		.selectpicker("refresh");
 	} else {
 		$.ajax({
@@ -230,8 +229,7 @@
 			success: function(json) {
 				$.each(json, function(pos, obj) {
 					$("#acao_emenda")
-					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
-					.attr("disabled", false)
+					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")					
 					.selectpicker("refresh");
 				});
 			}
@@ -246,8 +244,7 @@ $("#programa_emenda").on("change", function() {
 	$("#tb_select_acao tbody").children("tr").remove();
 	if (id == 0) {
 		$("#acao_emenda")
-		.append("<option value='0'>Selecione o Programa</option>")
-		.attr("disabled", true)
+		.append("<option value='0'>Selecione o Programa</option>")		
 		.selectpicker("refresh");
 	} else {
 		$.ajax({
@@ -259,8 +256,7 @@ $("#programa_emenda").on("change", function() {
 				} else {
 					$.each(json, function(pos, obj) {				
 						$("#acao_emenda")
-						.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
-						.attr("disabled", false)
+						.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")						
 						.selectpicker("refresh");
 					});				
 				}
@@ -354,14 +350,27 @@ $(document).ready( function() {
 		var trs_modalidade = $("#tb_select_modalidade tbody").children("tr");		
 		
 		$("#form_nova_emenda")
-		.append("<select id='gnd_multi' name='gnd' multiple='multiple' hidden='hidden'></select>" +
-				"<select id='mod_multi' name='modApp' multiple='multiple' hidden='hidden'></select>")
+		.append("<select id='gnd_multi' name='gnd' multiple='multiple' hidden='hidden'>" +
+				"<option value='0' selected='selected'></option>" +
+				"</select>" +
+				"<select id='mod_multi' name='modApp' multiple='multiple' hidden='hidden'>" +
+				"<option value='0' selected='selected'></option>" +
+				"</select>")
 		
+		// checa se tem objetos selecionados, se tiver remove o valor default		
+		if (trs_gnd.length > 0) {
+			$("#gnd_multi").children("option").remove();
+		}
+		// checa se tem objetos selecionados, se tiver remove o valor default
+		if (trs_modalidade.length > 0) {
+			$("#mod_multi").children("option").remove();
+		}
+		// cria <option> para cada objeto selecionado na lista
 		$.each(trs_gnd, function(pos, obj) {
 			$("#gnd_multi")
 			.append("<option value='" + obj.id + "' selected='selected'></option>");
 		});
-		
+		// cria <option> para cada objeto selecionado na lista
 		$.each(trs_modalidade, function(pos, obj) {
 			$("#mod_multi")
 			.append("<option value='" + obj.id + "' selected='selected'></option>");
