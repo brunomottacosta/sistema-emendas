@@ -17,7 +17,7 @@ import br.com.convergencia.emendas.service.ObjetoService;
 import br.com.convergencia.emendas.service.ProgramaService;
 
 @Controller
-@RequestMapping(value = "objeto/")
+@RequestMapping(value = "protected/objeto/")
 public class ObjetoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ObjetoController.class);

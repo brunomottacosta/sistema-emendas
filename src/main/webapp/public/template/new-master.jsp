@@ -43,14 +43,14 @@
 		<!-- NAVBAR -->
 		<div class="navbar navbar-default" id="navbar">
 		
-<!-- 			<a class="navbar-brand" href="index"> <i class="fa fa-android"></i> -->
-<!-- 				Application -->
-<!-- 			</a> -->
+			<a class="navbar-brand" href="/sistema/protected/index"> <i class="fa fa-android"></i>
+				Application
+			</a>
 			
 			<ul class="nav navbar-nav pull-right">
 			
 				<li>
-				 	<a href="#">12/12/2012</a>
+				 	<a href="#">${system_date}</a>
 				</li>
 				
 				<li class="dropdown">
@@ -62,7 +62,7 @@
 					
 					<ul class="dropdown-menu logout">
 						<li>
-							<a href="#">
+							<a href="<c:url value='/logout' />">
 								Logout <i class="fa fa-fw fa-power-off"></i>
 							</a>
 						</li>

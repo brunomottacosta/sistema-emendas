@@ -2,7 +2,13 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
         "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
- 
+ 	
+ 	<!-- LOGIN -->
+ 	
+ 	<definition name="login" template="/public/login.jsp">
+        <put-attribute name="footer" value="/public/template/footer.jsp"/>
+    </definition>
+ 	
     <!-- MASTER -->
     
     <definition name="master.page" template="/public/template/new-master.jsp">
@@ -13,23 +19,23 @@
     <!--  PAGINAS -->
     
     <definition name="index" extends="master.page">
-        <put-attribute name="body" value="/public/index.jsp"/>
+        <put-attribute name="body" value="/protected/index.jsp"/>
     </definition>
     
     <definition name="pesquisa-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/emenda/pesquisa-emenda.jsp"/>
+        <put-attribute name="body" value="/protected/emenda/pesquisa-emenda.jsp"/>
     </definition>
     
     <definition name="cadastro-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/emenda/cadastro-emenda.jsp"/>
+        <put-attribute name="body" value="/protected/emenda/cadastro-emenda.jsp"/>
     </definition>
     
     <definition name="ver-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/emenda/ver-emenda.jsp"/>
+        <put-attribute name="body" value="/protected/emenda/ver-emenda.jsp"/>
     </definition>
     
     <definition name="indicacao-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/emenda/indicacao.jsp"/>
+        <put-attribute name="body" value="/protected/emenda/indicacao.jsp"/>
     </definition>
     
     <!-- ################# -->
@@ -37,31 +43,31 @@
     <!-- ################# -->
     
     <definition name="lista-emenda" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-emenda.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-emenda.jsp"/>
     </definition>
     
     <definition name="lista-autor" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-autor.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-autor.jsp"/>
     </definition>
     
     <definition name="lista-orgao-concedente" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-orgao-concedente.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-orgao-concedente.jsp"/>
     </definition>
     
     <definition name="lista-programa" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-programa.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-programa.jsp"/>
     </definition>    
      
     <definition name="lista-acao" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-acao.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-acao.jsp"/>
     </definition> 
     
     <definition name="lista-objeto" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-objeto.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-objeto.jsp"/>
     </definition>
     
     <definition name="lista-orgao-convenente" extends="master.page">
-        <put-attribute name="body" value="/public/tabelas/lista-orgao-convenente.jsp"/>
+        <put-attribute name="body" value="/protected/tabelas/lista-orgao-convenente.jsp"/>
     </definition>
     
     <!-- ###################### -->
@@ -69,19 +75,19 @@
     <!-- ###################### -->
     
     <definition name="programa-novo" extends="master.page">
-        <put-attribute name="body" value="/public/formularios/programa-novo.jsp"/>
+        <put-attribute name="body" value="/protected/formularios/programa-novo.jsp"/>
     </definition>    
     
     <definition name="programa-editar" extends="master.page">
-        <put-attribute name="body" value="/public/formularios/programa-editar.jsp"/>
+        <put-attribute name="body" value="/protected/formularios/programa-editar.jsp"/>
     </definition>
     
     <definition name="orgao-convenente-novo" extends="master.page">
-        <put-attribute name="body" value="/public/formularios/orgao-convenente-novo.jsp"/>
+        <put-attribute name="body" value="/protected/formularios/orgao-convenente-novo.jsp"/>
     </definition> 
     
     <definition name="orgao-convenente-editar" extends="master.page">
-        <put-attribute name="body" value="/public/formularios/orgao-convenente-editar.jsp"/>
+        <put-attribute name="body" value="/protected/formularios/orgao-convenente-editar.jsp"/>
     </definition> 
     
 </tiles-definitions>

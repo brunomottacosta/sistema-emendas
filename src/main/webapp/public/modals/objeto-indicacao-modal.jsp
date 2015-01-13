@@ -55,43 +55,5 @@ $(document).ready( function() {
 		$("#form_novo_objeto").submit();
 	});
 });
-
-// inicia combobox para selecionar acao
-(function acoes() {
-	var id = $("#objeto_programa").val();
-	$.ajax({
-		type: "GET",
-		url: "../acao/lista/programa/" + id,
-		success: function(json) {
-			$.each(json, function(pos, obj) {
-				$("#objeto_acao")
-				.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
-				.selectpicker("refresh");
-			});
-		}
-	});	
-})();
-
-// troca a lista do combobox de acao de acordo com o programa
-$("#objeto_programa").on("change", function() {
-	$("#objeto_acao").empty();
-	var id = $("#objeto_programa").val();
-	$("#tb_select_acao tbody").children("tr").remove();
-	$.ajax({
-		type: "GET",
-		url: "../acao/lista/programa/" + id,
-		success: function(json) {
-			if (json.length == 0) {
-				$("#objeto_acao").selectpicker("refresh");
-			} else {
-				$.each(json, function(pos, obj) {				
-					$("#objeto_acao")
-					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
-					.selectpicker("refresh");
-				});				
-			}
-		}
-	});	
-});
 	
 </script>

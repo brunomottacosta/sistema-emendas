@@ -15,7 +15,7 @@ import br.com.convergencia.emendas.model.Autor;
 import br.com.convergencia.emendas.service.AutorService;
 
 @Controller
-@RequestMapping(value = "autor/")
+@RequestMapping(value = "protected/autor/")
 public class AutorController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AutorController.class);

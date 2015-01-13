@@ -13,15 +13,23 @@
 	</div>
 	
 	<div class="row" style="margin-bottom: 20px">
-		<div class="col-md-12">
-			<button id="btn_salvar_emenda" class="btn btn-primary"><i class="fa fa-floppy-o"></i> SALVAR</button>			
-			<c:if test="${modo == 1}">
-				<a href="novo" class="btn btn-warning pull-right" ><i class="fa fa-close"></i> LIMPAR</a>			
-			</c:if>	
-			<c:if test="${modo == 2}">
-				<a href="../novo" class="btn btn-warning pull-right" ><i class="fa fa-close"></i> LIMPAR</a>			
-			</c:if>
+		<div class="col-md-2">
+			<button id="btn_salvar_emenda" class="btn btn-primary">
+				<i class="fa fa-floppy-o"></i> SALVAR
+			</button>			
 		</div>
+		
+		<div class="col-md-8">
+			<c:if test="${!empty error}">
+				<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
+			</c:if>		
+		</div>	
+		
+		<div class="col-md-2">	
+			<a href="novo" class="btn btn-warning pull-right" >
+				<i class="fa fa-close"></i> LIMPAR
+			</a>			
+		</div>		
 	</div>
 		
 	<div class="row">

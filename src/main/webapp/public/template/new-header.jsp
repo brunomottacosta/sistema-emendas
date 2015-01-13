@@ -14,12 +14,12 @@
 		
 		<li class="launcher">
 			<i class="fa fa-search"></i> 
-			<a href="/sistema/emenda/pesquisa">Pesquisa</a>
+			<a href="/sistema/protected/emenda/pesquisa">Pesquisa</a>
 		</li>
 		
 		<li class="launcher">
 			<i class="fa fa-plus"></i> 
-			<a href="/sistema/emenda/registro/novo">Cadastro</a>
+			<a href="/sistema/protected/emenda/registro/novo">Cadastro</a>
 		</li>
 		
 		<li class="launcher dropdown hover">
@@ -27,25 +27,25 @@
 			<a href="#">Formulários</a>					
 			<ul class="dropdown-menu">
 				<li>
-					<a href="/sistema/emenda/lista">Emenda</a>
+					<a href="/sistema/protected/emenda/lista">Emenda</a>
 				</li>
 				<li>
-					<a href="/sistema/autor/lista">Autor</a>
+					<a href="/sistema/protected/autor/lista">Autor</a>
 				</li>
 				<li>
-					<a href="/sistema/orgao-concedente/lista">Orgão Condedente</a>
+					<a href="/sistema/protected/orgao-concedente/lista">Orgão Condedente</a>
 				</li>
 				<li>
-					<a href="/sistema/orgao-convenente/lista">Orgão Convenente</a>
+					<a href="/sistema/protected/orgao-convenente/lista">Orgão Convenente</a>
 				</li>
 				<li>
-					<a href="/sistema/programa/lista">Programa</a>
+					<a href="/sistema/protected/programa/lista">Programa</a>
 				</li>
 				<li>
-					<a href="/sistema/acao/lista">Ação</a>
+					<a href="/sistema/protected/acao/lista">Ação</a>
 				</li>
 				<li>
-					<a href="/sistema/objeto/lista">Objeto</a>
+					<a href="/sistema/protected/objeto/lista">Objeto</a>
 				</li>
 			</ul>
 		</li>	

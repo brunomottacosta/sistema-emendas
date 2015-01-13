@@ -16,7 +16,7 @@ import br.com.convergencia.emendas.model.OrgaoConvenente;
 import br.com.convergencia.emendas.service.OrgaoConvenenteService;
 
 @Controller
-@RequestMapping(value = "orgao-convenente/")
+@RequestMapping(value = "protected/orgao-convenente/")
 public class OrgaoConvenenteController {
 		
 	private static final Logger logger = LoggerFactory.getLogger(OrgaoConvenenteController.class);
@@ -65,6 +65,22 @@ public class OrgaoConvenenteController {
 		
 		logger.info("## SALVANDO NOVO ORGAO CONVENENTE ##");
 		return "redirect:lista";
+	}
+	
+	@RequestMapping(value = "salvarEmIndicacao", method = RequestMethod.POST)
+	public String salvarEmIndicacao(
+			@RequestParam Integer emenda,
+			@RequestParam String nome,
+			@RequestParam String cnpj) {		
+		
+		OrgaoConvenente orgao = new OrgaoConvenente();
+		orgao.setNome(nome);
+		orgao.setCnpj(cnpj);
+		
+		orgaoConvenenteService.save(orgao);
+		
+		logger.info("## SALVANDO NOVO ORGAO CONVENENTE ##");
+		return "redirect:/emenda/indicacao/" + emenda + "/" + 0;
 	}
 	
 	@RequestMapping(value = "editar", method = RequestMethod.POST)

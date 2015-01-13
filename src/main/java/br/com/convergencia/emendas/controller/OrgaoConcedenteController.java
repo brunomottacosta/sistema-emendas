@@ -15,7 +15,7 @@ import br.com.convergencia.emendas.model.OrgaoConcedente;
 import br.com.convergencia.emendas.service.OrgaoConcedenteService;
 
 @Controller
-@RequestMapping(value = "orgao-concedente/")
+@RequestMapping(value = "protected/orgao-concedente/")
 public class OrgaoConcedenteController {
 		
 	private static final Logger logger = LoggerFactory.getLogger(OrgaoConcedenteController.class);

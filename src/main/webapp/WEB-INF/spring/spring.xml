@@ -20,6 +20,6 @@
     <import resource="spring-jpa.xml"/>
  
     <!-- SpringSecurity -->
-<!--     <import resource="spring-security.xml"/> -->
+    <import resource="spring-security.xml"/>
     
 </beans>

@@ -22,7 +22,7 @@ import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.ProgramaService;
 
 @Controller
-@RequestMapping(value = "programa/")
+@RequestMapping(value = "protected/programa/")
 public class ProgramaController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProgramaController.class);

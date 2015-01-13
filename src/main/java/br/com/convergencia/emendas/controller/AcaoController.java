@@ -24,7 +24,7 @@ import br.com.convergencia.emendas.service.ProgramaService;
 import br.com.convergencia.emendas.wrapper.AcaoWrapper;
 
 @Controller
-@RequestMapping(value = "acao/")
+@RequestMapping(value = "protected/acao/")
 public class AcaoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AcaoController.class);

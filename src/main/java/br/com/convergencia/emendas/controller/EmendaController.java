@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.convergencia.emendas.enums.GND;
 import br.com.convergencia.emendas.enums.ModalidadeDeAplicacao;
@@ -35,7 +36,7 @@ import br.com.convergencia.emendas.util.ConversorUtil;
 import br.com.convergencia.emendas.wrapper.EmendaWrapper;
 
 @Controller
-@RequestMapping(value = "emenda/")
+@RequestMapping(value = "protected/emenda/")
 public class EmendaController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmendaController.class);
@@ -151,7 +152,6 @@ public class EmendaController {
 		Emenda emenda = new Emenda();
 		
 		model.addAttribute("emenda", emenda);
-		model.addAttribute("modo", 1);
 		
 		/** LISTAS AUXILIARES **/
 		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
@@ -167,6 +167,7 @@ public class EmendaController {
 	/** SALVAR NOVA EMENDA **/
 	@RequestMapping(value = "registro/salvar", method = RequestMethod.POST)
 	public String salvar(
+			RedirectAttributes redirectAttrs,
 			@RequestParam Integer numero,
 			@RequestParam Integer ano,
 			@RequestParam String valor, 
@@ -186,7 +187,9 @@ public class EmendaController {
 			gnd[0] == 0        || modApp[0] == 0 ||	tipoEmenda == 0    ||
 			funcProg.isEmpty() || idAutor == 0   || idOrgaoConced == 0 ||
 			idPrograma == 0    || idAcao == 0                             ) {
-				
+			
+			redirectAttrs.addFlashAttribute("error", "true");
+			
 			logger.info("## DADOS NÃO VÁLIDOS ##");		
 			return "redirect:novo";
 			

@@ -1,3 +1,8 @@
+.background-login {
+	background-image: url('../imgs/signin-bg-9.jpg');
+    background-size: cover;
+}
+
 .fullsize {
 	position: fixed;
 	top: 0;

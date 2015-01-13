@@ -1,6 +1,13 @@
 package br.com.convergencia.emendas.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,13 +20,33 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
-		return "index";
+		return "login";
 	}	
 	
-	/* PAGINA DE LISTAS AUXILIARES PARA EMENDAS */
-	@RequestMapping(value = "listas", method = RequestMethod.GET)
-	public String listasAuxiliares() {
-		
-		return "listas-auxiliares";
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+
+		return "login";
 	}
+	
+	/* ACESSO NEGADO, RETORNA ERRO PARA TELA LOGIN */
+	@RequestMapping(value = "/loginError", method = RequestMethod.GET)
+	public String loginError(Model model) {
+		
+		model.addAttribute("error", "true");
+		
+		return "login";
+	}
+	
+	@RequestMapping(value = "/protected/index", method = RequestMethod.GET)
+	public String index(HttpServletRequest request, Model model) {
+		
+		LocalDate date = LocalDate.now();
+		
+		HttpSession session = request.getSession(true);
+		session.setAttribute("system_date", date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		
+		return "index";
+	}
+	
 }

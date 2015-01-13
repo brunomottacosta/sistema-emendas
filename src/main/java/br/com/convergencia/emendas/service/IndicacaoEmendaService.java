@@ -14,40 +14,40 @@ import br.com.convergencia.emendas.repository.IndicacaoEmendaRepository;
 @Service
 public class IndicacaoEmendaService {
 	
-	@Autowired private IndicacaoEmendaRepository indicacaoEmendaRepository;
+	@Autowired private IndicacaoEmendaRepository indicacaoERepository;
 	
 	@Transactional
 	public void save(IndicacaoEmenda indicacaoEmenda) {
-		indicacaoEmendaRepository.save(indicacaoEmenda);
+		indicacaoERepository.save(indicacaoEmenda);
 	}
 	
 	@Transactional
 	public void update(IndicacaoEmenda indicacaoEmenda) {
-		indicacaoEmendaRepository.save(indicacaoEmenda);
+		indicacaoERepository.save(indicacaoEmenda);
 	}
 	
 	@Transactional
 	public void delete(IndicacaoEmenda indicacaoEmenda) {
-		indicacaoEmendaRepository.delete(indicacaoEmenda);
+		indicacaoERepository.delete(indicacaoEmenda.getId());
 	}
 	
 	@Transactional
 	public IndicacaoEmenda getIndicacaoEmenda(Integer id) {
-		return indicacaoEmendaRepository.findOne(id);
+		return indicacaoERepository.findOne(id);
 	}
 	
 	@Transactional
 	public List<IndicacaoEmenda> listAll() {
-		return (List<IndicacaoEmenda>) indicacaoEmendaRepository.findAll();
+		return (List<IndicacaoEmenda>) indicacaoERepository.findAll();
 	}
 		
 	@Transactional
 	public List<IndicacaoEmenda> findByEmenda(Emenda emenda) {
-		return indicacaoEmendaRepository.findByEmenda(emenda);
+		return indicacaoERepository.findByEmenda(emenda);
 	}
 	
 	@Transactional
 	public List<IndicacaoEmenda> findByObjeto(Objeto objeto) {
-		return indicacaoEmendaRepository.findByObjeto(objeto);
+		return indicacaoERepository.findByObjeto(objeto);
 	}
 }
