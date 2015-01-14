@@ -65,10 +65,10 @@
 </div>
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/autor-modal.jsp"></c:import>
+<c:import url="../../protected/modals/autor-modal.jsp"></c:import>
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/autor-editar-modal.jsp"></c:import>
+<c:import url="../../protected/modals/autor-editar-modal.jsp"></c:import>
 
 
 <!-- SCRIPTS -->

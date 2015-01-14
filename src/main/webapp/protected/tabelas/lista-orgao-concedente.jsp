@@ -68,10 +68,10 @@
 </div>
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/orgao-concedente-modal.jsp"></c:import>
+<c:import url="../../protected/modals/orgao-concedente-modal.jsp"></c:import>
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/orgao-concedente-editar-modal.jsp"></c:import>
+<c:import url="../../protected/modals/orgao-concedente-editar-modal.jsp"></c:import>
 
 
 <!-- SCRIPTS -->

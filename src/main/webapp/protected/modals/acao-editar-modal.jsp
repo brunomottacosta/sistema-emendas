@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!-- MODAL PARA EDITAR AUTOR -->
 <div class="modal fade" id="edit_acao_modal" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -22,12 +24,23 @@
 					
 					<input type="hidden" name="id" id="acao_id_edit"> 
 								
+					<div class="form-group">			
+						<label>Nome</label>				
+						<input type="text" id="acao_nome_edit" name="nome" class="form-control">					
+					</div>
+					
 					<div class="form-group">
-						<div class="input-group col-md-12">
-							<span class="input-group-addon">Nome</span>
-							<input type="text" id="acao_nome_edit" name="nome" class="form-control">								
-						</div>
-					</div>						
+						<label>Programa</label>
+						<select id="acao_prog_edit" data-live-search="true"
+						class="form-control drop-pesquisa selectpicker" name="idPrograma">										
+							<c:forEach items="${programas}" var="prog_var" >
+								<option value="${prog_var.id}">
+									${prog_var.nome}
+								</option>
+							</c:forEach>
+						</select> 
+					</div>
+											
 					<div class="form-group">			
 						<button id="edita_acao" class="btn btn-info btn-block">
 							<i class="fa fa-floppy-o"></i> SALVAR

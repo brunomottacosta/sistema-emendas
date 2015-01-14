@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!-- MODAL PARA EDITAR AUTOR -->
 <div class="modal fade" id="edit_autor_modal" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -28,6 +30,7 @@
 							<input type="text" id="autor_nome_edit" name="nome" class="form-control">								
 						</div>
 					</div>						
+					
 					<div class="form-group">			
 						<button id="edita_autor" class="btn btn-info btn-block">
 							<i class="fa fa-floppy-o"></i> SALVAR

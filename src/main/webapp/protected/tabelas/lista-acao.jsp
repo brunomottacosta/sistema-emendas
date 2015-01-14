@@ -43,7 +43,7 @@
 								<td>${a.nome}</td>
 								<td>${a.programa.nome}</td>
 								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${a.id},'${a.nome}')">
+									<a href="#"	onclick="edita_ajax(${a.id},'${a.nome}', ${a.programa.id})">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
@@ -67,10 +67,10 @@
 </div>
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/acao-modal.jsp"></c:import>
+<c:import url="../../protected/modals/acao-modal.jsp"></c:import>
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/acao-editar-modal.jsp"></c:import>
+<c:import url="../../protected/modals/acao-editar-modal.jsp"></c:import>
 
 
 <!-- SCRIPTS -->
@@ -80,9 +80,10 @@
 $("#tabela_acoes").dataTable();
 
 //editar
-function edita_ajax(id, nome) {	
+function edita_ajax(id, nome, programa) {	
 	$("#acao_id_edit").val(id);
 	$("#acao_nome_edit").val(nome);
+	$("#acao_prog_edit").val(programa).selectpicker("refresh");
 	$("#edit_acao_modal").modal("show");	
 }
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.convergencia.emendas.model.Acao;
 import br.com.convergencia.emendas.model.Objeto;
+import br.com.convergencia.emendas.model.Programa;
 import br.com.convergencia.emendas.service.AcaoService;
 import br.com.convergencia.emendas.service.ObjetoService;
 import br.com.convergencia.emendas.service.ProgramaService;
@@ -71,11 +72,14 @@ public class AcaoController {
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(
 			@RequestParam String nome, 
-			@RequestParam Integer id) {
+			@RequestParam Integer id,
+			@RequestParam Integer idPrograma) {
 		
 		Acao acao = acaoService.getAcao(id);
+		Programa programa = programaService.getPrograma(idPrograma);
 		
 		acao.setNome(nome);		
+		acao.setPrograma(programa);
 		
 		acaoService.update(acao);
 		

@@ -99,18 +99,18 @@
 			<div class="panel panel-default">
 				<table class="table table-bordered">
 					<tr>
-						<fmt:formatNumber value="${emenda.valor}" var="valor_fmt" type="currency" minFractionDigits="2" currencySymbol="R$"/>
-						<td class="col-md-4"><strong>Total Valor Emenda</strong></td>
+						<fmt:formatNumber value="${emenda.valor}" var="valor_fmt" minFractionDigits="2" />
+						<td class="col-md-4"><strong>Total Valor Emenda (R$)</strong></td>
 						<td class="text-info">${valor_fmt}</td>
 					</tr>
 					<tr>
-						<fmt:formatNumber value="${valorUtilizado}" var="valor_util_fmt" type="currency" minFractionDigits="2" currencySymbol="R$"/>
-						<td><strong>Valor Utilizado</strong></td>
+						<fmt:formatNumber value="${valorUtilizado}" var="valor_util_fmt" minFractionDigits="2" />
+						<td><strong>Valor Utilizado (R$)</strong></td>
 						<td class="text-danger">${valor_util_fmt}</td>
 					</tr>
 					<tr>
-						<fmt:formatNumber value="${valorDisponivel}" var="valor_disp_fmt" type="currency" minFractionDigits="2" currencySymbol="R$"/>
-						<td><strong>Valor Disponível</strong></td>
+						<fmt:formatNumber value="${valorDisponivel}" var="valor_disp_fmt" minFractionDigits="2" />
+						<td><strong>Valor Disponível (R$)</strong></td>
 						<td class="text-success">${valor_disp_fmt}</td>
 					</tr>
 				</table>
@@ -121,12 +121,12 @@
 	<div class="row" style="margin-top: 20px">
 		<div class="col-md-12">
 			<div class="panel panel-default">
-				<table class="table">
+				<table id="tb_indicacao" class="table">
 					<thead>
 						<tr>
 							<th>Objeto</th>
 							<th>Orgão Convenente</th>
-							<th>Valor Destinado</th>
+							<th>Valor Destinado (R$)</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -140,12 +140,15 @@
 						<c:if test="${!empty indicacoes}">
 							<c:forEach items="${indicacoes}" var="ind">
 								<tr class="text-info">
-									<fmt:formatNumber value="${ind.valorDestinado}" var="valor_ind_fmt" type="currency" minFractionDigits="2" currencySymbol="R$"/>
-									<td>${ind.objeto.nome}</td>
-									<td>${ind.convenente.nome}</td>
-									<td>${valor_ind_fmt}</td>
+									<fmt:formatNumber value="${ind.valorDestinado}" var="valor_ind_fmt"  minFractionDigits="2" />
+									<td id="${ind.objeto.nome}">${ind.objeto.nome}</td>
+									<td id="${ind.convenente.nome}">${ind.convenente.nome}</td>
+									<td id="${valor_ind_fmt}">${valor_ind_fmt}</td>
 									<td>
-										<a href=""><i class="fa fa-pencil"></i></a>
+										<a href="#" id="edit_${ind.id}"
+										onclick="edita_ajax(${ind.id},'${valor_ind_fmt}',${ind.objeto.id},${ind.convenente.id})">
+											<i class="fa fa-pencil"></i>
+										</a>
 									</td>
 									<td id="ind_${ind.id}">
 										<a href="#" onclick="remover(${ind.id})">
@@ -164,8 +167,9 @@
 </div>	
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/objeto-indicacao-modal.jsp"></c:import>
-<c:import url="../modals/convenente-indicacao-modal.jsp"></c:import>
+<c:import url="../../protected/modals/objeto-indicacao-modal.jsp"></c:import>
+<c:import url="../../protected/modals/convenente-indicacao-modal.jsp"></c:import>
+<c:import url="../../protected/modals/indicacao-editar-modal.jsp"></c:import>
 
 <!-- ################# -->
 <!-- ##### SCRIPTS ### -->
@@ -173,11 +177,28 @@
 
 <script type="text/javascript">
 
+//editar
+function edita_ajax(id, valor, objeto, convenente) {		
+
+	$("#objeto_edit").val(objeto)	
+	.selectpicker("refresh");
+
+	$("#convenente_edit").val(convenente)	
+	.selectpicker("refresh");
+
+	$("#id_edit").val(id);
+	$("#valor_edit").val(valor);	
+		
+	$("#edit_indicacao_modal").modal("show");
+}
+
 function remover(id) {
 	$.post("remover", {
 		'id' : id
 	}, function() {
 		$("#ind_" + id).closest("tr").hide();
+		$("#tb_indicacao tbody")
+		.append('<tr><td class="text-danger">Nenhuma indicação adicionada.</td></tr>');
 	});
 }
  

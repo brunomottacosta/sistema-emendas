@@ -74,7 +74,7 @@ public class ObjetoController {
 		objetoService.save(objeto);
 		
 		logger.info("## SALVANDO NOVO OBJETO ##");
-		return "redirect:/emenda/indicacao/" + idEmenda;
+		return "redirect:/protected/emenda/indicacao/" + idEmenda;
 	}
 	
 	@RequestMapping(value = "editar", method = RequestMethod.POST)

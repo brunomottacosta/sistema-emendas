@@ -65,7 +65,7 @@
 </div>
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/programa-editar-modal.jsp"></c:import>
+<c:import url="../../protected/modals/programa-editar-modal.jsp"></c:import>
 
 <!-- SCRIPTS -->
 <script type="text/javascript">

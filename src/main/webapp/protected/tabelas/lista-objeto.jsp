@@ -45,7 +45,8 @@
 								<td>${obj.acao.nome}</td>
 								<td>${obj.acao.programa.nome}</td>
 								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${obj.id},'${obj.nome}')">
+									<a href="#"	
+									onclick="edita_ajax(${obj.id},'${obj.nome}', ${obj.acao.id}, ${obj.acao.programa.id})">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
@@ -69,10 +70,10 @@
 </div>
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
-<c:import url="../modals/objeto-modal.jsp"></c:import>
+<c:import url="../../protected/modals/objeto-modal.jsp"></c:import>
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
-<c:import url="../modals/objeto-editar-modal.jsp"></c:import>
+<c:import url="../../protected/modals/objeto-editar-modal.jsp"></c:import>
 
 
 <!-- SCRIPTS -->
@@ -82,10 +83,29 @@
 $("#tabela_objeto").dataTable();
 
 //editar
-function edita_ajax(id, nome) {	
+function edita_ajax(id, nome, acao, programa) {	
 	$("#objeto_id_edit").val(id);
 	$("#objeto_nome_edit").val(nome);
-	$("#edit_objeto_modal").modal("show");	
+	$("#objeto_programa_edit").val(programa).selectpicker("refresh");
+	$("#objeto_acao_edit").empty();
+	var id = programa;
+	$.ajax({
+		type: "GET",
+		url: "../acao/lista/programa/" + id,
+		success: function(json) {
+			if (json.length == 0) {
+				$("#objeto_acao_edit").selectpicker("refresh");
+			} else {
+				$.each(json, function(pos, obj) {				
+					$("#objeto_acao_edit")
+					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
+					.selectpicker("refresh");
+				});				
+			}
+			$("#objeto_acao_edit").val(acao).selectpicker("refresh");
+		}
+	});
+	$("#edit_objeto_modal").modal("show");
 }
 
 // remover
