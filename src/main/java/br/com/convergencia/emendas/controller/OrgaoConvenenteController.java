@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,19 +36,6 @@ public class OrgaoConvenenteController {
 		model.addAttribute("convenentes", orgaoConvenenteService.listAll());
 		
 		return "lista-orgao-convenente";
-	}
-	
-	@RequestMapping(value = "novo")
-	public String novo() {
-		return "orgao-convenente-novo";
-	}
-	
-	@RequestMapping(value = "alteracao/{id}")
-	public String alteracao(@PathVariable Integer id, Model model) {
-		
-		model.addAttribute("convenente", orgaoConvenenteService.getOrgaoConvenente(id));
-		
-		return "orgao-convenente-editar";
 	}
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)

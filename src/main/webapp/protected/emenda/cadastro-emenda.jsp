@@ -20,9 +20,11 @@
 		</div>
 		
 		<div class="col-md-8">
-			<c:if test="${!empty error}">
-				<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
-			</c:if>		
+			<div id="col-error">
+				<c:if test="${!empty error}">
+					<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
+				</c:if>					
+			</div>
 		</div>	
 		
 		<div class="col-md-2">	
@@ -383,11 +385,25 @@ $(document).ready( function() {
 			$("#mod_multi")
 			.append("<option value='" + obj.id + "' selected='selected'></option>");
 		});
-		
-		$("#form_nova_emenda").submit();	
+		// serializa em array o form
+		var data = $("#form_nova_emenda").serializeArray();		
+		// valida se todos os dados estao preenchidos
+		$.each(data, function(pos, obj) {
+			if (obj.value <= 0) {
+				$("#col-error").hide("fade", 100, function() {
+					$("#col-error")
+					.html('<button class="btn btn-danger btn-block" disabled="disabled">' +
+							'Erro! Preencha todos os campos.' +
+							'</button>')
+					.show("fade", 350);					
+				});				
+				return false;		
+			} 
+			if(pos == data.length) {
+				$("#form_nova_emenda").submit();	
+			}
+		});	
 	});	 
 });
-
-
 
 </script>

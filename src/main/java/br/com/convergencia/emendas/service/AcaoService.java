@@ -18,7 +18,7 @@ public class AcaoService {
 	
 	@Transactional
 	public void save(Acao acao) {
-		acaoRepository.save(acao);
+		acaoRepository.save(acao);		
 	}
 	
 	@Transactional
@@ -28,7 +28,7 @@ public class AcaoService {
 	
 	@Transactional
 	public void delete(Acao acao) {
-		acaoRepository.delete(acao);
+		acaoRepository.delete(acao.getId());
 	}
 	
 	@Transactional

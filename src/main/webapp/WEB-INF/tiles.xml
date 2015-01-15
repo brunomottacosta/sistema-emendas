@@ -80,14 +80,6 @@
     
     <definition name="programa-editar" extends="master.page">
         <put-attribute name="body" value="/protected/formularios/programa-editar.jsp"/>
-    </definition>
-    
-    <definition name="orgao-convenente-novo" extends="master.page">
-        <put-attribute name="body" value="/protected/formularios/orgao-convenente-novo.jsp"/>
-    </definition> 
-    
-    <definition name="orgao-convenente-editar" extends="master.page">
-        <put-attribute name="body" value="/protected/formularios/orgao-convenente-editar.jsp"/>
-    </definition> 
+    </definition>    
     
 </tiles-definitions>

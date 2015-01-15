@@ -17,7 +17,7 @@ public interface IndicacaoEmendaRepository extends CrudRepository<IndicacaoEmend
 	List<IndicacaoEmenda> findByObjeto(Objeto objeto);
 	
 	@Modifying
-    @Query("delete from IndicacaoEmenda where id = ?1")
+    @Query("DELETE FROM IndicacaoEmenda WHERE id = ?1")
     public void delete(Integer id);
 	
 }

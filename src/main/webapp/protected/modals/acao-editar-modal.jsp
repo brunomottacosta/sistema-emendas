@@ -13,9 +13,10 @@
 				<button type="button" class="close" data-dismiss="modal">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
-
-				<h4 class="modal-title">Ação - Alteração</h4>
-
+				
+				<div id="col-error-editar">
+					<h4 class="modal-title">Ação - Alteração</h4>
+				</div>
 			</div>
 			
 			<div class="modal-body">
@@ -42,7 +43,7 @@
 					</div>
 											
 					<div class="form-group">			
-						<button id="edita_acao" class="btn btn-info btn-block">
+						<button id="edita_acao" class="btn btn-info btn-block" type="button">
 							<i class="fa fa-floppy-o"></i> SALVAR
 						</button>
 					</div>				
@@ -63,8 +64,33 @@
 //salvar
 $(document).ready( function() {
 	$("#edita_acao").click( function() {
-		$("#form_edita_acao").submit();
+		// serializa em array o form
+		var form_acao_edita = $("#form_edita_acao").serializeArray();		
+		// valida se todos os dados estao preenchidos
+		$.each(form_acao_edita, function(pos, obj) {
+			if (obj.value <= 0) {
+				$("#col-error-editar").hide("fade", 100, function() {
+					$("#col-error-editar")
+					.html('<h4 class="modal-title text-danger">' +
+							'Erro! Preencha todos os campos.' +
+							'</h4>')
+					.show("fade", 350);					
+				});				
+				return false;		
+			}
+			if (pos == (form_acao_edita.length - 1)) {
+				$("#form_edita_acao").submit();
+			}
+		});				
 	});
-});
+
+	$("#col-error-editar").click( function() {			
+		$("#col-error-editar").hide("fade", 100, function() {
+			$("#col-error-editar")
+			.html('<h4 class="modal-title">Ação - Alteração</h4>')
+			.show("fade", 350);					
+		});				
+	});
+});	
 	
 </script>

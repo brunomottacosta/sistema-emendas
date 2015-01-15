@@ -18,7 +18,7 @@
 				
 			<div class="col-md-12">				
 				
-				<a class="btn btn-warning" href="novo">
+				<a class="btn btn-warning" data-toggle="modal" data-target="#new_org_conv_modal">
 					<i class="fa fa-plus"></i> NOVO						
 				</a>
 				
@@ -46,7 +46,7 @@
 								<td>${conv.nome}</td>
 								<td>${conv.cnpj}</td>
 								<td style="text-align: center">
-									<a href="alteracao/${conv.id}">
+									<a href="#" onclick="edita_ajax(${conv.id}, '${conv.nome}', '${conv.cnpj}')">
 										<i class="fa fa-pencil-square-o"></i>
 									</a>
 								</td>
@@ -69,11 +69,25 @@
 	</div>	
 </div>
 
+<!-- IMPORT DE MODALS PARA ADICIONAR -->
+<c:import url="../../protected/modals/orgao-convenente-modal.jsp"></c:import>
+
+<!-- IMPORT DE MODALS PARA ALTERAR -->
+<c:import url="../../protected/modals/orgao-convenente-editar-modal.jsp"></c:import>
+
 <!-- SCRIPTS -->
 <script type="text/javascript">
 
 //inicia datatables
 $("#tabela_org_conv").dataTable();
+
+//editar
+function edita_ajax(id, nome, cnpj) {	
+	$("#orgao_convenente_id").val(id);
+	$("#orgao_convenente_nome_edit").val(nome);
+	$("#orgao_convenente_cnpj_edit").val(cnpj);
+	$("#edit_org_conv_modal").modal("show");	
+}
 
 // remover
 function remove_ajax(id) {
