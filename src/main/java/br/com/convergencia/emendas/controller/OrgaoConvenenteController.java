@@ -66,7 +66,7 @@ public class OrgaoConvenenteController {
 		orgaoConvenenteService.save(orgao);
 		
 		logger.info("## SALVANDO NOVO ORGAO CONVENENTE ##");
-		return "redirect:/protected/emenda/indicacao/" + emenda + "/" + 0;
+		return "redirect:/protected/emenda/indicacao/" + emenda;
 	}
 	
 	@RequestMapping(value = "editar", method = RequestMethod.POST)

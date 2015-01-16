@@ -8,7 +8,7 @@
 
 <section id="sidebar">
 
-	<i class="fa fa-bars fa-2x" id="toggle"></i>
+	<i class="fa fa-bars fa-2x" id="toggle" style="cursor: pointer"></i>
 	
 	<ul id="dock">
 		
@@ -50,7 +50,8 @@
 			</ul>
 		</li>	
 		
-	</ul>						
+	</ul>	
+					
 	
 </section>
 
@@ -59,15 +60,7 @@
 <section id="tools">
 	
 	<nav class="navbar navbar-default mid-navbar" role="navigation">
-  		<div class="container-fluid">
-    		<ul class="nav navbar-nav">
-    			<li>
-    				<a href="#">
-    					LINK
-    				</a>
-    			</li>
-    		</ul>
-  		</div>
+  		
 	</nav>
 
 </section>

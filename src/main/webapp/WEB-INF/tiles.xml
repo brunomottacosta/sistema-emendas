@@ -30,6 +30,10 @@
         <put-attribute name="body" value="/protected/emenda/cadastro-emenda.jsp"/>
     </definition>
     
+    <definition name="edicao-emenda" extends="master.page">
+        <put-attribute name="body" value="/protected/emenda/edicao-emenda.jsp"/>
+    </definition>
+    
     <definition name="ver-emenda" extends="master.page">
         <put-attribute name="body" value="/protected/emenda/ver-emenda.jsp"/>
     </definition>

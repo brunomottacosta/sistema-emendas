@@ -278,6 +278,120 @@ public class EmendaController {
 		return "ver-emenda";
 	}	
 	
+	/** IR PARA PAGINA DE EDICAO **/
+	@RequestMapping(value = "edicao/{id}", method = RequestMethod.GET)
+	public String irParaEditar(@PathVariable Integer id, Model model) {
+		
+		Emenda emenda = emendaService.getEmenda(id);
+		
+		model.addAttribute("emenda", emenda);
+		
+		/** LISTAS AUXILIARES **/
+		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
+		model.addAttribute("gnd", Arrays.asList(GND.values()));
+		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
+		model.addAttribute("programas", programaService.listAll());
+		model.addAttribute("autores", autorService.listAll());
+		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
+		
+		return "edicao-emenda";		
+	}
+	
+	@RequestMapping(value = "editar", method = RequestMethod.POST)
+	public String editar(
+			RedirectAttributes redirectAttrs,
+			@RequestParam Integer id,
+			@RequestParam Integer numero,
+			@RequestParam Integer ano,
+			@RequestParam String valor, 
+			@RequestParam Integer[] gnd,
+			@RequestParam Integer[] modApp,
+			@RequestParam Integer tipoEmenda,
+			@RequestParam String funcProg,
+			@RequestParam Integer idAutor,
+			@RequestParam Integer idOrgaoConced,
+			@RequestParam Integer idPrograma,
+			@RequestParam Integer idAcao) {
+		
+		Emenda emenda = emendaService.getEmenda(id);
+		
+		/** VERIFICA SE OS DADOS SAO VALIDOS, CASO NAO SEJAM, RETORNA ERRO **/
+		if (numero == null 	   || ano == null    || valor.isEmpty()    ||
+			gnd[0] == 0        || modApp[0] == 0 ||	tipoEmenda == 0    ||
+			funcProg.isEmpty() || idAutor == 0   || idOrgaoConced == 0 ||
+			idPrograma == 0    || idAcao == 0                             ) {
+			
+			redirectAttrs.addFlashAttribute("error", "true");
+			
+			logger.info("## DADOS NÃO VÁLIDOS ##");		
+			return "redirect:novo";
+			
+		/** CASO NAO OCORRA ERRO NA VALIDACAO, EXECUTA O RESTO DO CODIGO PARA SALVAR **/
+		} else {
+			
+			String execucao = "";					
+			
+			/** SETA ATRIBUTOS **/
+			emenda.setNumero(numero);
+			emenda.setAno(ano);
+			emenda.setFuncionalProgramatica(funcProg);
+			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
+			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
+			emenda.setAutor(autorService.getAutor(idAutor));
+			emenda.setOrgaoConcedente(orgaoConcedenteService.getOrgaoConcedente(idOrgaoConced));
+			emenda.setPrograma(programaService.getPrograma(idPrograma));
+			emenda.setAcao(acaoService.getAcao(idAcao));		
+			
+			/** RECEBE ARRAY DO ENUM E ADICIONA A CLASSE UMA STRING CONTENDO OS IDS **/
+			if (gnd.length > 0) {				
+				String gndEmenda = "";			
+				if (gnd.length == 1) {
+					gndEmenda = gnd[0].toString();
+				} else if (gnd.length > 1) {		
+					for (Integer i : gnd) {
+						if (gndEmenda.isEmpty()) {
+							gndEmenda = i.toString();
+						} else {
+							gndEmenda = gndEmenda + "_" + i.toString();						
+						}
+					} 				
+				}
+				/** SETA NO GND E NAO NA LISTA GNDS**/
+				/** GNDS SERA UM ATRIBUTO TRANSIENT, QUE NAO APARECERA NO BANCO **/
+				/** NA HORA QUE A CLASSE É BUSCADA, GNDS SERÁ SETADA DE ACORDO COM A STRING EM GND **/
+				emenda.setGnd(gndEmenda);
+			}
+			
+			/** RECEBE ARRAY DO ENUM E ADICIONA A CLASSE UMA STRING CONTENDO OS IDS **/
+			if (modApp.length > 0) {
+				String modAppEmenda = "";			
+				if (modApp.length == 1) {
+					modAppEmenda = modApp[0].toString();
+				} else if (modApp.length > 1) {			
+					for (Integer i : modApp) {
+						if (modAppEmenda.isEmpty()) {
+							modAppEmenda = i.toString();
+						} else {
+							modAppEmenda = modAppEmenda + "_" + i.toString();						
+						}
+					}			
+				}
+				/** SETA EM MODALIDADE DE APLICACAO E NAO NA LISTA MODALIDADES **/
+				/** MODALIDADES SERA UM ATRIBUTO TRANSIENT, QUE NAO APARECERA NO BANCO **/
+				/** NA HORA QUE A CLASSE É BUSCADA, MODALIDADES SERÁ SETADA DE ACORDO COM A STRING EM MODALIDADE DE APLICACAO **/
+				emenda.setModalidadeDeAplicacao(modAppEmenda);
+			}
+			
+			/** SALVA PREVIAMENTE **/
+			emendaService.save(emenda);	
+			
+			execucao = "SALVANDO";
+			
+			logger.info("## " + execucao + " EMENDA ID: " + emenda.getId() + " ##");		
+			return "redirect:/protected/emenda/visualizar/" + emenda.getId();
+		}
+	}	
+	
 	/** LISTA AUXILIAR **/
 	@RequestMapping(value = "lista", method = RequestMethod.GET)
 	public String lista(Model model) {

@@ -89,7 +89,7 @@
 												<option value="0">Selecione</option>
 												<c:forEach items="${gnd}" var="gnd_var" >
 													<c:if test="${gnd_var.id >= 1}">
-														<option value="${gnd_var.id}_${gnd_var.descricao}">
+														<option value="${gnd_var.id}_${gnd_var.descricao}_${gnd_var.numero}">
 															${gnd_var.numero} - ${gnd_var.descricao}
 														</option>
 													</c:if>									
@@ -100,7 +100,8 @@
 								</div>
 								<div class="panel-body">
 									<table class="table" id="tb_select_gnd">							
-										<tbody>											
+										<tbody>
+																				
 										</tbody>
 									</table>	
 								</div>								
@@ -164,7 +165,7 @@
 												<option value="0">Selecione</option>
 												<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
 													<c:if test="${mda_var.id >= 1}">
-														<option value="${mda_var.id}_${mda_var.descricao}">																								
+														<option value="${mda_var.id}_${mda_var.descricao}_${mda_var.numero}">																								
 																${mda_var.numero} - ${mda_var.descricao}
 														</option> 
 													</c:if>
@@ -175,7 +176,8 @@
 								</div>
 								<div class="panel-body">
 									<table class="table" id="tb_select_modalidade">							
-										<tbody>											
+										<tbody>
+																					
 										</tbody>
 									</table>	
 								</div>								
@@ -283,11 +285,12 @@ $(document).ready( function() {
 			var split = value.split("_");
 			var id = split[0];
 			var title = split[1];
+			var num = split[2];
 			if (split[0] > 0) {
 				$("#tb_select_modalidade tbody")
 				.append(
 					"<tr id='" + id + "'>" +
-					"<td class='add-modalidade' style='width:95%; border-top: 0px;'>" + id + " - " + title + "</td>" +
+					"<td class='add-modalidade' style='width:95%; border-top: 0px;'>" + num + " - " + title + "</td>" +
 					"<td id='mod_" + id + "' style='width:5%; border-top: 0px;'>" +
 					"<a href='#' id='" + value + "' onclick='removerMod(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
 					"</tr>"				
@@ -307,11 +310,12 @@ $(document).ready( function() {
 			var split = value.split("_");
 			var id = split[0];
 			var title = split[1];
+			var num = split[2];
 			if (split[0] > 0) {
 				$("#tb_select_gnd tbody")
 				.append(
 					"<tr id='" + id + "'>" +
-					"<td class='add-gnd' style='width:95%; border-top: 0px;'>" + id + " - " + title + "</td>" +
+					"<td class='add-gnd' style='width:95%; border-top: 0px;'>" + num + " - " + title + "</td>" +
 					"<td id='gnd_" + id + "' style='width:5%; border-top: 0px;'>" +
 					"<a href='#' id='" + value + "' onclick='removerGnd(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
 					"</tr>"				
@@ -328,9 +332,10 @@ function removerMod(obj) {
 	var split = obj.id.split("_");
 	var id = split[0];
 	var title = split[1];
+	var num = split[2];
 	$("#mod_" + id).closest("tr").remove();
 	$("#mda_emenda")
-	.append("<option value='" + obj.id + "'>" + id + " - " + title + "</option>")
+	.append("<option value='" + obj.id + "'>" + num + " - " + title + "</option>")
 	.selectpicker("refresh");	
 }
 
@@ -339,9 +344,10 @@ function removerGnd(obj) {
 	var split = obj.id.split("_");
 	var id = split[0];
 	var title = split[1];
+	var num = split[2];
 	$("#gnd_" + id).closest("tr").remove();
 	$("#gnd_emenda")
-	.append("<option value='" + obj.id + "'>" + id + " - " + title + "</option>")
+	.append("<option value='" + obj.id + "'>" + num + " - " + title + "</option>")
 	.selectpicker("refresh");	
 }
 
@@ -386,7 +392,7 @@ $(document).ready( function() {
 			.append("<option value='" + obj.id + "' selected='selected'></option>");
 		});
 		// serializa em array o form
-		var data = $("#form_nova_emenda").serializeArray();		
+		var data = $("#form_nova_emenda").serializeArray();	
 		// valida se todos os dados estao preenchidos
 		$.each(data, function(pos, obj) {
 			if (obj.value <= 0) {
@@ -398,10 +404,12 @@ $(document).ready( function() {
 					.show("fade", 350);					
 				});				
 				return false;		
-			} 
-			if(pos == data.length) {
+			}
+			console.log(pos);
+			if(pos == (data.length - 1)) {
 				$("#form_nova_emenda").submit();	
 			}
+			return true;
 		});	
 	});	 
 });

@@ -53,7 +53,6 @@
 <script type="text/javascript">
 
 //salvar
-
 $(document).ready( function() {
 	$("#salvar_orgao").click( function() {
 		// serializa em array o form

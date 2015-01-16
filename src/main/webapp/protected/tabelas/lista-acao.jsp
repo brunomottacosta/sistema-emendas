@@ -18,7 +18,7 @@
 				
 			<div class="col-md-12">
 
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_acao_modal">
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#new_acao_modal">
 					<i class="fa fa-plus"></i> NOVO					
 				</button>
 				

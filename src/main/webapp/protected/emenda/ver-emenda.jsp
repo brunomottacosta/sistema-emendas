@@ -16,8 +16,11 @@
 	<div class="row">
 		<div class="col-md-12">
 			
-			<a href="../indicacao/${emenda.id}" class="btn btn-default">
+			<a href="../indicacao/${emenda.id}" class="btn btn-info">
 				Lista de Indicações <i class="fa fa-arrow-right"></i>
+			</a>
+			<a href="../edicao/${emenda.id}" class="btn btn-danger pull-right">
+				<i class="fa fa-pencil"></i> Editar Emenda 
 			</a>
 
 		</div>

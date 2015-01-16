@@ -98,6 +98,18 @@
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<table class="table table-bordered">
+					<tr>						
+						<td class="col-md-4"><strong>Programa</strong></td>
+						<td class="text-info">${emenda.programa.nome}</td>
+					</tr>
+					<tr>						
+						<td><strong>Ação</strong></td>
+						<td class="text-info">${emenda.acao.nome}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel panel-default">
+				<table class="table table-bordered">
 					<tr>
 						<fmt:formatNumber value="${emenda.valor}" var="valor_fmt" minFractionDigits="2" />
 						<td class="col-md-4"><strong>Total Valor Emenda (R$)</strong></td>
