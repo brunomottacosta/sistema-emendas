@@ -8,6 +8,7 @@
 	<bean name="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+<!-- 	<property name="url" value="jdbc:mysql://ec2-54-207-88-190.sa-east-1.compute.amazonaws.com/db_sistema" /> -->
 		<property name="url" value="jdbc:mysql://localhost/db_sistema" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />

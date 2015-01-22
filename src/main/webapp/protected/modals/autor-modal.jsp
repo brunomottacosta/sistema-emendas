@@ -62,7 +62,7 @@ $(document).ready( function() {
 				});				
 				return false;		
 			}
-			if(pos == form_autor_salvar.length) {
+			if(pos == (form_autor_salvar.length - 1)) {
 				$("#form_novo_autor").submit();
 			}
 		});				

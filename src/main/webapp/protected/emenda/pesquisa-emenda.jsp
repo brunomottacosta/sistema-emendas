@@ -6,7 +6,7 @@
 <div class="container-fluid">
 	
 	<div class="page-header">
-		<h2 class="text-info">Filtros de Busca</h2>  						
+		<h2>Filtros de Busca</h2>  						
 	</div>		
 	
 	<div id="content_pesq_emenda">
@@ -26,10 +26,10 @@
 			
 				<div class="col-md-12">					
 					
-					<button id="btn_filtro" class="btn btn-primary" type="button">
+					<button id="btn_filtro" class="btn btn-success" type="button">
 						<i class="fa fa-search"></i> FILTRAR
 					</button>	
-					<button id="btn_resetar" class="btn btn-warning" type="button">
+					<button id="btn_resetar" class="btn btn-danger" type="button">
 						<i class="fa fa-close"></i> LIMPAR
 					</button>									
 					
@@ -96,6 +96,9 @@
 			<!-- FIM BOTOES DE ACAO -->
 			<!-- ################## -->
 				
+			<div class="panel panel-default">	
+				
+			<div class="panel-body">
 			
 			<form id="form_pesquisa_emenda">						
 						
@@ -122,13 +125,7 @@
 						</div>
 						
 					</div>						
-					<div class="col-md-3">
-					
-						<div class="form-group">
-							<label class="control-label">Valor</label>															
-							<input type="text" name="valor" id="valor_emenda" 
-							class="form-control money input-pesquisa" maxlength="20"> 
-						</div>																
+					<div class="col-md-3">															
 						
 						<div class="form-group">
 							<label class="control-label">G.N.D.</label> 
@@ -163,9 +160,6 @@
 								</c:forEach>
 							</select> 
 						</div>
-					
-					</div>						
-					<div class="col-md-3">
 						
 						<div class="form-group">
 							<label class="control-label">Tipo de Emenda</label> 
@@ -176,6 +170,9 @@
 								</c:forEach>
 							</select> 
 						</div>	
+					
+					</div>						
+					<div class="col-md-3">						
 						
 						<div class="form-group">
 							<label class="control-label">Autor</label> 
@@ -199,9 +196,6 @@
 							</select> 
 						</div>
 						
-					</div>
-					<div class="col-md-3">
-						
 						<div class="form-group">
 							<label class="control-label">Programa</label> 
 							<select id="programa_emenda" data-live-search="true"
@@ -212,6 +206,9 @@
 								</c:forEach>
 							</select> 
 						</div>
+						
+					</div>
+					<div class="col-md-3">						
 						
 						<div class="form-group">
 							<label class="control-label">Ação</label> 
@@ -241,6 +238,10 @@
 				
 			</form>
 			
+			</div>
+			
+			</div>
+			
 		</div>
 		
 		<!-- ########################### -->
@@ -260,29 +261,31 @@
 					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
 						<i class="fa fa-arrow-left"></i> VOLTAR
 					</button>
-					<button id="btn_ver_emenda" class="btn btn-info" type="button" disabled="disabled">
+					<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
 						<i class="fa fa-folder-open"></i> ABRIR
 					</button>
 										
 				</div>				
 							
 			</div>			
+			
 
+			
 			<table id="tabela_emendas" class="table table-bordered">				
 				<thead>
 					<tr>
-						<th style="width: 5em">ANO</th>
-						<th style="width: 5em">NUMERO</th>
-						<th style="width: 10em">AUTOR</th>
-						<th style="width: 10em">ORGÃO</th>
-						<th style="width: 10em">PROGRAMÁTICA</th>
-						<th style="width: 10em">TIPO</th>
-						<th style="width: 15em">MODALIDADE</th>
-						<th style="width: 15em">G.N.D.</th>
-						<th style="width: 10em">VALOR (R$)</th>
-						<th style="width: 10em">PROGRAMA</th>
-						<th style="width: 10em">AÇÃO</th>
-						<th style="width: 3em"></th>
+						<th>ANO</th>
+						<th>NUMERO</th>
+						<th>AUTOR</th>
+						<th>ORGÃO</th>
+						<th>PROGRAMÁTICA</th>
+						<th>TIPO</th>
+						<th>MODALIDADE</th>
+						<th>G.N.D.</th>
+						<th>VALOR (R$)</th>
+						<th>PROGRAMA</th>
+						<th>AÇÃO</th>
+						<th></th>
 <!-- 						<th style="width: 10em">AÇÃO</th> -->
 <!-- 						<th style="width: 10em">OBJETO</th> -->
 					</tr>
@@ -293,6 +296,7 @@
 				<!-- ######################## -->
 				
 			</table>
+			
 			
 		</div>
 		
@@ -373,7 +377,21 @@ $(document).ready(function() {
         {
         	"className": "center-td",
     		"targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],    	    
-   	  	}]
+   	  	},
+   	  	{
+	   	  	"render": function ( data, type, row ) {
+		   	  	var string = "";
+		   	  	$.each(data, function(pos, obj) {
+			   	  	if (pos < (data.length - 1)) {
+						string = string + obj + ", <br />";
+				   	} else {
+				   		string = string + obj;
+					}
+			   	});
+	            return string;
+	        },
+	        "targets": [6, 7],
+   	   	}]
 	});
 });
 
@@ -437,7 +455,6 @@ $(document).ready( function() {
 				var idPrograma = $("#programa_emenda").val();
 				var idAcao = $("#acao_emenda").val();
 				var idObjeto = $("#objeto_emenda").val();
-				var valor = $("#valor_emenda").val();
 								
 				// executa requisicao ajax para trazer os dados da busca e insere na table
 				// os dados buscados tem que ser iguais aos da table criada na inicializacao
@@ -454,7 +471,6 @@ $(document).ready( function() {
 						+ "&idPrograma=" + idPrograma
 						+ "&idAcao=" + idAcao
 						+ "&idObjeto=" + idObjeto
-						+ "&valor=" + valor
  				).load( function() {
 					// depois de finalizada a busca, fecha o modal de loading
 					$("#carregar_modal").modal("hide");
@@ -486,8 +502,7 @@ $(document).ready(function() {
  	var count = $('#tabela_emendas thead tr').children('th').length;
  	var btns = $("#btn_colunas_tb").children('a.active');
  	
-    // esconde todas as colunas por padrão
-    
+    // esconde todas as colunas por padrão    
     for (i = 0 ; i < count ; i++) {
     	if (i >= btns.length && i < count) {
 		 	var hide = table.column( i );

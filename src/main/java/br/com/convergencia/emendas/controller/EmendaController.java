@@ -108,8 +108,7 @@ public class EmendaController {
 			@RequestParam String idAutor,
 			@RequestParam String idPrograma,
 			@RequestParam String idAcao,
-			@RequestParam String idObjeto,
-			@RequestParam String valor) {	
+			@RequestParam String idObjeto) {	
 		
 		/** SETA VALORES DO FILTRO PARA BUSCAR **/
 		Map<String, String> map = new HashMap<String, String>();
@@ -124,8 +123,7 @@ public class EmendaController {
 		map.put("autor", idAutor);
 		map.put("programa", idPrograma);
 		map.put("acao", idAcao);
-		map.put("objeto", idObjeto);
-		map.put("valor", valor);				
+		map.put("objeto", idObjeto);			
 		
 		/** CRIA LISTA DE OBJETOS BUSCADOS **/		
 		List<Emenda> emendas =  emendaService.listByFiltro(map);
@@ -172,9 +170,9 @@ public class EmendaController {
 			@RequestParam Integer ano,
 			@RequestParam String valor, 
 			@RequestParam Integer[] gnd,
-			@RequestParam Integer[] modApp,
+			@RequestParam Integer[] modalidade,
 			@RequestParam Integer tipoEmenda,
-			@RequestParam String funcProg,
+			@RequestParam String funcional,
 			@RequestParam Integer idAutor,
 			@RequestParam Integer idOrgaoConced,
 			@RequestParam Integer idPrograma,
@@ -183,10 +181,10 @@ public class EmendaController {
 		Emenda emenda = new Emenda();
 		
 		/** VERIFICA SE OS DADOS SAO VALIDOS, CASO NAO SEJAM, RETORNA ERRO **/
-		if (numero == null 	   || ano == null    || valor.isEmpty()    ||
-			gnd[0] == 0        || modApp[0] == 0 ||	tipoEmenda == 0    ||
-			funcProg.isEmpty() || idAutor == 0   || idOrgaoConced == 0 ||
-			idPrograma == 0    || idAcao == 0                             ) {
+		if (numero == null 	   || ano == null    		 || valor.isEmpty()    ||
+			gnd.length == 0    || modalidade.length == 0 ||	tipoEmenda == 0    ||
+			funcional.isEmpty()|| idAutor == 0   		 || idOrgaoConced == 0 ||
+			idPrograma == 0    || idAcao == 0) {
 			
 			redirectAttrs.addFlashAttribute("error", "true");
 			
@@ -201,7 +199,7 @@ public class EmendaController {
 			/** SETA ATRIBUTOS **/
 			emenda.setNumero(numero);
 			emenda.setAno(ano);
-			emenda.setFuncionalProgramatica(funcProg);
+			emenda.setFuncionalProgramatica(funcional);
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 			emenda.setAutor(autorService.getAutor(idAutor));
@@ -230,12 +228,12 @@ public class EmendaController {
 			}
 			
 			/** RECEBE ARRAY DO ENUM E ADICIONA A CLASSE UMA STRING CONTENDO OS IDS **/
-			if (modApp.length > 0) {
+			if (modalidade.length > 0) {
 				String modAppEmenda = "";			
-				if (modApp.length == 1) {
-					modAppEmenda = modApp[0].toString();
-				} else if (modApp.length > 1) {			
-					for (Integer i : modApp) {
+				if (modalidade.length == 1) {
+					modAppEmenda = modalidade[0].toString();
+				} else if (modalidade.length > 1) {			
+					for (Integer i : modalidade) {
 						if (modAppEmenda.isEmpty()) {
 							modAppEmenda = i.toString();
 						} else {
@@ -268,12 +266,10 @@ public class EmendaController {
 		
 		Emenda emenda = emendaService.getEmenda(id);
 		
-		model.addAttribute("emenda", emenda);
-		model.addAttribute("objetosAssociados", objetoService.findByEmenda(id));
-		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
+		model.addAttribute("emenda", emenda);		
 		
 		/** LISTAS AUXILIARES **/
-		model.addAttribute("objetosDaEmenda", objetoService.findByEmenda(id));
+		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
 		
 		return "ver-emenda";
 	}	
@@ -305,9 +301,9 @@ public class EmendaController {
 			@RequestParam Integer ano,
 			@RequestParam String valor, 
 			@RequestParam Integer[] gnd,
-			@RequestParam Integer[] modApp,
+			@RequestParam Integer[] modalidade,
 			@RequestParam Integer tipoEmenda,
-			@RequestParam String funcProg,
+			@RequestParam String funcional,
 			@RequestParam Integer idAutor,
 			@RequestParam Integer idOrgaoConced,
 			@RequestParam Integer idPrograma,
@@ -316,10 +312,10 @@ public class EmendaController {
 		Emenda emenda = emendaService.getEmenda(id);
 		
 		/** VERIFICA SE OS DADOS SAO VALIDOS, CASO NAO SEJAM, RETORNA ERRO **/
-		if (numero == null 	   || ano == null    || valor.isEmpty()    ||
-			gnd[0] == 0        || modApp[0] == 0 ||	tipoEmenda == 0    ||
-			funcProg.isEmpty() || idAutor == 0   || idOrgaoConced == 0 ||
-			idPrograma == 0    || idAcao == 0                             ) {
+		if (numero == null 	   || ano == null    	 || valor.isEmpty()    ||
+			gnd[0] == 0        || modalidade[0] == 0 ||	tipoEmenda == 0    ||
+			funcional.isEmpty()|| idAutor == 0   	 || idOrgaoConced == 0 ||
+			idPrograma == 0    || idAcao == 0) {
 			
 			redirectAttrs.addFlashAttribute("error", "true");
 			
@@ -334,7 +330,7 @@ public class EmendaController {
 			/** SETA ATRIBUTOS **/
 			emenda.setNumero(numero);
 			emenda.setAno(ano);
-			emenda.setFuncionalProgramatica(funcProg);
+			emenda.setFuncionalProgramatica(funcional);
 			emenda.setValor(new BigDecimal(conversor.mascaraApenasNumero(valor)));
 			emenda.setTipoEmenda(TipoEmenda.getTipoEmendaById(tipoEmenda));
 			emenda.setAutor(autorService.getAutor(idAutor));
@@ -363,12 +359,12 @@ public class EmendaController {
 			}
 			
 			/** RECEBE ARRAY DO ENUM E ADICIONA A CLASSE UMA STRING CONTENDO OS IDS **/
-			if (modApp.length > 0) {
+			if (modalidade.length > 0) {
 				String modAppEmenda = "";			
-				if (modApp.length == 1) {
-					modAppEmenda = modApp[0].toString();
-				} else if (modApp.length > 1) {			
-					for (Integer i : modApp) {
+				if (modalidade.length == 1) {
+					modAppEmenda = modalidade[0].toString();
+				} else if (modalidade.length > 1) {			
+					for (Integer i : modalidade) {
 						if (modAppEmenda.isEmpty()) {
 							modAppEmenda = i.toString();
 						} else {

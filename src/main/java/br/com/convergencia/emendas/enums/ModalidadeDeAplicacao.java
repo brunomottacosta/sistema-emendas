@@ -7,7 +7,7 @@ public enum ModalidadeDeAplicacao {
 	ESTADOS(1, 30, "Estados"),
 	MUNICIPIOS(2, 40, "Municípios"),
 	ENTIDADES_PRIVADAS(3, 50, "Entidades Privadas"),
-	A_DEFINIR(4, 99, "A definir");
+	A_DEFINIR(4, 99, "À Definir");
 	
 	private ModalidadeDeAplicacao(Integer id, Integer numero, String descricao) {
 		this.descricao = descricao;

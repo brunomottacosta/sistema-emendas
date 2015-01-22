@@ -15,7 +15,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			
-			<a href="../visualizar/${emenda.id}" class="btn btn-default">
+			<a href="../visualizar/${emenda.id}" class="btn btn-info">
 				<i class="fa fa-arrow-left"></i> Voltar para Emenda 
 			</a>
 
@@ -79,7 +79,7 @@
 						
 						<div class="row">
 							<div class="col-xs-2">
-								<input type="submit" class="btn btn-primary" value="Salvar" >
+								<input type="submit" class="btn btn-success" value="Salvar" >
 							</div>
 							<div class="col-xs-10">
 								<c:if test="${!empty error}">

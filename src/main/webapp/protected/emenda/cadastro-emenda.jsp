@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <div class="container-fluid">
 
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h2 class="text-info">Formulário para Cadastro</h2>
+				<h2 class="text-info">Cadastro - Emenda</h2>
 			</div>
 		</div>
 	</div>
 	
 	<div class="row" style="margin-bottom: 20px">
 		<div class="col-md-2">
-			<button id="btn_salvar_emenda" class="btn btn-primary">
+			<button id="btn_salvar_emenda" class="btn btn-success">
 				<i class="fa fa-floppy-o"></i> SALVAR
 			</button>			
 		</div>
@@ -28,7 +29,7 @@
 		</div>	
 		
 		<div class="col-md-2">	
-			<a href="novo" class="btn btn-warning pull-right" >
+			<a href="novo" class="btn btn-danger pull-right" >
 				<i class="fa fa-close"></i> LIMPAR
 			</a>			
 		</div>		
@@ -40,21 +41,22 @@
 			
 			<!-- ################# -->	
 			<!-- FORMULARIO EMENDA -->
-			<!-- ################# -->			
+			<!-- ################# -->	
 					
 			<form action="salvar" method="post" id="form_nova_emenda" role="form">				
 							
 				<div class="row">
 					<div class="col-md-4">
 						<div class="row">
+						
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Numero</label> 
 									<input type="text" name="numero" id="num_emenda" 
-									class="form-control num-emenda">
-					                 
+									class="form-control num-emenda">					                 
 								</div>							
 							</div>
+							
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Ano</label>
@@ -63,52 +65,39 @@
 								</div>
 							</div>
 						</div>
+						
 						<div class="form-group">
 							<label class="control-label">Funcional Programática</label> 
-							<input type="text" name="funcProg" id="fnc_prog_emenda" 
+							<input type="text" name="funcional" id="fnc_prog_emenda" 
 							class="form-control fnc-prog-emenda"> 
-						</div>						
+						</div>	
+											
 						<div class="form-group">
 							<label class="control-label">Valor</label>													
 							<input type="text" name="valor" id="valor_emenda" 
 							class="form-control money"> 
 						</div>	
+						
 						<div class="form-group">
-							<label class="control-label">G.N.D.</label>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="row">
-										<div class="col-md-2">
-											<a id="select_gnd" href="#" class="btn btn-default">
-												<i class="fa fa-plus"></i>
-											</a>
-										</div>
-										<div class="col-md-10">  
-											<select id="gnd_emenda" data-live-search="true"
-											class="form-control selectpicker">	
-												<option value="0">Selecione</option>
-												<c:forEach items="${gnd}" var="gnd_var" >
-													<c:if test="${gnd_var.id >= 1}">
-														<option value="${gnd_var.id}_${gnd_var.descricao}_${gnd_var.numero}">
-															${gnd_var.numero} - ${gnd_var.descricao}
-														</option>
-													</c:if>									
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="panel-body">
-									<table class="table" id="tb_select_gnd">							
-										<tbody>
-																				
-										</tbody>
-									</table>	
-								</div>								
-							</div>  
-						</div>								
-					</div>
-					<div class="col-md-4">						
+							<label class="control-label">G.N.D.</label>										
+							<select id="gnd_emenda" class="form-control selectpicker"
+							data-live-search="true" 
+							data-selected-text-format="count > 1"
+							title="Selecione..."
+							name="gnd" multiple="multiple">
+								<c:forEach items="${gnd}" var="gnd_var" >
+									<c:if test="${gnd_var.id >= 1}">
+										<option value="${gnd_var.id}">
+											${gnd_var.numero} - ${gnd_var.descricao}
+										</option>
+									</c:if>									
+								</c:forEach>
+							</select>
+						</div>
+																					
+					</div>					
+					<div class="col-md-4">
+											
 						<div class="form-group">
 							<label class="control-label">Tipo de Emenda</label> 
 							<select id="tipo_emenda" 
@@ -117,81 +106,69 @@
 							name="tipoEmenda">
 								<c:forEach items="${tipoEmenda}" var="tipo_var">
 									<c:if test="${tipo_var.id == 0}">
-										<option value="">Selecione</option>
+										<option value="0">Selecione...</option>
 									</c:if>	
 									<c:if test="${tipo_var.id >= 1}">
 										<option value="${tipo_var.id}">${tipo_var.descricao}</option>
 									</c:if>	
 								</c:forEach>
 							</select> 
-						</div>	
+						</div>
+							
 						<div class="form-group">
 							<label class="control-label">Autor</label> 
 							<select id="autor_emenda" 
 							data-live-search="true"
 							class="form-control selectpicker"
 							name="idAutor">
-								<option value="0">Selecione</option>
+								<option value="0">Selecione...</option>
 								<c:forEach items="${autores}" var="autor_var" >
 									<option value="${autor_var.id}">${autor_var.nome}</option>
 								</c:forEach>
 							</select> 
 						</div>
+						
 						<div class="form-group">
 							<label class="control-label">Orgão Concedente</label> 
 							<select id="org_conced_emenda" 
 							data-live-search="true"
 							class="form-control selectpicker" 
 							name="idOrgaoConced">
-								<option value="0">Selecione</option>	
+								<option value="0">Selecione...</option>	
 								<c:forEach items="${orgaos}" var="org_conced_var" >
 									<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
 								</c:forEach>
 							</select> 
 						</div>
+						
 						<div class="form-group">
-							<label class="control-label">Modalidade de Aplicacao</label>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="row">
-										<div class="col-md-2">
-											<a id="select_modalidade" href="#" class="btn btn-default">
-												<i class="fa fa-plus"></i>
-											</a>
-										</div>
-										<div class="col-md-10"> 
-											<select id="mda_emenda" data-live-search="true"
-											class="form-control selectpicker">		
-												<option value="0">Selecione</option>
-												<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
-													<c:if test="${mda_var.id >= 1}">
-														<option value="${mda_var.id}_${mda_var.descricao}_${mda_var.numero}">																								
-																${mda_var.numero} - ${mda_var.descricao}
-														</option> 
-													</c:if>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="panel-body">
-									<table class="table" id="tb_select_modalidade">							
-										<tbody>
-																					
-										</tbody>
-									</table>	
-								</div>								
-							</div> 
-						</div>	
+							<label class="control-label">Modalidade de Aplicacao</label>					
+							<select id="mda_emenda" 
+							class="form-control selectpicker"
+							data-live-search="true"
+							data-selected-text-format="count > 2"
+							title="Selecione..."
+							name="modalidade" multiple="multiple">								
+								<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
+									<c:if test="${mda_var.id >= 1}">
+										<option value="${mda_var.id}">																								
+												${mda_var.numero} - ${mda_var.descricao}
+										</option> 
+									</c:if>
+								</c:forEach>
+							</select>										
+						</div>
+							
 					</div>					
 					<div class="col-md-4">
+					
 						<div class="form-group">
 							<label class="control-label">Programa</label> 
 							<select id="programa_emenda" 
 							data-live-search="true"
 							class="form-control selectpicker" 
 							name="idPrograma">
-								<option value="0">Selecione</option>			
+								<option value="0">Selecione...</option>			
 								<c:forEach items="${programas}" var="programa_var" >
 									<option value="${programa_var.id}">${programa_var.nome}</option>
 								</c:forEach>
@@ -205,10 +182,11 @@
 							name="idAcao">
 								<!-- LISTA DE ACOES POR PROGRAMA -->	
 							</select> 
-						</div>		
+						</div>
+								
 					</div>
 				</div>							
-			</form>
+			</form>		
 			
 			<!-- ##################### -->	
 			<!-- FIM FORMULARIO EMENDA -->
@@ -232,7 +210,8 @@
 	var id = $("#programa_emenda").val();
 	if (id == 0) {
 		$("#acao_emenda")
-		.append("<option value='0'>Selecione o Programa</option>")		
+		.append("<option value='0'>Selecione o Programa...</option>")
+		.attr("disabled", true)		
 		.selectpicker("refresh");
 	} else {
 		$.ajax({
@@ -241,7 +220,8 @@
 			success: function(json) {
 				$.each(json, function(pos, obj) {
 					$("#acao_emenda")
-					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")					
+					.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")
+					.attr("disabled", false)						
 					.selectpicker("refresh");
 				});
 			}
@@ -256,7 +236,8 @@ $("#programa_emenda").on("change", function() {
 	$("#tb_select_acao tbody").children("tr").remove();
 	if (id == 0) {
 		$("#acao_emenda")
-		.append("<option value='0'>Selecione o Programa</option>")		
+		.append("<option value='0'>Selecione o Programa...</option>")	
+		.attr("disabled", true)		
 		.selectpicker("refresh");
 	} else {
 		$.ajax({
@@ -268,7 +249,8 @@ $("#programa_emenda").on("change", function() {
 				} else {
 					$.each(json, function(pos, obj) {				
 						$("#acao_emenda")
-						.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")						
+						.append("<option value='" + obj.id + "'>" + obj.nome + "</option>")		
+						.attr("disabled", false)					
 						.selectpicker("refresh");
 					});				
 				}
@@ -277,120 +259,9 @@ $("#programa_emenda").on("change", function() {
 	}
 });
 
-// incluir modalidade a lista para adicionar
-$(document).ready( function() {
-	$("#select_modalidade").click( function() {
-		if ($("#mda_emenda").val() != null) {			
-			var value = $("#mda_emenda").val();
-			var split = value.split("_");
-			var id = split[0];
-			var title = split[1];
-			var num = split[2];
-			if (split[0] > 0) {
-				$("#tb_select_modalidade tbody")
-				.append(
-					"<tr id='" + id + "'>" +
-					"<td class='add-modalidade' style='width:95%; border-top: 0px;'>" + num + " - " + title + "</td>" +
-					"<td id='mod_" + id + "' style='width:5%; border-top: 0px;'>" +
-					"<a href='#' id='" + value + "' onclick='removerMod(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
-					"</tr>"				
-				);
-				$('#mda_emenda').find('[value="'+ value +'"]').remove();
-				$('#mda_emenda').selectpicker("refresh");
-			}
-		} 
-	});
-});
-
-//incluir gnd a lista para adicionar
-$(document).ready( function() {
-	$("#select_gnd").click( function() {
-		if ($("#gnd_emenda").val() != null) {			
-			var value = $("#gnd_emenda").val();
-			var split = value.split("_");
-			var id = split[0];
-			var title = split[1];
-			var num = split[2];
-			if (split[0] > 0) {
-				$("#tb_select_gnd tbody")
-				.append(
-					"<tr id='" + id + "'>" +
-					"<td class='add-gnd' style='width:95%; border-top: 0px;'>" + num + " - " + title + "</td>" +
-					"<td id='gnd_" + id + "' style='width:5%; border-top: 0px;'>" +
-					"<a href='#' id='" + value + "' onclick='removerGnd(this)'><i class='fa fa-close' style='color:red'></i></a></td>" +
-					"</tr>"				
-				);
-				$('#gnd_emenda').find('[value="'+ value +'"]').remove();
-				$('#gnd_emenda').selectpicker("refresh");
-			}
-		} 
-	});
-});
-
-// remover modalidade da lista para adicionar
-function removerMod(obj) {	
-	var split = obj.id.split("_");
-	var id = split[0];
-	var title = split[1];
-	var num = split[2];
-	$("#mod_" + id).closest("tr").remove();
-	$("#mda_emenda")
-	.append("<option value='" + obj.id + "'>" + num + " - " + title + "</option>")
-	.selectpicker("refresh");	
-}
-
-//remover gnd da lista para adicionar
-function removerGnd(obj) {	
-	var split = obj.id.split("_");
-	var id = split[0];
-	var title = split[1];
-	var num = split[2];
-	$("#gnd_" + id).closest("tr").remove();
-	$("#gnd_emenda")
-	.append("<option value='" + obj.id + "'>" + num + " - " + title + "</option>")
-	.selectpicker("refresh");	
-}
-
 // salvar
 $(document).ready( function() {
-	$("#btn_salvar_emenda").click( function() {
-
-		if ($("#gnd_multi") != null) {
-			$("#gnd_multi").remove();
-		}
-		if ($("#mod_multi") != null) {
-			$("#mod_multi").remove();
-		}
-		
-		var trs_gnd = $("#tb_select_gnd tbody").children("tr");
-		var trs_modalidade = $("#tb_select_modalidade tbody").children("tr");		
-		
-		$("#form_nova_emenda")
-		.append("<select id='gnd_multi' name='gnd' multiple='multiple' hidden='hidden'>" +
-				"<option value='0' selected='selected'></option>" +
-				"</select>" +
-				"<select id='mod_multi' name='modApp' multiple='multiple' hidden='hidden'>" +
-				"<option value='0' selected='selected'></option>" +
-				"</select>")
-		
-		// checa se tem objetos selecionados, se tiver remove o valor default		
-		if (trs_gnd.length > 0) {
-			$("#gnd_multi").children("option").remove();
-		}
-		// checa se tem objetos selecionados, se tiver remove o valor default
-		if (trs_modalidade.length > 0) {
-			$("#mod_multi").children("option").remove();
-		}
-		// cria <option> para cada objeto selecionado na lista
-		$.each(trs_gnd, function(pos, obj) {
-			$("#gnd_multi")
-			.append("<option value='" + obj.id + "' selected='selected'></option>");
-		});
-		// cria <option> para cada objeto selecionado na lista
-		$.each(trs_modalidade, function(pos, obj) {
-			$("#mod_multi")
-			.append("<option value='" + obj.id + "' selected='selected'></option>");
-		});
+	$("#btn_salvar_emenda").click( function() {	
 		// serializa em array o form
 		var data = $("#form_nova_emenda").serializeArray();	
 		// valida se todos os dados estao preenchidos
@@ -405,9 +276,20 @@ $(document).ready( function() {
 				});				
 				return false;		
 			}
-			console.log(pos);
-			if(pos == (data.length - 1)) {
-				$("#form_nova_emenda").submit();	
+			else if(pos == (data.length - 1)) {
+				if ($("#mda_emenda").val() != null && $("#gnd_emenda").val() != null) {
+					$("#form_nova_emenda").submit();
+					return true;
+				} else {
+					$("#col-error").hide("fade", 100, function() {
+						$("#col-error")
+						.html('<button class="btn btn-danger btn-block" disabled="disabled">' +
+								'Erro! Preencha todos os campos.' +
+								'</button>')
+						.show("fade", 350);					
+					});
+					return false;
+				}
 			}
 			return true;
 		});	

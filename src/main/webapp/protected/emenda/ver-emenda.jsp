@@ -118,12 +118,12 @@
 				<table class="table table-bordered">					
 					<tr>					
 						<td>
-							<strong>Objetos</strong>
+							<strong>Objeto / Orgão Convenente</strong>
 						</td>						
-						<c:forEach items="${objetosAssociados}" var="obj">										
+						<c:forEach items="${indicacoes}" var="ind">										
 							<tr>
-								<td class="text-info">${obj.nome}</td>
-								<td class="text-info">${obj.acao.nome}</td>							
+								<td class="text-info col-md-6">${ind.objeto.nome}</td>
+								<td class="text-info">${ind.convenente.nome}</td>							
 							</tr>
 						</c:forEach>													
 					</tr>

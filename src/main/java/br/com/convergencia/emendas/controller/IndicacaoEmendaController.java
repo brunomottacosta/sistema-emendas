@@ -78,9 +78,9 @@ public class IndicacaoEmendaController {
 			/** CONVERTE PARA DB O VALOR RECEBIDO **/
 			Double db = conversor.mascaraApenasNumero(valor);
 			/** SE O VALOR FOR MAIOR QUE 0, CONTINUA, SE NÃO, RETORNA ERRO **/
-			if (db > 0) {
+			if (db > 0) {				
 				/** SE O VALOR FOR MENOR QUE O DISPONÍVEL, CONTINUA, SE NÃO, RETORNA ERRO **/
-				if (conversor.mascaraApenasNumero(valor) < emendaService.calculaValorDisponivel(e).doubleValue()) {
+				if (conversor.mascaraApenasNumero(valor) <= emendaService.calculaValorDisponivel(e).doubleValue()) {
 					
 					/** ADICIONA OS ATRIBUTOS DEPOIS DE VALIDADOS NA INDICACAO À SER SALVA **/
 					indicacao.setEmenda(emendaService.getEmenda(emenda));
