@@ -11,8 +11,8 @@
  	
     <!-- MASTER -->
     
-    <definition name="master.page" template="/public/template/new-master.jsp">
-        <put-attribute name="header" value="/public/template/new-header.jsp"/>
+    <definition name="master.page" template="/public/template/master.jsp">
+        <put-attribute name="header" value="/public/template/header.jsp"/>
         <put-attribute name="footer" value="/public/template/footer.jsp"/>
     </definition>
  

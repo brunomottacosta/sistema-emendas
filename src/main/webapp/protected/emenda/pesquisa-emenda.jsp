@@ -6,7 +6,7 @@
 <div class="container-fluid">
 	
 	<div class="page-header">
-		<h2>Filtros de Busca</h2>  						
+		<h2 class="text-primary">Filtros de Busca</h2>  						
 	</div>		
 	
 	<div id="content_pesq_emenda">
@@ -31,24 +31,29 @@
 					</button>	
 					<button id="btn_resetar" class="btn btn-danger" type="button">
 						<i class="fa fa-close"></i> LIMPAR
-					</button>									
+					</button>
+					<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
+						<i class="fa fa-plus"></i>  NOVO CADASTRO
+					</a>									
 					
 				</div>
 				
 			</div>			
 				
-			<div class="panel panel-default">	
+			<div class="panel panel-primary">
 				
-				<div class="panel-body">
-					
-					<p class="text-info" style="height: 20px">
-						<span id="descr_col" class="text-info">
+				<div class="panel-heading">
+					<h5 style="color: white" >
+						<span id="descr_col">
 							Escolha as colunas que serão apresentadas: 
 						</span>	
-						<span id="warning_col" class="text-warning not-visible" style="cursor: pointer;">
+						<span id="warning_col" class="not-visible" style="cursor: pointer;">
 							<i class="fa fa-warning fa-lg"></i> Selecione pelo menos duas colunas!
 						</span>						
-					</p>
+					</h5>
+				</div>	
+				
+				<div class="panel-body">					
 					
 					<div id="btn_colunas_tb" data-toggle="buttons">
 											
@@ -264,6 +269,9 @@
 					<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
 						<i class="fa fa-folder-open"></i> ABRIR
 					</button>
+					<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
+						<i class="fa fa-plus"></i>  NOVO CADASTRO
+					</a>	
 										
 				</div>				
 							

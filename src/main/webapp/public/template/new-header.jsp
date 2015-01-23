@@ -64,3 +64,19 @@
 	</nav>
 
 </section>
+<li class="active">
+				<a class="toggle" id="toggle_side_menu"> 
+					<i class="fa fa-bars fa-lg"></i>
+				</a>
+				<div class="menu-group not-visible" id="side_menu" style="position: absolute; width: 15em">
+					<a href="/sistema/protected/index" class="menu-group-item">
+						<i class="fa fa-newspaper-o"></i> Notícias
+					</a>
+					<a href="/sistema/protected/emenda/pesquisa" class="menu-group-item">
+						<i class="fa fa-search"></i> Buscar Emenda
+					</a>
+					<a href="/sistema/protected/emenda/registro/novo" class="menu-group-item">
+						<i class="fa fa-plus"></i> Cadastrar Emenda
+					</a>
+				</div>																
+			</li>		

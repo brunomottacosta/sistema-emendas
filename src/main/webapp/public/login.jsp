@@ -27,14 +27,14 @@
     	
     <div class="container">
     	
-    	<div class="row" style="height: 100px">
-    	<div class=" col-md-4 col-md-offset-4">	
-			<c:if test="${!empty error}">
-				<div class="alert alert-danger" role="alert" data-tog>
-					<strong>Falha ao logar!</strong> Login ou senha incorretos.
-				</div>
-			</c:if>
-		</div>	
+    	<div class="row" style="height: 7.5em">
+	    	<div class=" col-md-4 col-md-offset-4">	
+				<c:if test="${!empty error}">
+					<div class="alert alert-danger" role="alert">
+						<strong>Falha ao logar!</strong> Login ou senha incorretos.
+					</div>
+				</c:if>
+			</div>	
 		</div>
     		
         <div class="row">
