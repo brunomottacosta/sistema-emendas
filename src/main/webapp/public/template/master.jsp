@@ -33,14 +33,19 @@
 </head>
     
 <body>		
-		
+
+	<div class="fullsize background-login"></div>
+			
 	<div class="container">
+	
 		<!-- NAVBAR -->
 		<tiles:insertAttribute name="header" />    
 			
-		<!-- CONTEUDO RENDERIZA AQUI -->
-		<tiles:insertAttribute name="body" />
 	</div>		
+	
+	<!-- CONTEUDO RENDERIZA AQUI -->
+	<tiles:insertAttribute name="body" />
+		
 
 	<tiles:insertAttribute name="footer" />      
         

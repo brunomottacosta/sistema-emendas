@@ -26,7 +26,7 @@
 		</ul>
 		
 		<ul class="nav navbar-nav navbar-right">
-       		<li class="active">
+       		<li>
        			<a href="<c:url value='/logout' />"><i class="fa fa-sign-out fa-lg"></i></a>
        		</li>		
 		</ul>
