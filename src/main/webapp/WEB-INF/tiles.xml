@@ -16,7 +16,7 @@
         <put-attribute name="footer" value="/public/template/footer.jsp"/>
     </definition>
  
-    <!--  PAGINAS -->
+    <!-- PAGINAS -->
     
     <definition name="index" extends="master.page">
         <put-attribute name="body" value="/protected/index.jsp"/>
@@ -45,10 +45,6 @@
     <!-- ################# -->
     <!-- LISTAS AUXILIARES -->
     <!-- ################# -->
-    
-    <definition name="lista-emenda" extends="master.page">
-        <put-attribute name="body" value="/protected/tabelas/lista-emenda.jsp"/>
-    </definition>
     
     <definition name="lista-autor" extends="master.page">
         <put-attribute name="body" value="/protected/tabelas/lista-autor.jsp"/>

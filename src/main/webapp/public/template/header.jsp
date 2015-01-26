@@ -1,33 +1,40 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <nav class="navbar navbar-default ">
 	<div class="container-fluid">
 	
 		<ul class="nav navbar-nav">
-       		<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<i class="fa fa-bars fa-lg"></i>
+       		<li>
+				<a href="/sistema/protected/index" class="fa-lg">
+					<i class="glyphicon glyphicon-home"></i>
 				</a>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
-					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
-					<li class="divider"></li>
-					<li><a href="#">One more separated link</a></li>
-				</ul>
 			</li>
 			<li>
-				<a href="/sistema/protected/emenda/pesquisa" class="fa-lg">Emendas</a>
-			</li>					
+				<a href="/sistema/protected/emenda/pesquisa" class="fa-lg">
+					<i class="glyphicon glyphicon-search"></i>
+				</a>
+			</li>		
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle fa-lg" data-toggle="dropdown" role="button" aria-expanded="false">
+					<i class="glyphicon glyphicon-folder-open"></i>
+				</a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/sistema/protected/autor/lista">Autores</a></li>
+					<li class="divider"></li>
+					<li><a href="/sistema/protected/orgao-concedente/lista">Condedentes</a></li>
+					<li><a href="/sistema/protected/orgao-convenente/lista">Convenentes</a></li>
+					<li class="divider"></li>
+					<li><a href="/sistema/protected/programa/lista">Programas</a></li>					
+					<li><a href="/sistema/protected/acao/lista">Ações</a></li>
+					<li><a href="/sistema/protected/objeto/lista">Objetos</a></li>
+				</ul>
+			</li>			
 		</ul>
 		
 		<ul class="nav navbar-nav navbar-right">
-       		<li>
-       			<a href="<c:url value='/logout' />"><i class="fa fa-sign-out fa-lg"></i></a>
+       		<li style="margin-right: 1em; background-color: #F5F5F5">
+       			<a href="<c:url value='/logout' />"><i class="fa fa-power-off fa-lg"></i></a>
        		</li>		
 		</ul>
 				

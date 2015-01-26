@@ -2,329 +2,333 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div class="container">
+<div class="container"> 
 
-<div class="row">
+	<div class="row">
 
-<div class="col-md-12">		
-
-<div id="content_pesq_emenda">
+		<div class="col-xs-12" id="content_pesq_emenda">		
 	
-	<!-- ####################### -->	
-	<!-- FORMULARIO FILTRO BUSCA -->
-	<!-- ####################### -->		
-		
-	<div id="filtro_pesq_emenda">
-		
-		<!-- ############## -->  
-		<!-- BOTOES DE ACAO -->
-		<!-- ############## -->			
-			
-		<div class="panel panel-primary">
-			
-			<div class="panel-heading">
-				<h4 style="color: white">
-					Pesquisa por Filtros
-				</h4>
-			</div>				
-								
-			<div class="panel-body">
-			
-				<span id="descr_col" class="text-success">
-					Escolha as colunas que serão apresentadas: 
-				</span>	
-				<span id="warning_col" class="not-visible text-warning" style="cursor: pointer;">
-					<i class="fa fa-warning fa-lg"></i> Selecione pelo menos duas colunas!
-				</span>						
+			<!-- ####################### -->	
+			<!-- FORMULARIO FILTRO BUSCA -->
+			<!-- ####################### -->		
 				
-				<div id="btn_colunas_tb" data-toggle="buttons">
+			<div id="filtro_pesq_emenda">
+				
+				<!-- ############## -->  
+				<!-- BOTOES DE ACAO -->
+				<!-- ############## -->			
+					
+				<div class="panel panel-default">
+					
+					<div class="panel-heading">
+						<h4>
+							<strong>Pesquisa por Filtros</strong>
+						</h4>
+					</div>				
 										
-					<a class="btn btn-default toggle-visible active" data-column="0">
-						Ano
-					</a>						
-					<a class="btn btn-default toggle-visible active" data-column="1">
-						Número
-					</a>	 
-					<a class="btn btn-default toggle-visible active" data-column="2">
-						Autor
-					</a>
-					<a class="btn btn-default toggle-visible active" data-column="3">
-						Orgão
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="4">
-						Programática
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="5">
-						Tipo
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="6">
-						Modalidade
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="7">
-						G.N.D.
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="8">
-						Valor
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="9">
-						Programa
-					</a>
-					<a class="btn btn-default toggle-visible" data-column="10">
-						Ação
-					</a>
+					<div class="panel-body">
+					
+						<span id="descr_col" class="text-success">
+							<i class="fa fa-info"></i> Escolha as colunas que serão apresentadas: 
+						</span>	
+						<span id="warning_col" class="not-visible text-warning" style="cursor: pointer;">
+							<i class="fa fa-warning"></i> Selecione pelo menos duas colunas!
+						</span>						
 						
-				</div>
-			
-			</div>			
+						<div id="btn_colunas_tb" data-toggle="buttons">
+												
+							<a class="btn btn-default toggle-visible active" data-column="0">
+								Ano
+							</a>						
+							<a class="btn btn-default toggle-visible active" data-column="1">
+								Número
+							</a>	 
+							<a class="btn btn-default toggle-visible active" data-column="2">
+								Autor
+							</a>
+							<a class="btn btn-default toggle-visible active" data-column="3">
+								Orgão
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="4">
+								Programática
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="5">
+								Tipo
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="6">
+								Modalidade
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="7">
+								G.N.D.
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="8">
+								Valor
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="9">
+								Programa
+							</a>
+							<a class="btn btn-default toggle-visible" data-column="10">
+								Ação
+							</a>
+								
+						</div>
 					
-		</div>		
-		
-		<!-- ################## -->  
-		<!-- FIM BOTOES DE ACAO -->
-		<!-- ################## -->
-			
-		<div class="panel panel-default">	
-			
-		<div class="panel-body">
-		
-		<span class="text-success">Escolha os filtros:</span>
-		
-		<form id="form_pesquisa_emenda">						
+					</div>			
+							
+				</div>		
+				
+				<!-- ################## -->  
+				<!-- FIM BOTOES DE ACAO -->
+				<!-- ################## -->
 					
-			<div class="row">
-			
-				<div class="col-md-3">								
-		
-					<div class="form-group">
-						<label class="control-label">Numero</label> 
-						<input type="text" name="numero" id="num_emenda" 
-						class="form-control input-pesquisa num-emenda"> 
-					</div>
+				<div class="panel panel-default">	
 					
-					<div class="form-group">
-						<label class="control-label">Funcional Programática</label> 
-						<input type="text" name="funcionalProgramatica" id="fnc_prog_emenda" 
-						class="form-control input-pesquisa"> 
-					</div>
+				<div class="panel-body">
+				
+				<span class="text-success">
+					<i class="fa fa-info"></i> Escolha os filtros:
+				</span>
+				
+				<form id="form_pesquisa_emenda">						
+							
+					<div class="row">
+					
+						<div class="col-md-3">								
+				
+							<div class="form-group">
+								<label class="control-label">Numero</label> 
+								<input type="text" name="numero" id="num_emenda" 
+								class="form-control input-pesquisa num-emenda"> 
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Funcional Programática</label> 
+								<input type="text" name="funcionalProgramatica" id="fnc_prog_emenda" 
+								class="form-control input-pesquisa"> 
+							</div>
+								
+							<div class="form-group">
+								<label class="control-label">Ano</label> 
+								<input type="text" name="ano" id="ano_emenda"
+								class="form-control input-pesquisa ano-emenda"> 
+							</div>
+							
+						</div>						
+						<div class="col-md-3">															
+							
+							<div class="form-group">
+								<label class="control-label">G.N.D.</label> 
+								<select id="gnd_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="gnd">										
+									<c:forEach items="${gnd}" var="gnd_var" >
+										<option value="${gnd_var.id}">
+											<c:if test="${gnd_var.id == 0}">
+												${gnd_var.descricao}
+											</c:if>												
+											<c:if test="${gnd_var.id >= 1}">
+												${gnd_var.numero} - ${gnd_var.descricao}
+											</c:if>
+										</option>
+									</c:forEach>
+								</select> 
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Modalidade de Aplicacao</label> 
+								<select id="mda_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="modApp">										
+									<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
+										<option value="${mda_var.id}">
+											<c:if test="${mda_var.id == 0}">
+												${mda_var.descricao}
+											</c:if>												
+											<c:if test="${mda_var.id >= 1}">
+												${mda_var.numero} - ${mda_var.descricao}
+											</c:if>
+										</option>
+									</c:forEach>
+								</select> 
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Tipo de Emenda</label> 
+								<select id="tipo_emenda" data-live-search="true"
+								class="form-control selectpicker" name="tipoEmenda">								
+									<c:forEach items="${tipoEmenda}" var="tipo_var">
+										<option value="${tipo_var.id}">${tipo_var.descricao}</option>
+									</c:forEach>
+								</select> 
+							</div>	
 						
-					<div class="form-group">
-						<label class="control-label">Ano</label> 
-						<input type="text" name="ano" id="ano_emenda"
-						class="form-control input-pesquisa ano-emenda"> 
-					</div>
-					
-				</div>						
-				<div class="col-md-3">															
-					
-					<div class="form-group">
-						<label class="control-label">G.N.D.</label> 
-						<select id="gnd_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="gnd">										
-							<c:forEach items="${gnd}" var="gnd_var" >
-								<option value="${gnd_var.id}">
-									<c:if test="${gnd_var.id == 0}">
-										${gnd_var.descricao}
-									</c:if>												
-									<c:if test="${gnd_var.id >= 1}">
-										${gnd_var.numero} - ${gnd_var.descricao}
-									</c:if>
-								</option>
-							</c:forEach>
-						</select> 
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label">Modalidade de Aplicacao</label> 
-						<select id="mda_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="modApp">										
-							<c:forEach items="${modalidadeDeAplicacao}" var="mda_var">
-								<option value="${mda_var.id}">
-									<c:if test="${mda_var.id == 0}">
-										${mda_var.descricao}
-									</c:if>												
-									<c:if test="${mda_var.id >= 1}">
-										${mda_var.numero} - ${mda_var.descricao}
-									</c:if>
-								</option>
-							</c:forEach>
-						</select> 
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label">Tipo de Emenda</label> 
-						<select id="tipo_emenda" data-live-search="true"
-						class="form-control selectpicker" name="tipoEmenda">								
-							<c:forEach items="${tipoEmenda}" var="tipo_var">
-								<option value="${tipo_var.id}">${tipo_var.descricao}</option>
-							</c:forEach>
-						</select> 
+						</div>						
+						<div class="col-md-3">						
+							
+							<div class="form-group">
+								<label class="control-label">Autor</label> 
+								<select id="autor_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="idAutor">
+									<option value="0">Nenhum</option>
+									<c:forEach items="${autores}" var="autor_var" >
+										<option value="${autor_var.id}">${autor_var.nome}</option>
+									</c:forEach>
+								</select> 
+							</div>
+								
+							<div class="form-group">
+								<label class="control-label">Orgão Concedente</label> 
+								<select id="org_conced_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="idOrgaoConced">
+									<option value="0">Nenhum</option>
+									<c:forEach items="${orgaos}" var="org_conced_var" >
+										<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
+									</c:forEach>
+								</select> 
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Programa</label> 
+								<select id="programa_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="idPrograma">
+									<option value="0">Nenhum</option>
+									<c:forEach items="${programas}" var="programa_var" >
+										<option value="${programa_var.id}">${programa_var.nome}</option>
+									</c:forEach>
+								</select> 
+							</div>
+							
+						</div>
+						<div class="col-md-3">						
+							
+							<div class="form-group">
+								<label class="control-label">Ação</label> 
+								<select id="acao_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="idAcao">
+									<option value="0">Nenhum</option>
+									<c:forEach items="${acoes}" var="acao_var" >
+										<option value="${acao_var.id}">${acao_var.nome}</option>
+									</c:forEach>
+								</select> 
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Objeto</label> 
+								<select id="objeto_emenda" data-live-search="true"
+								class="form-control drop-pesquisa selectpicker" name="idObjeto">
+									<option value="0">Nenhum</option>
+									<c:forEach items="${objetos}" var="obj_var" >
+										<option value="${obj_var.id}">${obj_var.nome}</option>
+									</c:forEach>
+								</select> 
+							</div>
+							
+						</div>
+						
 					</div>	
+					
+				</form>
 				
-				</div>						
-				<div class="col-md-3">						
-					
-					<div class="form-group">
-						<label class="control-label">Autor</label> 
-						<select id="autor_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="idAutor">
-							<option value="0">Nenhum</option>
-							<c:forEach items="${autores}" var="autor_var" >
-								<option value="${autor_var.id}">${autor_var.nome}</option>
-							</c:forEach>
-						</select> 
-					</div>
-						
-					<div class="form-group">
-						<label class="control-label">Orgão Concedente</label> 
-						<select id="org_conced_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="idOrgaoConced">
-							<option value="0">Nenhum</option>
-							<c:forEach items="${orgaos}" var="org_conced_var" >
-								<option value="${org_conced_var.id}">${org_conced_var.nome}</option>
-							</c:forEach>
-						</select> 
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label">Programa</label> 
-						<select id="programa_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="idPrograma">
-							<option value="0">Nenhum</option>
-							<c:forEach items="${programas}" var="programa_var" >
-								<option value="${programa_var.id}">${programa_var.nome}</option>
-							</c:forEach>
-						</select> 
-					</div>
-					
-				</div>
-				<div class="col-md-3">						
-					
-					<div class="form-group">
-						<label class="control-label">Ação</label> 
-						<select id="acao_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="idAcao">
-							<option value="0">Nenhum</option>
-							<c:forEach items="${acoes}" var="acao_var" >
-								<option value="${acao_var.id}">${acao_var.nome}</option>
-							</c:forEach>
-						</select> 
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label">Objeto</label> 
-						<select id="objeto_emenda" data-live-search="true"
-						class="form-control drop-pesquisa selectpicker" name="idObjeto">
-							<option value="0">Nenhum</option>
-							<c:forEach items="${objetos}" var="obj_var" >
-								<option value="${obj_var.id}">${obj_var.nome}</option>
-							</c:forEach>
-						</select> 
-					</div>
-					
 				</div>
 				
-			</div>	
-			
-		</form>
-		
-		</div>
-		
-		</div>
-		
-		<div class="row" style="margin-bottom: 20px">
-		
-			<div class="col-md-12">					
+				</div>
 				
-				<button id="btn_filtro" class="btn btn-success" type="button">
-					<i class="fa fa-search"></i> FILTRAR
-				</button>	
-				<button id="btn_resetar" class="btn btn-danger" type="button">
-					<i class="fa fa-close"></i> LIMPAR
-				</button>
-				<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
-					<i class="fa fa-plus"></i>  NOVO CADASTRO
-				</a>									
+				<div class="row">
+				
+					<div class="col-xs-2">
+						<button id="btn_filtro" class="btn btn-success" type="button">
+							<i class="fa fa-search"></i> BUSCAR
+						</button>
+					</div>
+					<div class="col-xs-2">		
+						<button id="btn_resetar" class="btn btn-danger" type="button">
+							<i class="fa fa-close"></i> LIMPAR
+						</button>
+					</div>
+					<div class="col-xs-8">	
+						<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
+							<i class="fa fa-plus"></i>  NOVO CADASTRO
+						</a>					
+					</div>
+					
+				</div>	
 				
 			</div>
 			
-		</div>	
-		
-	</div>
-	
-	<!-- ########################### -->
-	<!-- FIM FORMULARIO FILTRO BUSCA -->
-	<!-- ########################### -->
-	
-	<!-- ################ -->    					
-	<!-- LISTA DE EMENDAS -->
-	<!-- ################ -->  
-   	
-   	<div id="list_pesq_emenda" class="not-visible">
-   		
-   		<div class="panel panel-default">	
+			<!-- ########################### -->
+			<!-- FIM FORMULARIO FILTRO BUSCA -->
+			<!-- ########################### -->
 			
-		<div class="panel-body">	  	   
-					
-		<table id="tabela_emendas" class="table table-bordered">
+			<!-- ################ -->    					
+			<!-- LISTA DE EMENDAS -->
+			<!-- ################ -->  
+		   	
+		   	<div id="list_pesq_emenda" class="row not-visible">
+		   		
+		   		<div class="col-xs-12">
+		   			
+		   			<div class="panel panel-primary">
+		   		
+				   		<div class="panel-heading">
+				   		
+				   			<h4 style="color: white;">Resultados</h4>
+				  			
+						</div>	
 						
-			<thead>
-				<tr>
-					<th>ANO</th>
-					<th>NUMERO</th>
-					<th>AUTOR</th>
-					<th>ORGÃO</th>
-					<th>PROGRAMÁTICA</th>
-					<th>TIPO</th>
-					<th>MODALIDADE</th>
-					<th>G.N.D.</th>
-					<th>VALOR (R$)</th>
-					<th>PROGRAMA</th>
-					<th>AÇÃO</th>
-					<th></th>
-<!-- 						<th style="width: 10em">AÇÃO</th> -->
-<!-- 						<th style="width: 10em">OBJETO</th> -->
-				</tr>
-			</thead>
-			
-			<!-- ######################## -->
-			<!-- ####### LISTAGEM ####### -->
-			<!-- ######################## -->
-			
-		</table>
-		
-		</div>
-	
-		</div>
-		
-		<div class="row" style="margin-bottom: 20px">			
-		
-			<div class="col-md-12">
-				
-				<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
-					<i class="fa fa-arrow-left"></i> VOLTAR
-				</button>
-				<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
-					<i class="fa fa-folder-open"></i> ABRIR
-				</button>
-				<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
-					<i class="fa fa-plus"></i>  NOVO CADASTRO
-				</a>	
+						<div class="panel-body" >	  	   
 									
-			</div>				
+							<table id="tabela_emendas" class="table table-bordered table-striped">
+											
+								<thead>
+									<tr>
+										<th>ANO</th>
+										<th>NUMERO</th>
+										<th>AUTOR</th>
+										<th>ORGÃO</th>
+										<th>PROGRAMÁTICA</th>
+										<th>TIPO</th>
+										<th>MODALIDADE</th>
+										<th>G.N.D.</th>
+										<th>VALOR (R$)</th>
+										<th>PROGRAMA</th>
+										<th>AÇÃO</th>
+										<th></th>
+									</tr>
+								</thead>
+								
+								<!-- ######################## -->
+								<!-- ####### LISTAGEM ####### -->
+								<!-- ######################## -->
+								
+							</table>
 						
+						</div>
+				
+					</div>	
+		   			
+		   		</div>
+				
+				<div class="col-md-12">
+					
+					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
+						<i class="fa fa-arrow-left"></i> VOLTAR
+					</button>
+					<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
+						<i class="fa fa-folder-open"></i> ABRIR
+					</button>
+					<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
+						<i class="fa fa-plus"></i>  NOVO CADASTRO
+					</a>	
+										
+				</div>				
+								
+			</div>			
+			
+			<!-- #################### -->
+			<!-- FIM LISTA DE EMENDAS -->
+			<!-- #################### -->   	
+			
 		</div>
-	
-	</div>
-	
-	<!-- #################### -->
-	<!-- FIM LISTA DE EMENDAS -->
-	<!-- #################### -->   	
-	
-</div>			 				
-
-</div>
-
-</div>
+			
+	</div>			 				
 
 </div>
 

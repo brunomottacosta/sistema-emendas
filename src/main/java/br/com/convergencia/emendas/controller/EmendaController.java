@@ -257,42 +257,7 @@ public class EmendaController {
 		}		
 	}
 	
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-	
-	/** VER EMENDA **/
-	@RequestMapping(value = "visualizar/{id}", method = RequestMethod.GET)
-	public String selecionar(@PathVariable Integer id, Model model) {
-		
-		Emenda emenda = emendaService.getEmenda(id);
-		
-		model.addAttribute("emenda", emenda);		
-		
-		/** LISTAS AUXILIARES **/
-		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
-		
-		return "ver-emenda";
-	}	
-	
-	/** IR PARA PAGINA DE EDICAO **/
-	@RequestMapping(value = "edicao/{id}", method = RequestMethod.GET)
-	public String irParaEditar(@PathVariable Integer id, Model model) {
-		
-		Emenda emenda = emendaService.getEmenda(id);
-		
-		model.addAttribute("emenda", emenda);
-		
-		/** LISTAS AUXILIARES **/
-		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
-		model.addAttribute("gnd", Arrays.asList(GND.values()));
-		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
-		model.addAttribute("programas", programaService.listAll());
-		model.addAttribute("autores", autorService.listAll());
-		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
-		
-		return "edicao-emenda";		
-	}
-	
+	/** EDITAR E SALVAR EMENDA **/
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(
 			RedirectAttributes redirectAttrs,
@@ -388,12 +353,40 @@ public class EmendaController {
 		}
 	}	
 	
-	/** LISTA AUXILIAR **/
-	@RequestMapping(value = "lista", method = RequestMethod.GET)
-	public String lista(Model model) {
-		model.addAttribute("emendas", emendaService.listAll());
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+	
+	/** VER EMENDA **/
+	@RequestMapping(value = "visualizar/{id}", method = RequestMethod.GET)
+	public String selecionar(@PathVariable Integer id, Model model) {
 		
-		return "lista-emenda";
+		Emenda emenda = emendaService.getEmenda(id);
+		
+		model.addAttribute("emenda", emenda);		
+		
+		/** LISTAS AUXILIARES **/
+		model.addAttribute("indicacoes", indicacaoEService.findByEmenda(emenda));
+		
+		return "ver-emenda";
+	}	
+	
+	/** IR PARA PAGINA DE EDICAO **/
+	@RequestMapping(value = "edicao/{id}", method = RequestMethod.GET)
+	public String irParaEditar(@PathVariable Integer id, Model model) {
+		
+		Emenda emenda = emendaService.getEmenda(id);
+		
+		model.addAttribute("emenda", emenda);
+		
+		/** LISTAS AUXILIARES **/
+		model.addAttribute("modalidadeDeAplicacao", Arrays.asList(ModalidadeDeAplicacao.values()));
+		model.addAttribute("gnd", Arrays.asList(GND.values()));
+		model.addAttribute("tipoEmenda", Arrays.asList(TipoEmenda.values()));
+		model.addAttribute("programas", programaService.listAll());
+		model.addAttribute("autores", autorService.listAll());
+		model.addAttribute("orgaos", orgaoConcedenteService.listAll());
+		
+		return "edicao-emenda";		
 	}
 	
 	/** REMOVER EMENDA **/

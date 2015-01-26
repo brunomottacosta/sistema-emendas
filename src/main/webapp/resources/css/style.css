@@ -1,3 +1,7 @@
+html {
+	overflow-y: scroll; 
+}
+
 .background-login {
 	background-image: url('../imgs/city.jpg');
     background-size: cover;
@@ -16,11 +20,6 @@
 	background-color: #EFEFEF;
 	width: 100%;
 	min-height: 500px;
-}
-
-.background-navbar {
-	background-image: url('../imgs/numbers.jpg');
-    background-size: cover;
 }
 
 .logout a {
@@ -55,6 +54,6 @@
 }
 
 #tabela_emendas .selected {
-	background-color: #1ABC9C;
-	color: #fff;
+	background-color: #555;
+	color: #FFF;
 }

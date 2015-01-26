@@ -3,14 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!-- <div class="row"> -->
-<!-- 	<div class="col-md-12"> -->
-<!-- 		<div class="page-header"> -->
-<!-- 			<h2 class="text-primary">Cadastro - Emenda</h2> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </div> -->
-
 <div class="container">
 	
 <div class="row">

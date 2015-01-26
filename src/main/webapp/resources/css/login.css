@@ -12,9 +12,14 @@
 	overflow: hidden;
 }
 
-.darker {
+.opaco-panel {
 	background-color: rgba(255, 255, 255, 0.3);
 	border-color: rgba(255, 255, 255, 0.3);
+}
+
+.opaco-error {
+	background-color: rgba(255, 0, 0, 0.3);
+	border-color: rgba(255, 0, 0, 0.3);
 }
 
 body {
@@ -65,7 +70,7 @@ body {
 }
 
 .form-control[type="text"]:focus {
-	box-shadow: 0px -3px 0px #FFF inset;
+	box-shadow: 0px -2px 0px #FFF inset;
 }
 
 .form-control[type="password"]:focus {

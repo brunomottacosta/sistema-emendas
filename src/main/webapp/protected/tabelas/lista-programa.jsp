@@ -2,67 +2,71 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div>
 
-	<div class="container-fluid">
+<div class="container">
+
+	<div class="row">
+			
+		<div class="col-md-12">
 		
-		<div class="row">
-			<div class="col-md-12">
-				<div class="page-header">
-					<h2 class="text-info">Lista de Programas Cadastrados</h2>
+			<div class="panel panel-primary">
+				
+				<div class="panel-heading">
+					<h4 style="color: white;">Lista de Programas Cadastrados</h4>
 				</div>
-			</div>
-		</div>	
+				
+				<div class="panel-body">
 					
-		<div class="row">
-				
-			<div class="col-md-12">				
-				
-				<a href="novo" class="btn btn-warning">
-					<i class="fa fa-plus"></i> NOVO					
-				</a>
-				
-				<hr />
-				
-				<table id="tabela_programas" class="table table-bordered">
-				
-					<thead>
-						<tr>
-							<th style="width: 5%">ID</th>
-							<th>NOME</th>
-							<th style="width: 5%"></th>
-							<th style="width: 5%"></th>
-						</tr>
-					</thead>
-					
-					<tbody>
-						<c:forEach items="${programas}" var="p">
+					<table id="tabela_programas" class="table table-bordered table-striped">
+			
+						<thead>
 							<tr>
-								<td>${p.id}</td>
-								<td>${p.nome}</td>
-								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
-										<i class="fa fa-pencil-square-o"></i>
-									</a>
-								</td>
-								<td style="text-align: center" id="programa_${p.id}">
-									<a href="#" onclick="remove_ajax(${p.id})"> 
-										<i class="fa fa-trash"></i>
-									</a>
-								</td>
+								<th style="width: 5%">ID</th>
+								<th>NOME</th>
+								<th style="width: 5%"></th>
+								<th style="width: 5%"></th>
 							</tr>
-						</c:forEach>
-					</tbody>
-										
-				</table>
-
-			</div>
+						</thead>
+						
+						<tbody>
+							<c:forEach items="${programas}" var="p">
+								<tr>
+									<td>${p.id}</td>
+									<td>${p.nome}</td>
+									<td style="text-align: center">
+										<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
+											<i class="fa fa-pencil-square-o"></i>
+										</a>
+									</td>
+									<td style="text-align: center" id="programa_${p.id}">
+										<a href="#" onclick="remove_ajax(${p.id})"> 
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+											
+					</table>
+					
+				</div>
+				
+			</div>				
 			
 		</div>
 		
 	</div>
 	
-</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<a href="novo" class="btn btn-primary">
+				<i class="fa fa-plus"></i> CADASTRAR	
+			</a>
+		</div>
+	</div>
+		
+</div>	
+
 
 <!-- IMPORT DE MODALS PARA ALTERAR -->
 <c:import url="../../protected/modals/programa-editar-modal.jsp"></c:import>

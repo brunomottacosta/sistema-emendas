@@ -2,67 +2,72 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div>
 
-	<div class="container-fluid">
-		
-		<div class="row">
-			<div class="col-md-12">
-				<div class="page-header">
-					<h2 class="text-info">Lista de Autores Cadastrados</h2>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-				
-			<div class="col-md-12">				
-				
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_autor_modal">
-					<i class="fa fa-plus"></i> NOVO					
-				</button>
-				
-				<hr />
-				
-				<table id="tabela_autores" class="table table-bordered">
-				
-					<thead>
-						<tr>
-							<th style="width: 5%">ID</th>
-							<th>NOME</th>
-							<th style="width: 5%"></th>
-							<th style="width: 5%"></th>
-						</tr>
-					</thead>
-					
-					<tbody>
-						<c:forEach items="${autores}" var="a">
-							<tr>
-								<td>${a.id}</td>
-								<td>${a.nome}</td>
-								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${a.id},'${a.nome}')">
-										<i class="fa fa-pencil-square-o"></i>
-									</a>
-								</td>
-								<td style="text-align: center" id="autor_${a.id}">
-									<a href="#" onclick="remove_ajax(${a.id})"> 
-										<i class="fa fa-trash"></i>
-									</a>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-										
-				</table>
-
-			</div>
+<div class="container">
+	
+	<div class="row">
 			
+		<div class="col-md-12">				
+			
+			<div class="panel panel-primary">
+				
+				<div class="panel-heading">
+					<h4 style="color: white">Lista de Autores Cadastrados</h4>
+				</div>
+				
+				<div class="panel-body">
+				
+					<table id="tabela_autores" class="table table-bordered">
+			
+						<thead>
+							<tr>
+								<th style="width: 5%">ID</th>
+								<th>NOME</th>
+								<th style="width: 5%"></th>
+								<th style="width: 5%"></th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<c:forEach items="${autores}" var="a">
+								<tr>
+									<td>${a.id}</td>
+									<td>${a.nome}</td>
+									<td style="text-align: center">
+										<a href="#"	onclick="edita_ajax(${a.id},'${a.nome}')">
+											<i class="fa fa-pencil-square-o"></i>
+										</a>
+									</td>
+									<td style="text-align: center" id="autor_${a.id}">
+										<a href="#" onclick="remove_ajax(${a.id})"> 
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+											
+					</table>
+				
+				</div>
+				
+			</div>		
+
 		</div>
 		
 	</div>
 	
+	<div class="row">
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new_autor_modal">
+				<i class="fa fa-plus"></i> CADASTRAR					
+			</button>
+		</div>
+	</div>
+	
 </div>
+	
+
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
 <c:import url="../../protected/modals/autor-modal.jsp"></c:import>

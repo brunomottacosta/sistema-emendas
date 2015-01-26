@@ -2,70 +2,76 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div>
-
-	<div class="container-fluid">
-
-		<div class="row">
-			<div class="col-md-12">
-				<div class="page-header">
-					<h2 class="text-info">Lista de Orgãos Concedentes Cadastrados</h2>
-				</div>
-			</div>
-		</div>
+<div class="container">
 		
-		<div class="row">
+	<div class="row">
 				
-			<div class="col-md-12">				
+		<div class="col-md-12">
+		
+			<div class="panel panel-primary">
 				
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#new_org_conced_modal">
-					<i class="fa fa-plus"></i> NOVO						
-				</button>
+				<div class="panel-heading">
+					<h4 style="color: white;">Lista de Orgãos Concedentes Cadastrados</h4>
+				</div>
 				
-				<hr />
-				
-				<!-- ###################### -->
-				<!-- LISTA ORGAO CONCEDENTE -->
-				<!-- ###################### -->
-				
-				<table id="tabela_org_conced" class="table table-bordered">				
-					<thead>
-						<tr>
-							<th style="width: 5%">ID</th>
-							<th>NOME</th>
-							<th style="width: 5%"></th>
-							<th style="width: 5%"></th>
-						</tr>
-					</thead>
+				<div class="panel-body">
 					
-					<tbody>
-						<c:forEach items="${orgaos}" var="org">
+					<!-- ###################### -->
+					<!-- LISTA ORGAO CONCEDENTE -->
+					<!-- ###################### -->
+					
+					<table id="tabela_org_conced" class="table table-bordered">				
+						<thead>
 							<tr>
-								<td>${org.id}</td>
-								<td>${org.nome}</td>
-								<td style="text-align: center">
-									<a href="#"	onclick="edita_ajax(${org.id},'${org.nome}')">
-										<i class="fa fa-pencil-square-o"></i>
-									</a>
-								</td>
-								<td style="text-align: center" id="org_${org.id}">
-									<a href="#" onclick="remove_ajax(${org.id})"> 
-										<i class="fa fa-trash"></i>
-									</a>
-								</td>
+								<th style="width: 5%">ID</th>
+								<th>NOME</th>
+								<th style="width: 5%"></th>
+								<th style="width: 5%"></th>
 							</tr>
-						</c:forEach>
-					</tbody>										
-				</table>
+						</thead>
+						
+						<tbody>
+							<c:forEach items="${orgaos}" var="org">
+								<tr>
+									<td>${org.id}</td>
+									<td>${org.nome}</td>
+									<td style="text-align: center">
+										<a href="#"	onclick="edita_ajax(${org.id},'${org.nome}')">
+											<i class="fa fa-pencil-square-o"></i>
+										</a>
+									</td>
+									<td style="text-align: center" id="org_${org.id}">
+										<a href="#" onclick="remove_ajax(${org.id})"> 
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>										
+					</table>
+					
+					<!-- ########################## -->
+					<!-- FIM LISTA ORGAO CONCEDENTE -->
+					<!-- ########################## -->
+					
+				</div>
 				
-				<!-- ########################## -->
-				<!-- FIM LISTA ORGAO CONCEDENTE -->
-				<!-- ########################## -->
+			</div>	
+							
+		</div>	
 				
-			</div>			
-		</div>		
-	</div>	
-</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new_org_conced_modal">
+				<i class="fa fa-plus"></i> CADASTRAR						
+			</button>
+		</div>				
+	</div>
+				
+</div>	
+
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
 <c:import url="../../protected/modals/orgao-concedente-modal.jsp"></c:import>
