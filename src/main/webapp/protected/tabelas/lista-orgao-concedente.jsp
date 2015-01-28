@@ -8,13 +8,13 @@
 				
 		<div class="col-md-12">
 		
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				
 				<div class="panel-heading">
-					<h4 style="color: white;">Lista de Orgãos Concedentes Cadastrados</h4>
+					<h4><strong>Lista de Orgãos Concedentes Cadastrados</strong></h4>
 				</div>
 				
-				<div class="panel-body">
+				<div class="panel-body table-content">
 					
 					<!-- ###################### -->
 					<!-- LISTA ORGAO CONCEDENTE -->
@@ -84,7 +84,11 @@
 <script type="text/javascript">
 
 //inicia datatables
-$("#tabela_org_conced").dataTable();
+$("#tabela_org_conced").dataTable({
+    "scrollY":        "35vh",
+    "scrollCollapse": true,
+    "paging": false,
+});
 
 //editar
 function edita_ajax(id, nome) {	

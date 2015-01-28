@@ -8,10 +8,10 @@
 	<div class="row">	
 	<div class="col-xs-12">
 	
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
 		
 		<div class="panel-heading">
-			<h4 style="color: white;">Emenda: <span style="font-size: 90%;font-weight: bold;">${emenda.numero} - ${emenda.ano}</span></h4>
+			<h4>Emenda: <span style="font-size: 90%;font-weight: bold;">${emenda.numero} - ${emenda.ano}</span></h4>
 		</div>
 		
 		<div class="panel-body">

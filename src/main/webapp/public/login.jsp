@@ -48,7 +48,7 @@
                     				Gerenciador de Emendas
                   				</h5>
                   				<h6 style="color: #DDD">
-                  					por Convergência <i class="fa fa-copyright"></i>
+                  					por <strong>Convergência</strong> <i class="fa fa-copyright"></i>
                   				</h6>
                   				<hr />                    		
                     			<p style="color: #444">

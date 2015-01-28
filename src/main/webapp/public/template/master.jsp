@@ -34,7 +34,7 @@
     
 <body>		
 
-	<div class="fullsize background-login"></div>
+	<div class="fullsize background-content"></div>
 			
 	<div class="container">
 	

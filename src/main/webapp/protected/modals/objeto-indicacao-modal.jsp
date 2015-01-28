@@ -33,7 +33,7 @@
 					</div>					
 											
 					<div class="form-group">			
-						<button id="salvar_objeto" class="btn btn-info btn-block" type="button">
+						<button id="salvar_objeto" class="btn btn-primary btn-block" type="button">
 							<i class="fa fa-floppy-o"></i> SALVAR
 						</button>
 					</div>				

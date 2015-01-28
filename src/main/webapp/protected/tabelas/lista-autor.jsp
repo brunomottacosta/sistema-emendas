@@ -9,13 +9,13 @@
 			
 		<div class="col-md-12">				
 			
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				
 				<div class="panel-heading">
-					<h4 style="color: white">Lista de Autores Cadastrados</h4>
+					<h4><strong>Lista de Autores Cadastrados</strong></h4>
 				</div>
 				
-				<div class="panel-body">
+				<div class="panel-body table-content">
 				
 					<table id="tabela_autores" class="table table-bordered">
 			
@@ -80,7 +80,11 @@
 <script type="text/javascript">
 
 // inicia datatables
-$("#tabela_autores").dataTable();
+$("#tabela_autores").dataTable({
+    "scrollY":        "35vh",
+    "scrollCollapse": true,
+    "paging": false,
+});
 
 // editar
 function edita_ajax(id, nome) {	

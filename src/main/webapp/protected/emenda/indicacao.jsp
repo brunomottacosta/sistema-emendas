@@ -7,10 +7,10 @@
 	<div class="row">
 		<div class="col-xs-12">
 			
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				
 				<div class="panel-heading">
-					<h4 style="color: white;">
+					<h4>
 						Indicação - Emenda: 
 						<span style="font-size: 90%;font-weight: bold;">${emenda.numero} - ${emenda.ano}</span>
 					</h4>
@@ -71,7 +71,8 @@
 									<div class="col-xs-6">
 										<div class="form-group">
 											<label class="control-label">Valor Destinado</label>													
-											<input type="text" name="valor" id="valor" class="form-control money"> 
+											<input type="text" name="valor" id="valor" 
+											class="form-control money" placeholder="0,00"> 
 										</div>	
 									</div>									
 								</div>														

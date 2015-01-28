@@ -29,7 +29,7 @@
 						</div>
 					</div>						
 					<div class="form-group">			
-						<button id="edita_programa" class="btn btn-info btn-block">
+						<button id="edita_programa" class="btn btn-primary btn-block">
 							<i class="fa fa-floppy-o"></i> SALVAR
 						</button>
 					</div>				

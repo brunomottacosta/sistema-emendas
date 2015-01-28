@@ -9,13 +9,13 @@
 			
 		<div class="col-md-12">
 		
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				
 				<div class="panel-heading">
-					<h4 style="color: white;">Lista de Programas Cadastrados</h4>
+					<h4><strong>Lista de Programas Cadastrados</strong></h4>
 				</div>
 				
-				<div class="panel-body">
+				<div class="panel-body table-content">
 					
 					<table id="tabela_programas" class="table table-bordered table-striped">
 			
@@ -75,7 +75,11 @@
 <script type="text/javascript">
 
 //inicia datatables
-$("#tabela_programas").dataTable();
+$("#tabela_programas").dataTable({
+    "scrollY":        "35vh",
+    "scrollCollapse": true,
+    "paging": false,
+});
 
 //editar
 function edita_ajax(id, nome) {	

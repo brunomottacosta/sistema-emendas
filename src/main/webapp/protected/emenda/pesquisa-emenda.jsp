@@ -263,13 +263,27 @@
 		   	
 		   	<div id="list_pesq_emenda" class="row not-visible">
 		   		
+		   		<div class="col-xs-12" style="margin-bottom: 20px">
+					
+					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
+						<i class="fa fa-arrow-left"></i> VOLTAR
+					</button>
+					<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
+						<i class="fa fa-folder-open"></i> ABRIR
+					</button>
+					<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
+						<i class="fa fa-plus"></i>  NOVO CADASTRO
+					</a>	
+										
+				</div>		
+		   		
 		   		<div class="col-xs-12">
 		   			
-		   			<div class="panel panel-primary">
+		   			<div class="panel panel-default">
 		   		
 				   		<div class="panel-heading">
 				   		
-				   			<h4 style="color: white;">Resultados</h4>
+				   			<h4><strong>Resultados</strong></h4>
 				  			
 						</div>	
 						
@@ -304,21 +318,7 @@
 				
 					</div>	
 		   			
-		   		</div>
-				
-				<div class="col-md-12">
-					
-					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
-						<i class="fa fa-arrow-left"></i> VOLTAR
-					</button>
-					<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
-						<i class="fa fa-folder-open"></i> ABRIR
-					</button>
-					<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
-						<i class="fa fa-plus"></i>  NOVO CADASTRO
-					</a>	
-										
-				</div>				
+		   		</div>	
 								
 			</div>			
 			
@@ -375,7 +375,7 @@ function botao_editar(data) {
 
 // datatable
 $(document).ready(function() {
-	$("#tabela_emendas").DataTable({	
+	$("#tabela_emendas").DataTable({
 		"filter": false,
 		"sAjaxDataProp": "",
 		"bProcessing": true,

@@ -8,13 +8,13 @@
 			
 		<div class="col-md-12">
 		
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				
 				<div class="panel-heading">
-					<h4 style="color: white">Lista de Ações Cadastradas</h4>
+					<h4><strong>Lista de Ações Cadastradas</strong></h4>
 				</div>
 				
-				<div class="panel-body">
+				<div class="panel-body table-content">
 					
 					<table id="tabela_acoes" class="table table-bordered">
 			
@@ -82,7 +82,11 @@
 <script type="text/javascript">
 
 // inicia datatables
-$("#tabela_acoes").dataTable();
+$("#tabela_acoes").dataTable({
+    "scrollY":        "35vh",
+    "scrollCollapse": true,
+    "paging": false,
+});
 
 //editar
 function edita_ajax(id, nome, programa) {	

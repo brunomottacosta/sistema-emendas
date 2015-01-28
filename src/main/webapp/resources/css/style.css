@@ -1,10 +1,10 @@
-html {
-	overflow-y: scroll; 
+.background-content {
+	background-image: url('../imgs/blue.jpg');
+    background-size: cover;
 }
 
-.background-login {
-	background-image: url('../imgs/city.jpg');
-    background-size: cover;
+.table-content {
+	height: 58vh;
 }
 
 .fullsize {
