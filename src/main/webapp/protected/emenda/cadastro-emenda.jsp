@@ -13,11 +13,11 @@
 		<!-- FORMULARIO EMENDA -->
 		<!-- ################# -->	
 		
-		<div class="panel panel-primary">
+		<div class="panel panel-transparence">
 		
 			<div class="panel-heading">
 				
-				<h4 style="color: white">Cadastro - Emenda</h4>
+				<h4>Cadastro - Emenda</h4>
 				
 			</div>
 			
@@ -174,32 +174,36 @@
 				
 			</div>
 			
+			<div class="panel-footer panel-footer-transparence">
+			
+				<div class="row">
+					<div class="col-md-2">
+						<button id="btn_salvar_emenda" class="btn btn-transparence btn-green">
+							<i class="fa fa-floppy-o"></i> SALVAR
+						</button>			
+					</div>
+					
+					<div class="col-md-8">
+						<div id="col-error">
+							<c:if test="${!empty error}">
+								<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
+							</c:if>					
+						</div>
+					</div>	
+					
+					<div class="col-md-2">	
+						<a href="novo" class="btn btn-transparence btn-red pull-right" >
+							<i class="fa fa-close"></i> LIMPAR
+						</a>			
+					</div>		
+				</div>
+				
+			</div>
+			
 		</div>			
 						
 	</div>
 	
-</div>
-
-<div class="row" style="margin-bottom: 20px">
-	<div class="col-md-2">
-		<button id="btn_salvar_emenda" class="btn btn-success">
-			<i class="fa fa-floppy-o"></i> SALVAR
-		</button>			
-	</div>
-	
-	<div class="col-md-8">
-		<div id="col-error">
-			<c:if test="${!empty error}">
-				<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
-			</c:if>					
-		</div>
-	</div>	
-	
-	<div class="col-md-2">	
-		<a href="novo" class="btn btn-danger pull-right" >
-			<i class="fa fa-close"></i> LIMPAR
-		</a>			
-	</div>		
 </div>
 
 </div>

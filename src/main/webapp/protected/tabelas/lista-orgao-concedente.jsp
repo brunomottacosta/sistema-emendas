@@ -8,10 +8,10 @@
 				
 		<div class="col-md-12">
 		
-			<div class="panel panel-default">
+			<div class="panel panel-transparence">
 				
 				<div class="panel-heading">
-					<h4><strong>Lista de Orgãos Concedentes Cadastrados</strong></h4>
+					<h4>Lista de Orgãos Concedentes Cadastrados</h4>
 				</div>
 				
 				<div class="panel-body table-content">
@@ -56,20 +56,24 @@
 					
 				</div>
 				
+				<div class="panel-footer panel-footer-transparence">
+					
+					<div class="row">
+						<div class="col-xs-12">
+							<button type="button" class="btn btn-transparence btn-green" data-toggle="modal" data-target="#new_org_conced_modal">
+								CADASTRAR						
+							</button>
+						</div>				
+					</div>
+				
+				</div>
+				
 			</div>	
 							
 		</div>	
 				
 	</div>
-	
-	<div class="row">
-		<div class="col-xs-12">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new_org_conced_modal">
-				<i class="fa fa-plus"></i> CADASTRAR						
-			</button>
-		</div>				
-	</div>
-				
+
 </div>	
 
 

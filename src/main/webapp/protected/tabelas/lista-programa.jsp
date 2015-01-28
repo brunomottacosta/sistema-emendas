@@ -9,10 +9,10 @@
 			
 		<div class="col-md-12">
 		
-			<div class="panel panel-default">
+			<div class="panel panel-transparence">
 				
 				<div class="panel-heading">
-					<h4><strong>Lista de Programas Cadastrados</strong></h4>
+					<h4>Lista de Programas Cadastrados</h4>
 				</div>
 				
 				<div class="panel-body table-content">
@@ -51,20 +51,24 @@
 					
 				</div>
 				
+				<div class="panel-footer panel-footer-transparence">
+						
+					<div class="row">
+						<div class="col-xs-12">
+							<a href="novo" class="btn btn-transparence btn-green">
+								CADASTRAR	
+							</a>
+						</div>
+					</div>
+		
+				</div>
+				
 			</div>				
 			
 		</div>
 		
 	</div>
-	
-	<div class="row">
-		<div class="col-xs-12">
-			<a href="novo" class="btn btn-primary">
-				<i class="fa fa-plus"></i> CADASTRAR	
-			</a>
-		</div>
-	</div>
-		
+
 </div>	
 
 

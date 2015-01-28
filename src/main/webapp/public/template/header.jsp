@@ -37,7 +37,7 @@
 <%--        			<a href="<c:url value='/logout' />"><i class="fa fa-power-off fa-lg"></i></a> --%>
 <!--        		</li>		 -->
 <!-- 		</ul> -->
-		<a class="btn btn-danger navbar-btn navbar-right" href="<c:url value='/logout' />" style="margin-right: 2em">
+		<a class="btn-off navbar-btn navbar-right" href="<c:url value='/logout' />" style="margin-right: 2em">
 			<i class="fa fa-power-off fa-lg"></i>
 		</a>
 				

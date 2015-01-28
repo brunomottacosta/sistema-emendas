@@ -8,7 +8,7 @@
 	<div class="row">	
 	<div class="col-xs-12">
 	
-		<div class="panel panel-default">
+		<div class="panel panel-transparence">
 		
 		<div class="panel-heading">
 			<h4>Emenda: <span style="font-size: 90%;font-weight: bold;">${emenda.numero} - ${emenda.ano}</span></h4>
@@ -119,23 +119,30 @@
 		
 		</div>
 		
+		<div class="panel-footer panel-footer-transparence">
+		
+			<div class="row">
+			
+				<div class="col-md-12">
+					
+					<a href="../indicacao/${emenda.id}" class="btn btn-transparence btn-blue">
+						Lista de Indicações <i class="fa fa-arrow-right"></i>
+					</a>
+					<a href="../edicao/${emenda.id}" class="btn btn-transparence btn-red pull-right">
+						<i class="fa fa-pencil"></i> Editar Emenda 
+					</a>
+		
+				</div>
+				
+			</div> 
+			
+		</div>
+		
 	</div>
 	
 	</div>	
-	</div>			
 	
-	<div class="row">
-		<div class="col-md-12">
-			
-			<a href="../indicacao/${emenda.id}" class="btn btn-primary">
-				Lista de Indicações <i class="fa fa-arrow-right"></i>
-			</a>
-			<a href="../edicao/${emenda.id}" class="btn btn-danger pull-right">
-				<i class="fa fa-pencil"></i> Editar Emenda 
-			</a>
-
-		</div>
-	</div> 
+	</div>		
 		
 </div>	
 

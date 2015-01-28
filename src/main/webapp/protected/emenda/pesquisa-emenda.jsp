@@ -18,7 +18,7 @@
 				<!-- BOTOES DE ACAO -->
 				<!-- ############## -->			
 					
-				<div class="panel panel-default">
+				<div class="panel panel-transparence">
 					
 					<div class="panel-heading">
 						<h4>
@@ -81,7 +81,7 @@
 				<!-- FIM BOTOES DE ACAO -->
 				<!-- ################## -->
 					
-				<div class="panel panel-default">	
+				<div class="panel panel-transparence">	
 					
 				<div class="panel-body">
 				
@@ -229,27 +229,29 @@
 				
 				</div>
 				
+				<div class="panel-footer panel-footer-transparence">
+				
+					<div class="row">
+				
+						<div class="col-xs-12">
+							<button id="btn_filtro" class="btn btn-transparence btn-green" type="button">
+								<i class="fa fa-search"></i> BUSCAR
+							</button>
+								
+							<button id="btn_resetar" class="btn btn-transparence btn-red" type="button" style="margin-left: 1em">
+								<i class="fa fa-close"></i> LIMPAR
+							</button>
+						
+							<a id="btn_novo_cadastro" class="btn btn-transparence btn-blue pull-right" href="/sistema/protected/emenda/registro/novo" >
+								<i class="fa fa-plus"></i>  NOVO CADASTRO
+							</a>					
+						</div>
+						
+					</div>	
+					
 				</div>
 				
-				<div class="row">
-				
-					<div class="col-xs-2">
-						<button id="btn_filtro" class="btn btn-success" type="button">
-							<i class="fa fa-search"></i> BUSCAR
-						</button>
-					</div>
-					<div class="col-xs-2">		
-						<button id="btn_resetar" class="btn btn-danger" type="button">
-							<i class="fa fa-close"></i> LIMPAR
-						</button>
-					</div>
-					<div class="col-xs-8">	
-						<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
-							<i class="fa fa-plus"></i>  NOVO CADASTRO
-						</a>					
-					</div>
-					
-				</div>	
+				</div>
 				
 			</div>
 			
@@ -263,27 +265,20 @@
 		   	
 		   	<div id="list_pesq_emenda" class="row not-visible">
 		   		
-		   		<div class="col-xs-12" style="margin-bottom: 20px">
-					
-					<button id="btn_voltar_filtro" class="btn btn-primary" type="button">
-						<i class="fa fa-arrow-left"></i> VOLTAR
-					</button>
-					<button id="btn_ver_emenda" class="btn btn-success" type="button" disabled="disabled">
-						<i class="fa fa-folder-open"></i> ABRIR
-					</button>
-					<a id="btn_novo_cadastro" class="btn btn-primary pull-right" href="/sistema/protected/emenda/registro/novo" >
-						<i class="fa fa-plus"></i>  NOVO CADASTRO
-					</a>	
-										
-				</div>		
-		   		
 		   		<div class="col-xs-12">
 		   			
-		   			<div class="panel panel-default">
+		   			<div class="panel panel-transparence">
 		   		
 				   		<div class="panel-heading">
 				   		
-				   			<h4><strong>Resultados</strong></h4>
+				   			<h4>Resultados</h4>
+				   			
+				   			<button id="btn_voltar_filtro" class="btn btn-transparence btn-red" type="button">
+								<i class="fa fa-arrow-left"></i> VOLTAR
+							</button>
+							<button id="btn_ver_emenda" class="btn btn-transparence btn-green" type="button" disabled="disabled">
+								<i class="fa fa-folder-open"></i> ABRIR
+							</button>
 				  			
 						</div>	
 						
@@ -315,7 +310,13 @@
 							</table>
 						
 						</div>
-				
+						
+						<div class="panel-footer panel-footer-transparence">
+							<a type="button" id="btn_novo_cadastro" class="btn btn-transparence btn-blue" href="/sistema/protected/emenda/registro/novo" >
+								<i class="fa fa-plus"></i>  NOVO CADASTRO
+							</a>
+						</div>
+						
 					</div>	
 		   			
 		   		</div>	

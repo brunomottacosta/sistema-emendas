@@ -17,6 +17,7 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css' />" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/stick-botton.css' />" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/resources/css/transparence.css' />" rel="stylesheet"/>
 	
 	<!-- SCRIPT -->
 	<script src="<c:url value='/resources/js/jquery.min.js' />"></script>

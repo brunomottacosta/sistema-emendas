@@ -1,10 +1,11 @@
 .background-content {
 	background-image: url('../imgs/blue.jpg');
     background-size: cover;
+    z-index: -1;
 }
 
 .table-content {
-	height: 58vh;
+	height: 55vh;
 }
 
 .fullsize {
@@ -56,4 +57,32 @@
 #tabela_emendas .selected {
 	background-color: #555;
 	color: #FFF;
+}
+
+.btn-off {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  color: rgba(255, 0, 0, 0.3);
+  white-space: nowrap;
+  padding: 6px 16px;
+  font-size: 13px;
+  line-height: 1.846;
+  border-radius: 6px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+}
+.btn-off:hover {
+  color: rgba(255, 0, 0, 0.7);	
+  border-color: rgba(0, 0, 0, 0.7);	
 }

@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="login-panel panel panel-default opaco-panel"> 
-                    <div class="panel-body">
+                    <div class="panel-body-login">
                     	<div class="row">
                     		<div class="col-xs-6" style="border-right: 1px solid #EEE; min-height: 15em">                    			
                     			<h5 style="color: #FFF;font-weight: bold;">

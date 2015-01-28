@@ -9,11 +9,11 @@
 	
 		<div class="col-md-12">	
 			
-			<div class="panel panel-primary">
+			<div class="panel panel-transparence">
 			
 				<div class="panel-heading">
 					
-					<h4 style="color: white">
+					<h4>
 						Edição - Emenda: <span style="font-size: 90%;font-weight: bold;">${emenda.numero} - ${emenda.ano}</span>
 					</h4>
 					
@@ -193,28 +193,33 @@
 					<!-- FIM FORMULARIO EMENDA -->
 					<!-- ##################### -->	
 					
-				</div>	
-		</div>					
+				</div>
+				
+				<div class="panel-footer panel-footer-transparence">
+				
+					<div class="row">
+						<div class="col-md-2">
+							<button id="btn_salvar_emenda" class="btn btn-transparence btn-green">
+								<i class="fa fa-floppy-o"></i> SALVAR
+							</button>			
+						</div>
+						
+						<div class="col-md-8">
+							<div id="col-error">
+								<c:if test="${!empty error}">
+									<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
+								</c:if>					
+							</div>
+						</div>				
+					</div>	
+				
+				</div>
+					
+			</div>					
 							
 		</div>
 		
 	</div>
-	
-	<div class="row">
-		<div class="col-md-2">
-			<button id="btn_salvar_emenda" class="btn btn-success">
-				<i class="fa fa-floppy-o"></i> SALVAR
-			</button>			
-		</div>
-		
-		<div class="col-md-8">
-			<div id="col-error">
-				<c:if test="${!empty error}">
-					<button class="btn btn-danger btn-block" disabled="disabled">Erro! Preencha todos os campos.</button>
-				</c:if>					
-			</div>
-		</div>				
-	</div>	
 	
 </div>	
 

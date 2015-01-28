@@ -4,7 +4,7 @@ package br.com.convergencia.emendas.enums;
 public enum GND {
 	
 	EMPTY(0, 0, "Nenhum"),
-	OUTRAS_DESPESAS_CORRENTES(1, 3, "Outras despesa correntes"),
+	OUTRAS_DESPESAS_CORRENTES(1, 3, "Outras despesas correntes"),
 	INVESTIMENTOS(2, 4, "Investimentos");
 	
 	private final String descricao;

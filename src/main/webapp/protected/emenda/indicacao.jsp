@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 			
-			<div class="panel panel-default">
+			<div class="panel panel-transparence">
 				
 				<div class="panel-heading">
 					<h4>
@@ -179,22 +179,26 @@
 					
 				</div>
 				
+				<div class="panel-footer panel-footer-transparence">
+					
+					<div class="row">
+						<div class="col-md-12">
+							
+							<a href="../visualizar/${emenda.id}" class="btn btn-transparence btn-blue">
+								<i class="fa fa-arrow-left"></i> Voltar para Emenda 
+							</a>
+				
+						</div>
+					</div>  
+					
+				</div>
+				
 			</div>
 			
 		</div>
 		
 	</div> 
-	
-	<div class="row">
-		<div class="col-md-12">
-			
-			<a href="../visualizar/${emenda.id}" class="btn btn-primary">
-				<i class="fa fa-arrow-left"></i> Voltar para Emenda 
-			</a>
 
-		</div>
-	</div>  
-	
 </div>	
 
 <!-- IMPORT DE MODALS PARA ADICIONAR -->
