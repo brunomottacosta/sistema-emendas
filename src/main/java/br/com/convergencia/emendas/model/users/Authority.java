@@ -1,23 +1,20 @@
 package br.com.convergencia.emendas.model.users;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public enum Authority {
-	ROLE_ADMIN("Admin",1), ROLE_USER("User",2);
-	
-	private final Integer id;
-	private final String descricao;
-	
-	private Authority (String descricao, Integer id) {
-		this.descricao = descricao;
-		this.id = id;
+
+@Entity
+@Table(name = "system_authority")
+public class Authority {
+
+	@Id
+	private String name;
+
+	public String getName() {
+		return name;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
 }
 

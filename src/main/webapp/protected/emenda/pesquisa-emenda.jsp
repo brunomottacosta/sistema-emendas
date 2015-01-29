@@ -29,7 +29,7 @@
 					<div class="panel-body">
 					
 						<span id="descr_col" class="text-success">
-							<i class="fa fa-info"></i> Escolha as colunas que serão apresentadas: 
+							<i class="fa fa-info-circle"></i> Escolha as colunas que serão apresentadas: 
 						</span>	
 						<span id="warning_col" class="not-visible text-warning" style="cursor: pointer;">
 							<i class="fa fa-warning"></i> Selecione pelo menos duas colunas!
@@ -86,7 +86,7 @@
 				<div class="panel-body">
 				
 				<span class="text-success">
-					<i class="fa fa-info"></i> Escolha os filtros:
+					<i class="fa fa-info-circle"></i> Escolha os filtros:
 				</span>
 				
 				<form id="form_pesquisa_emenda">						

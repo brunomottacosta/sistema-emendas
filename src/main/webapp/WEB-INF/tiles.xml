@@ -9,6 +9,12 @@
         <put-attribute name="footer" value="/public/template/footer.jsp"/>
     </definition>
  	
+ 	<!-- ADMIN PAINEL -->
+ 	
+ 	<definition name="admin-painel" template="/admin/painel.jsp">
+        <put-attribute name="footer" value="/public/template/footer.jsp"/>
+    </definition>
+    
     <!-- MASTER -->
     
     <definition name="master.page" template="/public/template/master.jsp">

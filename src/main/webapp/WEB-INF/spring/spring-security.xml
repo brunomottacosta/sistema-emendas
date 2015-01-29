@@ -7,25 +7,24 @@
  
     <security:global-method-security secured-annotations="enabled" />
  
-    <security:http auto-config="true" use-expressions="true" access-denied-page="/loginError">
+    <security:http auto-config="true" use-expressions="true">
  
         <security:intercept-url pattern="/" access="permitAll" />
         <security:intercept-url pattern="/protected/**" access="isAuthenticated()" />
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
  
         <security:form-login login-page="/login" authentication-failure-url="/loginError" default-target-url="/protected/index" />
- 
+ 		<security:access-denied-handler error-page="/loginError" />
+ 		
         <security:logout invalidate-session="true" logout-success-url="/login" logout-url="/logout" />
+        
     </security:http>
  
     <security:authentication-manager>
         <security:authentication-provider>
-        	<security:user-service>
-        		<security:user name="admin" password="gab61801" authorities="ROLE_ADMIN" />
-        	</security:user-service>
-<!--             <security:jdbc-user-service -->
-<!--                     data-source-ref="dataSource" -->
-<!--                     users-by-username-query="select username, password, enabled from system_user where username = ?" -->
-<!--                     authorities-by-username-query="select u.username as login, u.authority as role from system_user u where u.username = ?" /> -->
+      		<security:jdbc-user-service data-source-ref="dataSource" 
+                    users-by-username-query="select username, password, enable from system_user where username = ?;"
+                	authorities-by-username-query="select idn_user as username, idn_authority as authority from user_authority where idn_user = ?;" /> 
         </security:authentication-provider>
     </security:authentication-manager>
 </beans>

@@ -1,11 +1,14 @@
 package br.com.convergencia.emendas.model.users;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +27,9 @@ public class User implements Serializable {
 	@Column(name = "nome")
 	private String nome;
 	
-	@Enumerated
-	@Column(name = "authority")
-	private Authority authority;
+	@ManyToMany
+	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "idn_user"), inverseJoinColumns = @JoinColumn(name = "idn_authority"))
+	private List<Authority> authorities;
 	
 	@Column(name = "enable", columnDefinition = "BOOLEAN")
 	private boolean enable;	
@@ -63,11 +66,11 @@ public class User implements Serializable {
 		this.enable = enable;
 	}
 
-	public Authority getAuthority() {
-		return authority;
+	public List<Authority> getAuthorities() {
+		return authorities;
 	}
 
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 }

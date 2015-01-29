@@ -32,11 +32,8 @@
 			</li>			
 		</ul>
 		
-<!-- 		<ul class="nav navbar-nav navbar-right"> -->
-<!--        		<li style="margin-right: 1em; background-color: #F5F5F5"> -->
-<%--        			<a href="<c:url value='/logout' />"><i class="fa fa-power-off fa-lg"></i></a> --%>
-<!--        		</li>		 -->
-<!-- 		</ul> -->
+		<p class="navbar-text">${user.nome}</p>
+
 		<a class="btn-off navbar-btn navbar-right" href="<c:url value='/logout' />" style="margin-right: 2em">
 			<i class="fa fa-power-off fa-lg"></i>
 		</a>
