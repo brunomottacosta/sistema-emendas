@@ -39,12 +39,12 @@
 									<td>${conv.cnpj}</td>
 									<td style="text-align: center">
 										<a href="#" onclick="edita_ajax(${conv.id}, '${conv.nome}', '${conv.cnpj}')">
-											<i class="fa fa-pencil-square-o"></i>
+											<i class="fa fa-pencil-square-o fa-lg"></i>
 										</a>
 									</td>
 									<td style="text-align: center" id="org_${conv.id}">
 										<a href="#" onclick="remove_ajax(${conv.id})"> 
-											<i class="fa fa-trash"></i>
+											<i class="fa fa-trash fa-lg"></i>
 										</a>
 									</td>
 								</tr>

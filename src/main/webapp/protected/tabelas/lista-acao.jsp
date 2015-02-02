@@ -36,12 +36,12 @@
 									<td>${a.programa.nome}</td>
 									<td style="text-align: center">
 										<a href="#"	onclick="edita_ajax(${a.id},'${a.nome}', ${a.programa.id})">
-											<i class="fa fa-pencil-square-o"></i>
+											<i class="fa fa-pencil-square-o fa-lg"></i>
 										</a>
 									</td>
 									<td style="text-align: center" id="acao_${a.id}">
 										<a href="#" onclick="remove_ajax(${a.id})"> 
-											<i class="fa fa-trash"></i>
+											<i class="fa fa-trash fa-lg"></i>
 										</a>
 									</td>
 								</tr>

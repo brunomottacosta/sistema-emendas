@@ -30,35 +30,49 @@
     
     <div class="container">
     
-	    <nav class="navbar navbar-default">
+	    <nav class="navbar navbar-default navbar-fixed-top">
 	    
 			<div class="container-fluid">
+				
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">#</a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="main-nav">
 			
-				<ul class="nav navbar-nav">
-		       		<li>
-						<a href="/sistema/protected/index" class="fa-lg">
-							<i class="glyphicon glyphicon-home"></i>
-						</a>
-					</li>
-				</ul>
+					<ul class="nav navbar-nav">
+			       		<li>
+							<a href="/sistema/protected/index" class="fa-lg">
+								<i class="glyphicon glyphicon-home"></i>
+							</a>
+						</li>
 						
+						<li>
+							<a href="/sistema/admin/usuario" class="fa-lg">
+								<i class="fa fa-users"></i>
+							</a>
+						</li>
+					</ul>
+							
+				</div>
+			
 			</div>
 			
 		</nav>  
     	
-    	<div class="panel panel-transparence" >
-    	
-    		<div class="panel-heading">
-    			<h4><i class="fa fa-cogs"></i> Painel do Administrador</h4>
-    		</div>
-    		
-    		<div class="panel-body">
-    			
-    		</div>
-    		
-    	</div>
-    	
     </div>
+    
+    <div class="container">
+    
+    	<tiles:insertAttribute name="body" />
+    	
+    </div>	
 	
 </body>
 

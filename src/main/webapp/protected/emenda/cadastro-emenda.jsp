@@ -49,7 +49,7 @@
 							<div class="form-group">
 								<label class="control-label">Funcional Programática</label> 
 								<input type="text" name="funcional" id="fnc_prog_emenda" 
-								class="form-control"> 
+								class="form-control fnc-prog-emenda"> 
 							</div>	
 												
 							<div class="form-group">

@@ -128,10 +128,14 @@
 					<a href="../indicacao/${emenda.id}" class="btn btn-transparence btn-blue">
 						Lista de Indicações <i class="fa fa-arrow-right"></i>
 					</a>
-					<a href="../edicao/${emenda.id}" class="btn btn-transparence btn-red pull-right">
+					<button type="button" class="btn btn-transparence btn-red pull-right" data-toggle="modal" data-target="#deletar_modal">
+						<i class="fa fa-trash"></i>	Excluir				
+					</button>
+					<a href="../edicao/${emenda.id}" class="btn btn-transparence btn-green pull-right"
+						style="margin-right: 1em">
 						<i class="fa fa-pencil"></i> Editar Emenda 
 					</a>
-		
+					
 				</div>
 				
 			</div> 
@@ -146,6 +150,37 @@
 		
 </div>	
 
+<!-- ############# -->
+<!-- MODAL LOADING -->
+<!-- ############# -->
+
+<div class="modal fade" id="deletar_modal" tabindex="-1" role="dialog" style="padding-top: 25em" >
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">	
+		
+			<div class="modal-body">				
+				<div class="row">
+					<div class="col-xs-12"> 
+						<h5><i class="fa fa-warning fa-lg text-warning"></i> <strong>Remover esta emenda?</strong></h5>
+					</div>				
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<a class="btn btn-success btn-block" href="../removerNaPagina/${emenda.id}">Sim</a>						
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-danger btn-block" type="button" data-dismiss="modal">Não</button>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<!-- ################# -->
+<!-- FIM MODAL LOADING -->
+<!-- ################# -->
 
 <!-- ################# -->
 <!-- ##### SCRIPTS ### -->

@@ -62,7 +62,7 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/admin")
+	@RequestMapping(value = "/admin/index")
 	public String acessar(HttpServletRequest request, Model model) {
 		
 		LocalDate date = LocalDate.now();
@@ -75,7 +75,7 @@ public class HomeController {
 		session.setAttribute("system_date", date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		session.setAttribute("admin", admin);
 		
-		return "admin-painel";
+		return "admin-index";
 	}
 	
 }

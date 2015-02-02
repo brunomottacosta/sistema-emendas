@@ -11,8 +11,16 @@
  	
  	<!-- ADMIN PAINEL -->
  	
- 	<definition name="admin-painel" template="/admin/painel.jsp">
+ 	<definition name="admin.page" template="/admin/admin-template.jsp">
         <put-attribute name="footer" value="/public/template/footer.jsp"/>
+    </definition>
+    
+    <definition name="admin-index" extends="admin.page">
+        <put-attribute name="body" value="/admin/index.jsp"/>
+    </definition>
+    
+    <definition name="formulario-usuario" extends="admin.page">
+        <put-attribute name="body" value="/admin/formulario-usuario.jsp"/>
     </definition>
     
     <!-- MASTER -->

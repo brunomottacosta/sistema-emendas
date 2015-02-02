@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <div class="container">
@@ -23,6 +24,7 @@
 							<tr>
 								<th style="width: 5%">ID</th>
 								<th>NOME</th>
+								<th>AÇÕES</th>
 								<th style="width: 5%"></th>
 								<th style="width: 5%"></th>
 							</tr>
@@ -33,14 +35,25 @@
 								<tr>
 									<td>${p.id}</td>
 									<td>${p.nome}</td>
+									<td>
+										<c:set var="num_of_acoes" value="${fn:length(p.acoes)}" />
+										<c:forEach items="${p.acoes}" var="acao" varStatus="acao_counter">
+											<c:if test="${acao_counter.count < num_of_acoes}">
+												${acao.nome}, <br/>							
+											</c:if>
+											<c:if test="${acao_counter.count >= num_of_acoes}">
+												${acao.nome}
+											</c:if>
+										</c:forEach>
+									</td>
 									<td style="text-align: center">
 										<a href="#"	onclick="edita_ajax(${p.id},'${p.nome}')">
-											<i class="fa fa-pencil-square-o"></i>
+											<i class="fa fa-pencil-square-o fa-lg"></i>
 										</a>
 									</td>
 									<td style="text-align: center" id="programa_${p.id}">
 										<a href="#" onclick="remove_ajax(${p.id})"> 
-											<i class="fa fa-trash"></i>
+											<i class="fa fa-trash fa-lg"></i>
 										</a>
 									</td>
 								</tr>

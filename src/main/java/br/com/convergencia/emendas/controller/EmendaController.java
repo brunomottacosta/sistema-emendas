@@ -400,5 +400,16 @@ public class EmendaController {
 		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		
 
 		response.setStatus(200);
-	}	
+	}
+	
+	/** REMOVER NA PAGINA DA EMENDA **/
+	@RequestMapping(value = "removerNaPagina/{id}", method = RequestMethod.GET)
+	public String removerNaPagina(@PathVariable Integer id) {
+		Emenda emenda = emendaService.getEmenda(id);		
+		
+		emendaService.delete(emenda);
+		logger.info("## REMOVENDO EMENDA ID: " + emenda.getId() + " ##");		
+		
+		return "redirect:../pesquisa";
+	}
 }

@@ -114,7 +114,7 @@ public class AcaoController {
 	@RequestMapping(value = "lista/programa/{programaId}", method = RequestMethod.GET)
 	public @ResponseBody List<AcaoWrapper> acoesPorPrograma(@PathVariable Integer programaId) {
 		
-		List<Acao> acoes = acaoService.findByPrograma(programaId);
+		List<Acao> acoes = acaoService.findByPrograma(programaService.getPrograma(programaId));
 		List<AcaoWrapper> wrapper = new ArrayList<AcaoWrapper>();
 		
 		for (Acao a : acoes) {
