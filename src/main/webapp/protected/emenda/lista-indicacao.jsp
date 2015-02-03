@@ -72,7 +72,7 @@
 										<div class="form-group">
 											<label class="control-label">Valor Destinado</label>													
 											<input type="text" name="valor" id="valor" 
-											class="form-control money" placeholder="0,00"> 
+											class="form-control money" placeholder="0,00" maxlength="21"> 
 										</div>	
 									</div>									
 								</div>														
@@ -153,7 +153,11 @@
 										<c:forEach items="${indicacoes}" var="ind">
 											<tr class="text-primary">
 												<fmt:formatNumber value="${ind.valorDestinado}" var="valor_ind_fmt"  minFractionDigits="2" />
-												<td id="${ind.objeto.nome}">${ind.objeto.nome}</td>
+												<td id="${ind.objeto.nome}">
+													<a href="empenho/${ind.id}">
+														${ind.objeto.nome}
+													</a>
+												</td>
 												<td id="${ind.convenente.nome}">${ind.convenente.nome}</td>
 												<td id="${valor_ind_fmt}">${valor_ind_fmt}</td>
 												<td style="text-align: center">

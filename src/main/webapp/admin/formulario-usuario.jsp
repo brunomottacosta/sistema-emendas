@@ -19,16 +19,28 @@
 				
 				<hr />
 				
-				<form>
+				<form action="salvar" method="POST" role="form">
 					
 					<div class="row">
 					
-						<div class="col-xs-6">
+						<div class="col-xs-4">
 							
 							<div class="form-group">
 					
-								<label>Username</label>
-								<input class="form-control">
+								<label>Login <span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="username" value="">
+							
+							</div>
+							<div class="form-group">
+					
+								<label>Senha <span class="text-danger">*</span></label>
+								<input class="form-control" type="password" name="password" value="">
+							
+							</div>
+							<div class="form-group">
+					
+								<label>Nome <span class="text-danger">*</span></label>
+								<input class="form-control" type="text" name="nome_n">
 							
 							</div>
 						
