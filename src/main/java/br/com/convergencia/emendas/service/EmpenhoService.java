@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.convergencia.emendas.model.Empenho;
+import br.com.convergencia.emendas.model.IndicacaoEmenda;
 import br.com.convergencia.emendas.repository.EmpenhoRepository;
 
 @Service
@@ -17,9 +18,6 @@ public class EmpenhoService {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~//
 	
 	@Autowired private EmpenhoRepository empenhoRepository;
-	@Autowired private AcaoService acaoService;
-	@Autowired private ObjetoService objetoService;
-	@Autowired private ProgramaService programaService;
 	
 	// ~~~~~~~~~~~~~~~~~~~~//
 	//   Métodos Mapeados  //
@@ -48,6 +46,11 @@ public class EmpenhoService {
 	@Transactional
 	public Empenho getEmpenho(Integer id) {
 		return empenhoRepository.findOne(id);
+	}
+	
+	@Transactional
+	public List<Empenho> listByIndicacao(IndicacaoEmenda indicacao) {
+		return empenhoRepository.findByIndicacaoEmenda(indicacao);
 	}
 	
 }

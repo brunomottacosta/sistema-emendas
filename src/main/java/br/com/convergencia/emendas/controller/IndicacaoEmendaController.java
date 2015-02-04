@@ -73,7 +73,7 @@ public class IndicacaoEmendaController {
 		Emenda e = emendaService.getEmenda(emenda);
 		IndicacaoEmenda indicacao = new IndicacaoEmenda();		
 		
-		/** VALIDA SE VALOR ESTÁ VAZIO, CASO NÃO ESTEJA, RETORNA ERRO PARA TELA **/
+		/** VALIDA SE VALOR ESTÁ VAZIO, CASO ESTEJA, RETORNA ERRO PARA TELA **/
 		if (!valor.isEmpty()) {
 			/** CONVERTE PARA DB O VALOR RECEBIDO **/
 			Double db = conversor.mascaraApenasNumero(valor);

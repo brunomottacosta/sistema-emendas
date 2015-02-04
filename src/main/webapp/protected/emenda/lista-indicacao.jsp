@@ -154,7 +154,7 @@
 											<tr class="text-primary">
 												<fmt:formatNumber value="${ind.valorDestinado}" var="valor_ind_fmt"  minFractionDigits="2" />
 												<td id="${ind.objeto.nome}">
-													<a href="empenho/${ind.id}">
+													<a href="../empenho/${ind.id}">
 														${ind.objeto.nome}
 													</a>
 												</td>
@@ -236,8 +236,9 @@ function remover(id) {
 		'id' : id
 	}, function() {
 		$("#ind_" + id).closest("tr").hide();
-		$("#tb_indicacao tbody")
-		.append('<tr><td class="text-danger">Nenhuma indicação adicionada.</td></tr>');
+		if ($("#tb_indicacao tbody").children("tr").length < 2) {
+			$("#tb_indicacao tbody").append('<tr><td class="text-danger">Nenhuma indicação adicionada.</td></tr>');
+		} 		
 	});
 }
  

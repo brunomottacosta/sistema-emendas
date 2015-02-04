@@ -43,12 +43,25 @@
 					</ul>
 				</li>			
 			</ul>
-			
-			<p class="navbar-text">${user.nome}</p>
 	
-			<a class="btn-off navbar-btn navbar-right" href="<c:url value='/logout' />" style="margin-right: 2em">
-				<i class="fa fa-power-off fa-lg"></i>
-			</a>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle fa-lg" 
+					data-toggle="dropdown" 
+					role="button"
+					aria-expanded="false"
+					style="margin-right: 2em; text-align: center;">						 
+						<i class="fa fa-user"></i> ${user.nome}
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li class=" logout">
+							<a href='<c:url value="/logout" />'>
+								<i class="fa fa-power-off"></i> Logout
+							</a>
+						</li>
+					</ul>	
+				</li>
+			</ul>
 			
 		</div>
 				

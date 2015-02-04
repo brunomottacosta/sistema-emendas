@@ -14,7 +14,15 @@ import br.com.convergencia.emendas.repository.IndicacaoEmendaRepository;
 @Service
 public class IndicacaoEmendaService {
 	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~//
+	// Injeções de Dependencia //
+	// ~~~~~~~~~~~~~~~~~~~~~~~~//
+	
 	@Autowired private IndicacaoEmendaRepository indicacaoERepository;
+	
+	// ~~~~~~~~~~~~~~~~~~~~//
+	//   Métodos Mapeados  //
+	// ~~~~~~~~~~~~~~~~~~~~//
 	
 	@Transactional
 	public void save(IndicacaoEmenda indicacaoEmenda) {

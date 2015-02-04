@@ -21,13 +21,13 @@
 	
 	<!-- SCRIPT -->
 	<script src="<c:url value='/resources/js/jquery.min.js' />"></script>
-    <script src="<c:url value='/resources/js/jquery-ui.min.js' />"></script>
     <script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js' />" ></script> 
     <script src="<c:url value='/resources/bootstrap/bootstrap-select/js/bootstrap-select.min.js' />" ></script>
+    <script src="<c:url value='/resources/js/jquery-ui.min.js' />"></script>
     <script src="<c:url value='/resources/js/jquery.maskMoney.min.js' />" ></script>
     <script src="<c:url value='/resources/js/jquery.mask.js' />" ></script>
     <script src="<c:url value='/resources/js/my-mask-money.js' />" ></script>
-    <script src="<c:url value='/resources/js/js.js' />" ></script>
+    <script src="<c:url value='/resources/js/scripts.js' />" ></script>
     <script src="<c:url value='/resources/data-table/js/jquery.dataTables.js' />" ></script>
     <script src="<c:url value='/resources/data-table/js/jquery.dataTables.bootstrap.js' />" ></script>
         
