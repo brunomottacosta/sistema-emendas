@@ -11,7 +11,7 @@ import br.com.convergencia.emendas.model.IndicacaoEmenda;
 
 public interface EmpenhoRepository extends JpaRepository<Empenho, Integer> {
 	
-	public List<Empenho> findByIndicacaoEmenda(IndicacaoEmenda indicacaoEmenda);
+	public List<Empenho> findByIndicacao(IndicacaoEmenda indicacao);
 	
 	@Modifying
     @Query("DELETE FROM Empenho WHERE id = ?1")

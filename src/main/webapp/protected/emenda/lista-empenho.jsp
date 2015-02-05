@@ -31,7 +31,7 @@
 									<div class="col-xs-6">
 									
 										<div class="form-group">
-											<label>Valor do Empenho</label>
+											<label>Valor do Empenho <span class="text-danger">*</span></label>
 											<input type="text" name="valorDoEmpenho" id="valorDoEmpenho" 
 											class="form-control money" placeholder="0,00" maxlength="21"> 	
 										</div>
@@ -40,7 +40,7 @@
 									<div class="col-xs-6">
 									
 										<div class="form-group">
-											<label>Número do Empenho</label>
+											<label>Número do Empenho <span class="text-danger">*</span></label>
 											<input type="text" name="numeroDoEmpenho" id="numeroDoEmpenho" 
 											class="form-control"> 
 										</div>
@@ -54,7 +54,7 @@
 									<div class="col-xs-6">
 									
 										<div class="form-group">
-											<label class="control-label">Data do Empenho</label>													
+											<label class="control-label">Data do Empenho <span class="text-danger">*</span></label>													
 											<input type="text" name="dataDoEmpenho" id="dataDoEmpenho" 
 											class="form-control data-completa" placeholder="DD/MM/YYYY"> 
 										</div>				
@@ -63,7 +63,7 @@
 									<div class="col-xs-6">	
 										
 										<div class="form-group">
-											<label class="control-label">PTRES</label>													
+											<label class="control-label">PTRES <span class="text-danger">*</span></label>													
 											<input type="text" name="ptres" id="ptres" 
 											class="form-control"> 
 										</div>
@@ -107,6 +107,16 @@
 									<fmt:formatNumber value="${indicacao.valorDestinado}" var="valor_fmt" minFractionDigits="2" />
 									<td class="col-md-4"><strong>Valor da Indicação (R$)</strong></td>
 									<td class="text-primary">${valor_fmt}</td>
+								</tr>
+								<tr>
+									<fmt:formatNumber value="${valorUtilizado}" var="valor_utilizado_fmt" minFractionDigits="2" />
+									<td class="col-md-4"><strong>Valor Utilizado (R$)</strong></td>
+									<td class="text-danger">${valor_utilizado_fmt}</td>
+								</tr>
+								<tr>
+									<fmt:formatNumber value="${valorDisponivel}" var="valor_disponivel_fmt" minFractionDigits="2" />
+									<td class="col-md-4"><strong>Valor Disponível (R$)</strong></td>
+									<td class="text-success">${valor_disponivel_fmt}</td>
 								</tr>
 							</table>
 							

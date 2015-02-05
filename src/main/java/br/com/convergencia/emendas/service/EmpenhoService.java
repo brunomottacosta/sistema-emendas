@@ -50,7 +50,9 @@ public class EmpenhoService {
 	
 	@Transactional
 	public List<Empenho> listByIndicacao(IndicacaoEmenda indicacao) {
-		return empenhoRepository.findByIndicacaoEmenda(indicacao);
+		return empenhoRepository.findByIndicacao(indicacao);
 	}
+	
+
 	
 }

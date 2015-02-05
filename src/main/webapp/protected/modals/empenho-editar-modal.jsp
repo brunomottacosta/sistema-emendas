@@ -30,7 +30,7 @@
 						<div class="col-xs-6">
 						
 							<div class="form-group">
-								<label>Valor do Empenho</label>
+								<label>Valor do Empenho <span class="text-danger">*</span></label>
 								<input type="text" name="valorDoEmpenho" id="valor_edit" 
 								class="form-control money" placeholder="0,00" maxlength="21"> 	
 							</div>
@@ -39,7 +39,7 @@
 						<div class="col-xs-6">
 						
 							<div class="form-group">
-								<label>Número do Empenho</label>
+								<label>Número do Empenho <span class="text-danger">*</span></label>
 								<input type="text" name="numeroDoEmpenho" id="numero_edit" 
 								class="form-control"> 
 							</div>
@@ -53,7 +53,7 @@
 						<div class="col-xs-6">
 						
 							<div class="form-group">
-								<label class="control-label">Data do Empenho</label>													
+								<label class="control-label">Data do Empenho <span class="text-danger">*</span></label>													
 								<input type="text" name="dataDoEmpenho" id="data_edit" 
 								class="form-control data-completa" placeholder="DD/MM/YYYY"> 
 							</div>				
@@ -62,7 +62,7 @@
 						<div class="col-xs-6">	
 							
 							<div class="form-group">
-								<label class="control-label">PTRES</label>													
+								<label class="control-label">PTRES <span class="text-danger">*</span></label>													
 								<input type="text" name="ptres" id="ptres_edit" 
 								class="form-control"> 
 							</div>

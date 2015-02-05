@@ -28,7 +28,7 @@
 								<input type="hidden" name="indicacao" value="${indicacao.id}">						
 								
 								<div class="form-group">
-									<label>Orgão Convenente</label>
+									<label>Orgão Convenente <span class="text-danger">*</span></label>
 									<div class="row">
 										<div class="col-xs-10">
 											<select id="convenente" name="convenente"
@@ -48,7 +48,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label>Objeto</label>
+									<label>Objeto <span class="text-danger">*</span></label>
 									<div class="row">
 										<div class="col-xs-10">
 											<select id="objeto" name="objeto"
@@ -70,7 +70,7 @@
 								<div class="row">
 									<div class="col-xs-6">
 										<div class="form-group">
-											<label class="control-label">Valor Destinado</label>													
+											<label class="control-label">Valor Destinado <span class="text-danger">*</span></label>													
 											<input type="text" name="valor" id="valor" 
 											class="form-control money" placeholder="0,00" maxlength="21"> 
 										</div>	

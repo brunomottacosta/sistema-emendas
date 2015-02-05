@@ -31,7 +31,7 @@
 							
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="control-label">Numero</label> 
+										<label class="control-label">Numero <span class="text-danger">*</span></label> 
 										<input type="text" name="numero" id="num_emenda" 
 										class="form-control num-emenda">					                 
 									</div>							
@@ -39,7 +39,7 @@
 								
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="control-label">Ano</label>
+										<label class="control-label">Ano <span class="text-danger">*</span></label>
 										<input type="text" name="ano" id="ano_emenda" 
 										class="form-control ano-emenda"> 
 									</div>
@@ -47,19 +47,19 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Funcional Programática</label> 
+								<label class="control-label">Funcional Programática <span class="text-danger">*</span></label> 
 								<input type="text" name="funcional" id="fnc_prog_emenda" 
 								class="form-control fnc-prog-emenda"> 
 							</div>	
 												
 							<div class="form-group">
-								<label class="control-label">Valor</label>													
+								<label class="control-label">Valor <span class="text-danger">*</span></label>													
 								<input type="text" name="valor" id="valor_emenda" 
 								class="form-control money"> 
 							</div>	
 							
 							<div class="form-group">
-								<label class="control-label">G.N.D.</label>										
+								<label class="control-label">G.N.D. <span class="text-danger">*</span></label>										
 								<select id="gnd_emenda" class="form-control selectpicker"
 								data-live-search="true" 
 								data-selected-text-format="count > 1"
@@ -79,7 +79,7 @@
 						<div class="col-md-4">
 												
 							<div class="form-group">
-								<label class="control-label">Tipo de Emenda</label> 
+								<label class="control-label">Tipo de Emenda <span class="text-danger">*</span></label> 
 								<select id="tipo_emenda" 
 								data-live-search="true"
 								class="form-control selectpicker" 
@@ -96,7 +96,7 @@
 							</div>
 								
 							<div class="form-group">
-								<label class="control-label">Autor</label> 
+								<label class="control-label">Autor <span class="text-danger">*</span></label> 
 								<select id="autor_emenda" 
 								data-live-search="true"
 								class="form-control selectpicker"
@@ -109,7 +109,7 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Orgão Concedente</label> 
+								<label class="control-label">Orgão Concedente <span class="text-danger">*</span></label> 
 								<select id="org_conced_emenda" 
 								data-live-search="true"
 								class="form-control selectpicker" 
@@ -122,7 +122,7 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Modalidade de Aplicacao</label>					
+								<label class="control-label">Modalidade de Aplicacao <span class="text-danger">*</span></label>					
 								<select id="mda_emenda" 
 								class="form-control selectpicker"
 								data-live-search="true"
@@ -143,7 +143,7 @@
 						<div class="col-md-4">
 						
 							<div class="form-group">
-								<label class="control-label">Programa</label> 
+								<label class="control-label">Programa <span class="text-danger">*</span></label> 
 								<select id="programa_emenda" 
 								data-live-search="true"
 								class="form-control selectpicker" 
@@ -155,7 +155,7 @@
 								</select> 
 							</div>
 							<div class="form-group">
-								<label class="control-label">Ação</label> 
+								<label class="control-label">Ação <span class="text-danger">*</span></label> 
 								<select id="acao_emenda" 
 								data-live-search="true"
 								class="form-control selectpicker" 

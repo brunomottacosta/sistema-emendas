@@ -48,6 +48,10 @@ public class EmpenhoController {
 		model.addAttribute("indicacao", indicacao);
 		model.addAttribute("empenhos", empenhoService.listAll());
 		
+		/* ATRIBUTOS INDIVIDUAIS */
+		model.addAttribute("valorDisponivel", indicacaoEService.calculaValorDisponivel(indicacao));
+		model.addAttribute("valorUtilizado", indicacaoEService.calcularValorUtilizado(indicacao));		
+		
 		return "lista-empenho";
 	}
 	
@@ -64,23 +68,43 @@ public class EmpenhoController {
 		IndicacaoEmenda i = indicacaoEService.getIndicacaoEmenda(indicacao);
 		Empenho empenho = new Empenho();
 		
+		/** VALIDA SE VALOR ESTÁ VAZIO, CASO ESTEJA, RETORNA ERRO PARA TELA **/
 		if (dataDoEmpenho != null && numeroDoEmpenho != null && ptres != null && !valorDoEmpenho.isEmpty()) {
-			empenho.setIndicacao(i);
-			empenho.setPtres(ptres);
-			empenho.setNumeroDoEmpenho(numeroDoEmpenho);
-			empenho.setDataDoEmpenho(dataDoEmpenho);
-			empenho.setValorDoEmpenho(new BigDecimal(conversor.mascaraApenasNumero(valorDoEmpenho)));
-			
-			logger.info("## SALVANDO NOVO EMPENHO COM INDICACAO ID: " + indicacao + "##");		
-			empenhoService.save(empenho);
+			/** CONVERTE PARA DB O VALOR RECEBIDO **/
+			Double db = conversor.mascaraApenasNumero(valorDoEmpenho);
+			/** SE O VALOR FOR MAIOR QUE 0, CONTINUA, SE NÃO, RETORNA ERRO **/
+			if (db > 0) {				
+				/** SE O VALOR FOR MENOR QUE O DISPONÍVEL, CONTINUA, SE NÃO, RETORNA ERRO **/
+				if (conversor.mascaraApenasNumero(valorDoEmpenho) <= indicacaoEService.calculaValorDisponivel(i).doubleValue()) {
+					empenho.setIndicacao(i);
+					empenho.setPtres(ptres);
+					empenho.setNumeroDoEmpenho(numeroDoEmpenho);
+					empenho.setDataDoEmpenho(dataDoEmpenho);
+					empenho.setValorDoEmpenho(new BigDecimal(conversor.mascaraApenasNumero(valorDoEmpenho)));
+					
+					logger.info("## SALVANDO NOVO EMPENHO COM INDICACAO ID: " + indicacao + "##");		
+					empenhoService.save(empenho);		
+					
+					return "redirect:/protected/emenda/empenho/" + indicacao;
+				} else {
+					redirectAttrs.addFlashAttribute("error", "Valor disponível menor que o valor enviado.");
+					
+					logger.info("## VALOR MENOR QUE O VALOR DISPONIVEL ##");	
+					return "redirect:/protected/emenda/empenho/" + indicacao;
+				}
+			} else {
+				redirectAttrs.addFlashAttribute("error", "Valor do empenho tem que ser maior que R$ 0,00.");
+				
+				logger.info("## VALOR MENOR OU IGUALA ZERO ##");	
+				return "redirect:/protected/emenda/empenho/" + indicacao;
+			}
 		} else {
 			redirectAttrs.addFlashAttribute("error", "Preencha todos os campos.");
 			
 			logger.info("## CAMPOS NÃO PREENCHIDOS OU PREENCHIDOS INCORRETAMENTE ##");	
-			return "redirect:/protected/emenda/indicacao/" + indicacao;
+			return "redirect:/protected/emenda/empenho/" + indicacao;
 		}
 		
-		return "redirect:/protected/emenda/empenho/" + indicacao;
 	}
 	
 	@RequestMapping(value = "remover", method = RequestMethod.POST)
@@ -105,23 +129,42 @@ public class EmpenhoController {
 		IndicacaoEmenda i = indicacaoEService.getIndicacaoEmenda(indicacao);
 		Empenho empenho = empenhoService.getEmpenho(id);
 		
+		/** VALIDA SE VALOR ESTÁ VAZIO, CASO ESTEJA, RETORNA ERRO PARA TELA **/
 		if (dataDoEmpenho != null && numeroDoEmpenho != null && ptres != null && !valorDoEmpenho.isEmpty()) {
-			empenho.setIndicacao(i);
-			empenho.setPtres(ptres);
-			empenho.setNumeroDoEmpenho(numeroDoEmpenho);
-			empenho.setDataDoEmpenho(dataDoEmpenho);
-			empenho.setValorDoEmpenho(new BigDecimal(conversor.mascaraApenasNumero(valorDoEmpenho)));
-			
-			logger.info("## EDITANDO EMPENHO ID: " + id + " COM INDICACAO ID: " + indicacao + "##");		
-			empenhoService.save(empenho);
+			/** CONVERTE PARA DB O VALOR RECEBIDO **/
+			Double db = conversor.mascaraApenasNumero(valorDoEmpenho);
+			/** SE O VALOR FOR MAIOR QUE 0, CONTINUA, SE NÃO, RETORNA ERRO **/
+			if (db > 0) {				
+				/** SE O VALOR FOR MENOR QUE O DISPONÍVEL, CONTINUA, SE NÃO, RETORNA ERRO **/
+				if (conversor.mascaraApenasNumero(valorDoEmpenho) <= indicacaoEService.calculaValorDisponivel(i).doubleValue()) {
+					empenho.setIndicacao(i);
+					empenho.setPtres(ptres);
+					empenho.setNumeroDoEmpenho(numeroDoEmpenho);
+					empenho.setDataDoEmpenho(dataDoEmpenho);
+					empenho.setValorDoEmpenho(new BigDecimal(conversor.mascaraApenasNumero(valorDoEmpenho)));
+					
+					logger.info("## SALVANDO NOVO EMPENHO COM INDICACAO ID: " + indicacao + "##");		
+					empenhoService.save(empenho);		
+					
+					return "redirect:/protected/emenda/empenho/" + indicacao;
+				} else {
+					redirectAttrs.addFlashAttribute("error", "Valor disponível menor que o valor enviado.");
+					
+					logger.info("## VALOR MENOR QUE O VALOR DISPONIVEL ##");	
+					return "redirect:/protected/emenda/empenho/" + indicacao;
+				}
+			} else {
+				redirectAttrs.addFlashAttribute("error", "Valor do empenho tem que ser maior que R$ 0,00.");
+				
+				logger.info("## VALOR MENOR OU IGUALA ZERO ##");	
+				return "redirect:/protected/emenda/empenho/" + indicacao;
+			}
 		} else {
 			redirectAttrs.addFlashAttribute("error", "Preencha todos os campos.");
 			
 			logger.info("## CAMPOS NÃO PREENCHIDOS OU PREENCHIDOS INCORRETAMENTE ##");	
-			return "redirect:/protected/emenda/indicacao/" + indicacao;
+			return "redirect:/protected/emenda/empenho/" + indicacao;
 		}
-		
-		return "redirect:/protected/emenda/empenho/" + indicacao;
 	}
 	
 }
